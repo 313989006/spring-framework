@@ -278,8 +278,16 @@ configure(allprojects) { project ->
 			cacheChangingModulesFor 0, "seconds"
 		}
 		repositories {
-			mavenCentral()
+//			maven { url "https://repo.spring.io/libs-spring-framework-build" }
+			maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+			maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter'}
+			//替换为阿里云仓库
+			maven { url "https://maven.aliyun.com/repository/central" }
+			//由于阿里云仓库 Could not find com.ibm.websphere:uow:6.0.2.17无法找到，添加springsource仓库
+			maven { url "https://repo.springsource.org/plugins-release" }
+//			mavenCentral()
 			maven { url "https://repo.spring.io/libs-spring-framework-build" }
+			maven { url "https://repo.spring.io/milestone" }
 		}
 	}
 	configurations.all {
@@ -298,7 +306,7 @@ configure([rootProject] + javaProjects) { project ->
 	apply plugin: "checkstyle"
 	apply plugin: 'org.springframework.build.compile'
 	apply from: "${rootDir}/gradle/custom-java-home.gradle"
-	apply from: "${rootDir}/gradle/ide.gradle"
+//	apply from: "${rootDir}/gradle/ide.gradle"
 
 	pluginManager.withPlugin("kotlin") {
 		apply plugin: "org.jetbrains.dokka"
@@ -403,9 +411,9 @@ configure(rootProject) {
 	publishing {
 		publications {
 			mavenJava(MavenPublication) {
-				artifact docsZip
-				artifact schemaZip
-				artifact distZip
+//				artifact docsZip
+//				artifact schemaZip
+//				artifact distZip
 			}
 		}
 	}
