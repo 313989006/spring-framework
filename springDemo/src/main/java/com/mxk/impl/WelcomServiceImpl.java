@@ -1,6 +1,7 @@
 package com.mxk.impl;
 
 import com.mxk.service.WelcomService;
+import org.springframework.stereotype.Service;
 
 /**
  * @ClassName WelcomServiceImpl
@@ -8,6 +9,7 @@ import com.mxk.service.WelcomService;
  * @Author ma.kangkang
  * @Date 2020/10/30 11:28
  **/
+@Service
 public class WelcomServiceImpl implements WelcomService {
 
 	@Override
