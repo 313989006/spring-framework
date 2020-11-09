@@ -122,6 +122,9 @@ public interface BeanFactory {
 	 * {@code myJndiObject} is a FactoryBean, getting {@code &myJndiObject}
 	 * will return the factory, not the instance returned by the factory.
 	 */
+	// 对 FactoryBean 的转义定义，提供获取 FactoryBean 的方式
+	// 如果使用 bean 的名字检索 Factory 得到的对象是工厂生成的对象
+	// 如果需要得到工厂本省，需要转义
 	String FACTORY_BEAN_PREFIX = "&";
 
 
@@ -137,6 +140,7 @@ public interface BeanFactory {
 	 * @throws NoSuchBeanDefinitionException if there is no bean with the specified name
 	 * @throws BeansException if the bean could not be obtained
 	 */
+	// 根据Bean的名字从容器中获取bean实例
 	Object getBean(String name) throws BeansException;
 
 	/**
@@ -154,6 +158,8 @@ public interface BeanFactory {
 	 * @throws BeanNotOfRequiredTypeException if the bean is not of the required type
 	 * @throws BeansException if the bean could not be created
 	 */
+	// 根据bean的名字和class类型从容器中获取bean实例
+	// 增加类型校验进一步确保精准地获取到实例
 	<T> T getBean(String name, Class<T> requiredType) throws BeansException;
 
 	/**
@@ -170,6 +176,7 @@ public interface BeanFactory {
 	 * @throws BeansException if the bean could not be created
 	 * @since 2.5
 	 */
+	// 通过名字外加构造函数的形式来获取bean实例
 	Object getBean(String name, Object... args) throws BeansException;
 
 	/**
@@ -186,6 +193,7 @@ public interface BeanFactory {
 	 * @since 3.0
 	 * @see ListableBeanFactory
 	 */
+	// 按照类型获取bean实例
 	<T> T getBean(Class<T> requiredType) throws BeansException;
 
 	/**
@@ -266,6 +274,7 @@ public interface BeanFactory {
 	 * @see #getBean
 	 * @see #isPrototype
 	 */
+	// 根据bean名称获取bean实例，并判断bean是否是单例
 	boolean isSingleton(String name) throws NoSuchBeanDefinitionException;
 
 	/**
@@ -284,6 +293,7 @@ public interface BeanFactory {
 	 * @see #getBean
 	 * @see #isSingleton
 	 */
+	// 根据bean名称获取bean实例，并判断bean是否是多例
 	boolean isPrototype(String name) throws NoSuchBeanDefinitionException;
 
 	/**
@@ -335,6 +345,7 @@ public interface BeanFactory {
 	 * @see #getBean
 	 * @see #isTypeMatch
 	 */
+	// 根据bean名字，得到bean实例的Class类型
 	@Nullable
 	Class<?> getType(String name) throws NoSuchBeanDefinitionException;
 
@@ -370,6 +381,7 @@ public interface BeanFactory {
 	 * @return the aliases, or an empty array if none
 	 * @see #getBean
 	 */
+	// 得到bean的别名，如果根据别名检索，那么其原名也会被检索出来
 	String[] getAliases(String name);
 
 }

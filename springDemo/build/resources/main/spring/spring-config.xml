@@ -7,4 +7,6 @@
 
 	<bean id="welcomService" class="com.mxk.impl.WelcomServiceImpl"></bean>
 
+	<bean id="user" class="com.mxk.entity.User" ></bean>
+	<alias name="user" alias="Alias1,Alias2,Alias3"></alias>
 </beans>
