@@ -48,6 +48,7 @@ import org.springframework.util.ErrorHandler;
  */
 public class SimpleApplicationEventMulticaster extends AbstractApplicationEventMulticaster {
 
+	// Executor ：执行器，说明 SimpleApplicationEventMulticaster 支持多线程
 	@Nullable
 	private Executor taskExecutor;
 
