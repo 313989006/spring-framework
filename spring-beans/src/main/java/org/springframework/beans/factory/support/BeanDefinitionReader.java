@@ -44,6 +44,9 @@ public interface BeanDefinitionReader {
 	 * <p>The factory is exposed through the BeanDefinitionRegistry interface,
 	 * encapsulating the methods that are relevant for bean definition handling.
 	 */
+	/**
+	 * 获取 BeanDefinitionRegistry 对象，这个类的主要作用将 BeanDefinition 注册到 BeanDefinition 的注册表中
+	 */
 	BeanDefinitionRegistry getRegistry();
 
 	/**
@@ -79,6 +82,9 @@ public interface BeanDefinitionReader {
 	 * Return the BeanNameGenerator to use for anonymous beans
 	 * (without explicit bean name specified).
 	 */
+	/**
+	 * Bean 的名字生成器，为匿名 bean 生成一个名字，就是 id
+	 */
 	BeanNameGenerator getBeanNameGenerator();
 
 
@@ -96,6 +102,9 @@ public interface BeanDefinitionReader {
 	 * @return the number of bean definitions found
 	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
 	 */
+	/**
+	 * 加载多个配置文件
+	 */
 	int loadBeanDefinitions(Resource... resources) throws BeanDefinitionStoreException;
 
 	/**
@@ -110,6 +119,9 @@ public interface BeanDefinitionReader {
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource)
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource[])
 	 */
+	/**
+	 * 加载单个配置文件
+	 */
 	int loadBeanDefinitions(String location) throws BeanDefinitionStoreException;
 
 	/**
@@ -118,6 +130,9 @@ public interface BeanDefinitionReader {
 	 * (or ResourcePatternResolver) of this bean definition reader
 	 * @return the number of bean definitions found
 	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
+	 */
+	/**
+	 * 加载多个配置文件
 	 */
 	int loadBeanDefinitions(String... locations) throws BeanDefinitionStoreException;
 

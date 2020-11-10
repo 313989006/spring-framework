@@ -32,8 +32,11 @@ public class Entrance {
 
 	public static void main(String[] args) {
 		// 容器实例
-		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
-		String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
+//		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
+
+		String path = "G:\\myGitHubProject\\spring-framework\\springDemo\\src\\main\\resources\\spring\\spring-config.xml";
+		ApplicationContext applicationContext = new FileSystemXmlApplicationContext(path);
+				String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 		for (String beanDefinitionName : beanDefinitionNames){
 			System.out.println(beanDefinitionName);
 		}

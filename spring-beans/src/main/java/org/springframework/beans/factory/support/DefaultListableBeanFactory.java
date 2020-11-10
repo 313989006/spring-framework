@@ -940,6 +940,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		BeanDefinition existingDefinition = this.beanDefinitionMap.get(beanName);
+		// 看看 beanName 是否已经存在容器里，存在则表明已经被注册过
 		if (existingDefinition != null) {
 			if (!isAllowBeanDefinitionOverriding()) {
 				throw new BeanDefinitionOverrideException(beanName, beanDefinition, existingDefinition);
@@ -966,9 +967,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 							"] with [" + beanDefinition + "]");
 				}
 			}
+			// 如果允许覆盖，最终会更新对应的 beanName 的键位为最新的 beanDefinition 实例
 			this.beanDefinitionMap.put(beanName, beanDefinition);
 		}
 		else {
+			// 是否已经开始创建 Bean 实例
 			if (hasBeanCreationStarted()) {
 				// Cannot modify startup-time collection elements anymore (for stable iteration)
 				synchronized (this.beanDefinitionMap) {
@@ -989,7 +992,10 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			this.frozenBeanDefinitionNames = null;
 		}
 
+		// 检查是否有同名的 beanDefinition 已经在 IOC 容器中注册
 		if (existingDefinition != null || containsSingleton(beanName)) {
+			// 尝试重置所有已经注册过的 BeanDefinition 的缓存，包括 BeanDefinition 的父类以及合并的 BeanDefinition 的缓存
+			// 所谓的合并的 BeanDefinition 指的是有parent 属性的 beanDefinition，该 BeanDefinition 会把 parent 的 BeanDefinition 属性合并到一起
 			resetBeanDefinition(beanName);
 		}
 		else if (isConfigurationFrozen()) {
@@ -1039,11 +1045,13 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 */
 	protected void resetBeanDefinition(String beanName) {
 		// Remove the merged bean definition for the given bean, if already created.
+		// 将合并的 BeanDefinition 缓存清除
 		clearMergedBeanDefinition(beanName);
 
 		// Remove corresponding bean from singleton cache, if any. Shouldn't usually
 		// be necessary, rather just meant for overriding a context's default beans
 		// (e.g. the default StaticMessageSource in a StaticApplicationContext).
+		// 删除相关的单例的 Bean
 		destroySingleton(beanName);
 
 		// Notify all post-processors that the specified bean definition has been reset.
@@ -1054,6 +1062,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		// Reset all bean definitions that have the given bean as parent (recursively).
+		// 轮询注册表里的每个 beanDefinition实例 ，选出和被重置的 beanDefinition 不一样的实例
 		for (String bdName : this.beanDefinitionNames) {
 			if (!beanName.equals(bdName)) {
 				BeanDefinition bd = this.beanDefinitionMap.get(bdName);

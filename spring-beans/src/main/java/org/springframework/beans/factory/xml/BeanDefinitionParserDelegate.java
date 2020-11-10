@@ -412,16 +412,20 @@ public class BeanDefinitionParserDelegate {
 	 */
 	@Nullable
 	public BeanDefinitionHolder parseBeanDefinitionElement(Element ele, @Nullable BeanDefinition containingBean) {
+		// 获取 <Bean> 元素中的 id 属性值
 		String id = ele.getAttribute(ID_ATTRIBUTE);
+		// 获取 <Bean> 元素中的 name 属性值
 		String nameAttr = ele.getAttribute(NAME_ATTRIBUTE);
 
 		List<String> aliases = new ArrayList<>();
+		// 将 <Bean> 元素中的所有 name 属性值存放到别名中
 		if (StringUtils.hasLength(nameAttr)) {
 			String[] nameArr = StringUtils.tokenizeToStringArray(nameAttr, MULTI_VALUE_ATTRIBUTE_DELIMITERS);
 			aliases.addAll(Arrays.asList(nameArr));
 		}
 
 		String beanName = id;
+		// 如果 <Bean> 元素中没有配置 id 属性时，将别名中的第一个赋值给 beanName
 		if (!StringUtils.hasText(beanName) && !aliases.isEmpty()) {
 			beanName = aliases.remove(0);
 			if (logger.isTraceEnabled()) {
@@ -430,11 +434,15 @@ public class BeanDefinitionParserDelegate {
 			}
 		}
 
+		// 元素中是否包含嵌套 <Bean> 元素
 		if (containingBean == null) {
+			// 检查 <Bean> 元素所配置的 id，name 或者别名是否重复
 			checkNameUniqueness(beanName, aliases, ele);
 		}
 
+		// 对 <bean> 标签的其他属性进行解析
 		AbstractBeanDefinition beanDefinition = parseBeanDefinitionElement(ele, beanName, containingBean);
+		// 主要给 BeanDefinition 起名字
 		if (beanDefinition != null) {
 			if (!StringUtils.hasText(beanName)) {
 				try {
@@ -496,6 +504,7 @@ public class BeanDefinitionParserDelegate {
 	 * Parse the bean definition itself, without regard to name or aliases. May return
 	 * {@code null} if problems occurred during the parsing of the bean definition.
 	 */
+	// 解析<Bean>元素其他属性值
 	@Nullable
 	public AbstractBeanDefinition parseBeanDefinitionElement(
 			Element ele, String beanName, @Nullable BeanDefinition containingBean) {
@@ -503,17 +512,22 @@ public class BeanDefinitionParserDelegate {
 		this.parseState.push(new BeanEntry(beanName));
 
 		String className = null;
+		// 如果 <Bean>元素设置了 class 属性，则获取 class 属性的值
 		if (ele.hasAttribute(CLASS_ATTRIBUTE)) {
 			className = ele.getAttribute(CLASS_ATTRIBUTE).trim();
 		}
 		String parent = null;
+		// 如果 <Bean>元素设置了 parent 属性，则获取 parent 属性的值
 		if (ele.hasAttribute(PARENT_ATTRIBUTE)) {
 			parent = ele.getAttribute(PARENT_ATTRIBUTE);
 		}
 
 		try {
+			// 根据<Bean>元素配置的 class 名称和 parent 属性值创建 BeanDefinition
+			// 为载入 Bean 定义信息做准备
 			AbstractBeanDefinition bd = createBeanDefinition(className, parent);
 
+			// 解析 <bean> 标签里的各种属性值，将其 set 进 bd 里面
 			parseBeanDefinitionAttributes(ele, beanName, containingBean, bd);
 			bd.setDescription(DomUtils.getChildElementValueByTagName(ele, DESCRIPTION_ELEMENT));
 

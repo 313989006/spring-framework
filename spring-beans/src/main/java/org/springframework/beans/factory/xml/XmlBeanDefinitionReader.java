@@ -323,18 +323,25 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			logger.trace("Loading XML bean definitions from " + encodedResource);
 		}
 
+		// 从本地线程变量中获取当前的正在加载的资源
 		Set<EncodedResource> currentResources = this.resourcesCurrentlyBeingLoaded.get();
 
+		// 如果本地线程中不存在正在加载的资源，那么将其添加进去
+		// 如果 encodedResource 添加进 currentResources 失败，表明其中已经存在这个资源，只不过还没加载完成
 		if (!currentResources.add(encodedResource)) {
 			throw new BeanDefinitionStoreException(
 					"Detected cyclic loading of " + encodedResource + " - check your import definitions!");
 		}
 
+		// 获取文件输入流
 		try (InputStream inputStream = encodedResource.getResource().getInputStream()) {
+			// 封装成 InputSource ，其中指定了输入流和编码格式
 			InputSource inputSource = new InputSource(inputStream);
+			// 如果存在编码，那么将其添加进 inputSource 中
 			if (encodedResource.getEncoding() != null) {
 				inputSource.setEncoding(encodedResource.getEncoding());
 			}
+			// 调用同类的方法继续解析
 			return doLoadBeanDefinitions(inputSource, encodedResource.getResource());
 		}
 		catch (IOException ex) {
@@ -387,7 +394,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 			throws BeanDefinitionStoreException {
 
 		try {
+			// 创建 Document 对象，XML的文档对象，就是dom树
+			// 使用这个 Document 可以获取 XML 文件中的节点并且创建节点
+			// SAX XML
 			Document doc = doLoadDocument(inputSource, resource);
+			// 解析 dom 树，即解析出一个个属性，将其保存到 BeanDefinition 中
+			// 并向容器注册 BeanDefinition
 			int count = registerBeanDefinitions(doc, resource);
 			if (logger.isDebugEnabled()) {
 				logger.debug("Loaded " + count + " bean definitions from " + resource);
@@ -506,9 +518,13 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 	 * @see BeanDefinitionDocumentReader#registerBeanDefinitions
 	 */
 	public int registerBeanDefinitions(Document doc, Resource resource) throws BeanDefinitionStoreException {
+		// 创建 BeanDefinitionDocumentReader，这个是实际从 XML 的 DOM 树中读取BeanDefinition
 		BeanDefinitionDocumentReader documentReader = createBeanDefinitionDocumentReader();
+		// 获取注册表 BeanDefinitionMap 在本次加载前的 BeanDefinition 数量
 		int countBefore = getRegistry().getBeanDefinitionCount();
+		// 加载并注册
 		documentReader.registerBeanDefinitions(doc, createReaderContext(resource));
+		// 本次加载注册后容器里 BeanDefinition 数量减去之前的，即本次加载的 BeanDefinition 数量
 		return getRegistry().getBeanDefinitionCount() - countBefore;
 	}
 

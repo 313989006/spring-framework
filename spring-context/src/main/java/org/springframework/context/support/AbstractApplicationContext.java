@@ -226,12 +226,19 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	/**
 	 * Create a new AbstractApplicationContext with no parent.
 	 */
+	/**
+	 * 创建一个没有父元素的新的 AbstractApplicationContext
+	 */
 	public AbstractApplicationContext() {
 		this.resourcePatternResolver = getResourcePatternResolver();
 	}
 
 	/**
 	 * Create a new AbstractApplicationContext with the given parent context.
+	 * @param parent the parent context
+	 */
+	/**
+	 * 使用给定的父上下文创建一个新的 AbstractApplicationContext
 	 * @param parent the parent context
 	 */
 	public AbstractApplicationContext(@Nullable ApplicationContext parent) {
@@ -539,6 +546,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	// refresh（）本身就是一个模板方法（用到了模板方法模式）
 	@Override
 	public void refresh() throws BeansException, IllegalStateException {
+		// 给容器 refresh 加锁，避免容器处在 refresh 阶段时，容器进行了初始化或者销毁的操作
 		// 加载或刷新配置前的同步处理
 		synchronized (this.startupShutdownMonitor) {
 			// 调用容器准备刷新的方法，获取容器的当时时间，同时给容器设置同步标识，具体方法
@@ -547,11 +555,13 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 			// 告诉子类启动 refreshBeanFactory()方法，Bean定义资源文件的载入从
 			// 子类的 refreshBeanFactory()方法启动，里面有抽象方法
+			// 针对XML 配置，最终创建内部容器，该容器负责 Bean 的创建和管理，此步会进行 BeanFefinition 的注册
 			// Tell the subclass to refresh the internal bean factory.
 			ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();
 
-			// 为 BeanFactory 配置容器特性，例如事件处理器，类加载器
 			// Prepare the bean factory for use in this context.
+			// 注册一些容器中需要的系统 Bean，例如 classLoader，beanFactoryPostProcessor等
+			// 为 BeanFactory 配置容器特性，例如事件处理器，类加载器
 			prepareBeanFactory(beanFactory);
 
 			try {

@@ -86,10 +86,12 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 		this.registry = registry;
 
 		// Determine ResourceLoader to use.
+		// 判断是否是 ResourceLoader 实例
 		if (this.registry instanceof ResourceLoader) {
 			this.resourceLoader = (ResourceLoader) this.registry;
 		}
 		else {
+			// 如果不是 ResourceLoader 的实例，默认给 PathMatchingResourcePatternResolver 实例
 			this.resourceLoader = new PathMatchingResourcePatternResolver();
 		}
 
@@ -211,12 +213,14 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource[])
 	 */
 	public int loadBeanDefinitions(String location, @Nullable Set<Resource> actualResources) throws BeanDefinitionStoreException {
+		// 获取资源加载器，主要的功能就是根据路径和类加载器获取  Resource 对象
 		ResourceLoader resourceLoader = getResourceLoader();
+		// 判断资源加载器是否为空
 		if (resourceLoader == null) {
 			throw new BeanDefinitionStoreException(
 					"Cannot load bean definitions from location [" + location + "]: no ResourceLoader available");
 		}
-
+		// ResourcePatternResolver 用于加载多个文件或者能够加载Ant风格路径的文件资源
 		if (resourceLoader instanceof ResourcePatternResolver) {
 			// Resource pattern matching available.
 			try {
@@ -236,6 +240,8 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
 			}
 		}
 		else {
+			// 加载单个文件资源
+			// 直接使用 ResourceLoader 加载
 			// Can only load single resources by absolute URL.
 			Resource resource = resourceLoader.getResource(location);
 			int count = loadBeanDefinitions(resource);
