@@ -570,12 +570,18 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				postProcessBeanFactory(beanFactory);
 
 				// Invoke factory processors registered as beans in the context.
+				// 激活在容器中注册为 bean 的 BeanFactoryPostProcessor
+				// 对于注解容器，org.springframework.context.annotation.ConfigurationClassPostProcessor
+				// 方法扫描应用中所有 BeanDefinition 并注册到容器之中
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
+				// 注册拦截 bean 创建过程的 BeanPostProcessor
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
+				// 找到“messageSource” 的 Bean 提供给 ApplicationContext 使用
+				// 使得 ApplicationContext 具有国际化能力
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
@@ -758,8 +764,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * 必须在单实例实例化之前调用
 	 */
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
+		// 这里的 beanFactory 为 DefaultListableBeanFactory 实例
 		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
-
 		// Detect a LoadTimeWeaver and prepare for weaving, if found in the meantime
 		// (e.g. through an @Bean method registered by ConfigurationClassPostProcessor)
 		if (beanFactory.getTempClassLoader() == null && beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {

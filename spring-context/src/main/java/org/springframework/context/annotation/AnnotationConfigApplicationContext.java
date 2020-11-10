@@ -62,6 +62,9 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * Create a new AnnotationConfigApplicationContext that needs to be populated
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
+	// 默认构造函数，初始化一个空容器，容器不包含任何 Bean 信息，需要在稍后通过调用其 register() 方法注册配置类，
+	// 并调用 refresh() 方法刷新容器,触发容器对注解 Bean 的载入，解析和注册过程
+	// 这里的 this 的 beanFactory 是内置的 DefaultListableBeanFactory
 	public AnnotationConfigApplicationContext() {
 		this.reader = new AnnotatedBeanDefinitionReader(this);
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
@@ -84,7 +87,11 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * {@link Configuration @Configuration} classes
 	 */
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
+		// 调用默认无参构造器，主要初始化 AnnotatedBeanDefinitionReader 以及路径扫描器 ClassPathBeanDefinitionScanner
 		this();
+		// 把传入的class 进行注册，Class 既可以有 @Configuration 注解，也可以没有 @Configuration 注解
+		// 如果注册委托给了 org.springframework.context.annotation.AnnotatedBeanDefinitionReader.register 方法
+		// 包装传入的 Class 生成 BeanDefinition ，注册到 BeanDefinitionRegistry
 		register(componentClasses);
 		refresh();
 	}

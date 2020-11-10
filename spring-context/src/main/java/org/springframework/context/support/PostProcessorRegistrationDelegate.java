@@ -53,17 +53,39 @@ final class PostProcessorRegistrationDelegate {
 	}
 
 
+	/**
+	* 调用 BeanFactoryPostProcessor
+	 * 主要是分情况处理不同类型的 BeanFactoryPostProcessors
+	 * BeanFactoryPostProcessor 主要分为两类。一类是 BeanDefinitionRegistry 的 BeanFactoryPostProcessor，另一类是 BeanDefinitionRegistryPostProcessor
+	 * 优先处理前者。同时，这两种后置处理器又被分为从参数里传入和容器里获取的，最终要将从参数里获取的和从容器里获取的合并
+	 * 合并的时候又分为实现了 PriorityOrder 和普通 Order 以及没有实现这两个接口的，实现了 PriorityOrdered 接口的先执行
+	 * 同时是按照 PriorityOrdered 顺序执行的，其次再到 Order，按照order 执行，最后才是没实现这两个接口的。
+	 * 先执行完 BeanDefinitionRegistryPostProcessor 的 invokeBeanDefinitionRegistryPostProcessors 方法
+	 * 再对 invokeBeanFactoryPostProcessors 执行 invokeBeanFactoryPostProcessors 方法
+	 * 之后再对常规的 BeanFactoryPostProcessor 执行 invokeBeanFactoryPostProcessors 方法
+	 * 参数：beanFactory 应用上下文的 BeanFactory 实例
+	 * 参数：beanFactoryPostProcessors 应用上下文指定要执行的 BeanFactoryPostProcessors
+	*/
 	public static void invokeBeanFactoryPostProcessors(
 			ConfigurableListableBeanFactory beanFactory, List<BeanFactoryPostProcessor> beanFactoryPostProcessors) {
 
 		// Invoke BeanDefinitionRegistryPostProcessors first, if any.
+		// 如果有 BeanDefinitionRegistryPostProcessors 的话优先执行
 		Set<String> processedBeans = new HashSet<>();
 
+		// 如果是 BeanDefinitionRegistry 类型的话
 		if (beanFactory instanceof BeanDefinitionRegistry) {
 			BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
+			// 用于记录常规 BeanFactoryPostProcessor
 			List<BeanFactoryPostProcessor> regularPostProcessors = new ArrayList<>();
+			// 用于记录 BeanDefinitionRegistryPostProcessor
 			List<BeanDefinitionRegistryPostProcessor> registryProcessors = new ArrayList<>();
 
+			// 遍历所有参数传递进来的 BeanFactoryPostProcessor （它们并没有作为 bean 注册到容器中）
+			// 将所有参数传入的 BeanFactoryPostProcessor 分成两组：
+			// 常规 BeanFactoryPostProcessor 和 BeanDefinitionRegistryPostProcessor
+			// 1、如果是 BeanDefinitionRegistryPostProcessor，现在执行 postProcessBeanDefinitionRegistry()
+			// 2、否则记录为一个常规 BeanFactoryPostProcessor ，暂时不执行处理
 			for (BeanFactoryPostProcessor postProcessor : beanFactoryPostProcessors) {
 				if (postProcessor instanceof BeanDefinitionRegistryPostProcessor) {
 					BeanDefinitionRegistryPostProcessor registryProcessor =
@@ -83,20 +105,26 @@ final class PostProcessorRegistrationDelegate {
 			List<BeanDefinitionRegistryPostProcessor> currentRegistryProcessors = new ArrayList<>();
 
 			// First, invoke the BeanDefinitionRegistryPostProcessors that implement PriorityOrdered.
+			// 首先，对实现了优先级顺序接口的 Bean 形式 BeanDefinitionRegistryPostProcessor 进行调用
+			// 找出所有容器中注册为 BeanDefinitionRegistryPostProcessor 的 postProcessor 名字数组
 			String[] postProcessorNames =
 					beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
+			// 遍历容器，将 BeanDefinitionRegistryPostProcessor 类型的后置处理器 Bean 实例给添加到当前的注册处理逻辑
 			for (String ppName : postProcessorNames) {
 				if (beanFactory.isTypeMatch(ppName, PriorityOrdered.class)) {
 					currentRegistryProcessors.add(beanFactory.getBean(ppName, BeanDefinitionRegistryPostProcessor.class));
 					processedBeans.add(ppName);
 				}
 			}
+			// 根据优先级排序
 			sortPostProcessors(currentRegistryProcessors, beanFactory);
 			registryProcessors.addAll(currentRegistryProcessors);
+			// 按顺序执行 BeanDefinitionRegistryPostProcessors
 			invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
 			currentRegistryProcessors.clear();
 
 			// Next, invoke the BeanDefinitionRegistryPostProcessors that implement Ordered.
+			// 其次，对实现了 Order 接口的 BeanDefinitionRegistryPostProcessors 进行调用
 			postProcessorNames = beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			for (String ppName : postProcessorNames) {
 				if (!processedBeans.contains(ppName) && beanFactory.isTypeMatch(ppName, Ordered.class)) {
@@ -104,12 +132,14 @@ final class PostProcessorRegistrationDelegate {
 					processedBeans.add(ppName);
 				}
 			}
+			// 根据 Order 排序
 			sortPostProcessors(currentRegistryProcessors, beanFactory);
 			registryProcessors.addAll(currentRegistryProcessors);
 			invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
 			currentRegistryProcessors.clear();
 
 			// Finally, invoke all other BeanDefinitionRegistryPostProcessors until no further ones appear.
+			// 最后，执行剩下的 BeanDefinitionRegistryPostProcessors
 			boolean reiterate = true;
 			while (reiterate) {
 				reiterate = false;
