@@ -712,6 +712,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	protected void prepareBeanFactory(ConfigurableListableBeanFactory beanFactory) {
 		// Tell the internal bean factory to use the context's class loader etc.
 		// 告诉内部 bean 工厂使用容器的类加载器
+		beanFactory.setBeanClassLoader(getClassLoader());
 
 		// 设置 beanFactory 的表达式语言处理器，Spring3 开始增加了对语言表达式的支持，默认可以使用#{bean.XXX}的形式来调用相关属性值
 		beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
