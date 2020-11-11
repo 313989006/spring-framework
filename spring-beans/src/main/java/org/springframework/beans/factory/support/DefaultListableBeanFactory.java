@@ -871,10 +871,14 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		List<String> beanNames = new ArrayList<>(this.beanDefinitionNames);
 
 		// Trigger initialization of all non-lazy singleton beans...
+		// 遍历容器内的注册的所有 beanDefinition 的名字
 		for (String beanName : beanNames) {
+			// 根据名字获取与之对应的 Definition 实例
 			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
+			// 保证 RootBeanDefinition 实例不是抽象的、是单例的、是非延时加载的
 			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
 				if (isFactoryBean(beanName)) {
+					// 加上 & 前缀，创建该 bean 的 FactoryBean 实例
 					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName);
 					if (bean instanceof FactoryBean) {
 						FactoryBean<?> factory = (FactoryBean<?>) bean;
@@ -900,6 +904,12 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		// Trigger post-initialization callback for all applicable beans...
+		// bean 已经完全处理完了
+		// @EventListener 标注的方法被 DefaultEventListenerFactory 包装秤 ApplicationListenerMethodAdapter
+		// @EventListener 的 class 就是事件对象
+		// ApplicationListenerMethodAdapter 注册到 ApplicationContext 中
+		// 等待事件源发布通知
+		// 通知后执行的逻辑就是标注 @EventListener 方法的逻辑
 		for (String beanName : beanNames) {
 			Object singletonInstance = getSingleton(beanName);
 			if (singletonInstance instanceof SmartInitializingSingleton) {

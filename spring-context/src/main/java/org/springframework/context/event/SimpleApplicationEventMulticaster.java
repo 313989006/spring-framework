@@ -46,6 +46,7 @@ import org.springframework.util.ErrorHandler;
  * @author Stephane Nicoll
  * @see #setTaskExecutor
  */
+// 拥有事件发布、监听器注册发布功能
 public class SimpleApplicationEventMulticaster extends AbstractApplicationEventMulticaster {
 
 	// Executor ：执行器，说明 SimpleApplicationEventMulticaster 支持多线程
