@@ -893,11 +893,13 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 									((SmartFactoryBean<?>) factory).isEagerInit());
 						}
 						if (isEagerInit) {
+							// 依赖注入就是在这里完成的
 							getBean(beanName);
 						}
 					}
 				}
 				else {
+					// 依赖注入就是在这里完成的
 					getBean(beanName);
 				}
 			}

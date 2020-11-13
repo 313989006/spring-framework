@@ -75,22 +75,31 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 
 	/** Cache of singleton objects: bean name to bean instance. */
+	// 单例缓存的一级缓存，ConcurrentHashMap 支持多线程操作
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
 
 	/** Cache of singleton factories: bean name to ObjectFactory. */
+	// 三级缓存：单例工厂的缓存，beanName -- > ObjectFactory，添加进去的时候实例还未具备属性
+	// 用于保存 beanName 和创建 bean 的工厂之间的关系 map，单例Bean 在创建之初过早的暴露出去的 Factory，
+	// 为什么采用工厂方式，是因为有些 Bean 是需要被代理的，总不能把代理前的暴露出去那就毫无意义了
 	private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
 
 	/** Cache of early singleton objects: bean name to bean instance. */
+	// 二级缓存：早期的单例对象，beanNAME -->Bean ，其中存储的是实例化之后，属性未赋值的单例对象
+	// 执行了工厂方法生产出来的 Bean，bean被放进去之后，那么当 bean 在创建过程中，就可以通过 getBean 方法获取到
 	private final Map<String, Object> earlySingletonObjects = new ConcurrentHashMap<>(16);
 
 	/** Set of registered singletons, containing the bean names in registration order. */
 	private final Set<String> registeredSingletons = new LinkedHashSet<>(256);
 
 	/** Names of beans that are currently in creation. */
+	// 三级缓存是用来解决循环依赖，而这个缓存就是用来检测是否存在循环依赖的
+	// singletonsCurrentlyInCreation 主要存储的是当前正在创建的 Bean 的名字列表
 	private final Set<String> singletonsCurrentlyInCreation =
 			Collections.newSetFromMap(new ConcurrentHashMap<>(16));
 
 	/** Names of beans currently excluded from in creation checks. */
+	// 直接缓存当前不能加载的 bean
 	private final Set<String> inCreationCheckExclusions =
 			Collections.newSetFromMap(new ConcurrentHashMap<>(16));
 
@@ -162,6 +171,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 		}
 	}
 
+	// 允许立即加载，allowEarlyReference
 	@Override
 	@Nullable
 	public Object getSingleton(String beanName) {
@@ -179,20 +189,31 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	@Nullable
 	protected Object getSingleton(String beanName, boolean allowEarlyReference) {
 		// Quick check for existing instance without full singleton lock
+		// 尝试从一级缓存里面获取完备的Bean 实例
+		// singletonObjects ：单例缓存的一级缓存
 		Object singletonObject = this.singletonObjects.get(beanName);
+		// 如果完备的单例还没有创建出来，创建中的 Bean 的名字会被保存在 isSingletonCurrentlyInCreation 中
+		// 因此看看是否正在创建
 		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
 			singletonObject = this.earlySingletonObjects.get(beanName);
 			if (singletonObject == null && allowEarlyReference) {
+				// 尝试给一级缓存对象加锁，因为接下来就要对缓存对象操作了
 				synchronized (this.singletonObjects) {
 					// Consistent creation of early reference within full singleton lock
+					// 尝试从二级缓存 earlySingletonObjects 这个存储还没进行属性添加操作的 Bean 实例缓存中获取
 					singletonObject = this.singletonObjects.get(beanName);
 					if (singletonObject == null) {
 						singletonObject = this.earlySingletonObjects.get(beanName);
 						if (singletonObject == null) {
+							// 从三级缓存 singletonFactories 这个 ObjectFactory  实例的缓存里尝试获取创建此Bean 的单例工厂实例
 							ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+							// 如果获取到工厂实例
 							if (singletonFactory != null) {
+								// 调用单例工厂的 getObject 方法返回对象实例
 								singletonObject = singletonFactory.getObject();
+								// 将实例放入二级缓存里
 								this.earlySingletonObjects.put(beanName, singletonObject);
+								// 从三级缓存里移除
 								this.singletonFactories.remove(beanName);
 							}
 						}
@@ -340,6 +361,7 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 * (within the entire factory).
 	 * @param beanName the name of the bean
 	 */
+	// singletonsCurrentlyInCreation 主要存储的是当前正在创建的 Bean 的名字列表
 	public boolean isSingletonCurrentlyInCreation(String beanName) {
 		return this.singletonsCurrentlyInCreation.contains(beanName);
 	}

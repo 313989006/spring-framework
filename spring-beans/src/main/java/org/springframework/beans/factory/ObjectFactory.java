@@ -36,6 +36,7 @@ import org.springframework.beans.BeansException;
  * @param <T> the object type
  * @see FactoryBean
  */
+// 对象工厂，主要用于容器中
 @FunctionalInterface
 public interface ObjectFactory<T> {
 
@@ -45,6 +46,12 @@ public interface ObjectFactory<T> {
 	 * @return the resulting instance
 	 * @throws BeansException in case of creation errors
 	 */
+	// 可以通过调用 getObject() 创建 Bean 的实例，和 FactoryBean 很类似
+	// 但是为什么不用 FactoryBean？
+	// 1、为了区分用户使用的和框架本身使用的
+	// 2、程序里要对 FactoryBean 单独处理
+	// 3、侧重点不同：FactoryBean 重在自定义创建bean实例的过程，
+	// ObjectFactory主要用在容器中，之所以返回工厂实例，是因为这些bean是要被代理的，需要被包装后才能提供给外界使用的
 	T getObject() throws BeansException;
 
 }

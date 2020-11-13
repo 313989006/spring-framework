@@ -124,7 +124,7 @@ public interface BeanFactory {
 	 */
 	// 对 FactoryBean 的转义定义，提供获取 FactoryBean 的方式
 	// 如果使用 bean 的名字检索 Factory 得到的对象是工厂生成的对象
-	// 如果需要得到工厂本省，需要转义
+	// 如果需要得到工厂本身，需要转义
 	String FACTORY_BEAN_PREFIX = "&";
 
 
