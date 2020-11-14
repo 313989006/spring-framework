@@ -71,10 +71,15 @@ public class InjectionMetadata {
 
 	private static final Log logger = LogFactory.getLog(InjectionMetadata.class);
 
+	// 目标Class
 	private final Class<?> targetClass;
 
+	// 当 post-processor 处理 bean 时，会解析 bean class 的所有属性
+	// 在解析时会判断属性上是否标有 @Value 或 @Autowired 注解，有就解析这个属性值，将解析后结果放在这里
+	// 保存了被注入元素的全量集合(包括 Spring 处理的或者外部处理的)
 	private final Collection<InjectedElement> injectedElements;
 
+	// 和injectedElements 一样，不过只保存了由Spring容器默认进行处理的属性或者方法
 	@Nullable
 	private volatile Set<InjectedElement> checkedElements;
 
@@ -89,6 +94,7 @@ public class InjectionMetadata {
 	 */
 	public InjectionMetadata(Class<?> targetClass, Collection<InjectedElement> elements) {
 		this.targetClass = targetClass;
+		// 被标记的元素放入到 injectedElements 这个成员变量里
 		this.injectedElements = elements;
 	}
 
@@ -107,6 +113,8 @@ public class InjectionMetadata {
 		Set<InjectedElement> checkedElements = new LinkedHashSet<>(this.injectedElements.size());
 		for (InjectedElement element : this.injectedElements) {
 			Member member = element.getMember();
+			// 收集bean 中被@Autowired或者 @Value 标记的方法或者属性实例
+			// 把需要 spring 容器用默认策略注入的 injectedElements 集合保存到 checkedElements
 			if (!beanDefinition.isExternallyManagedConfigMember(member)) {
 				beanDefinition.registerExternallyManagedConfigMember(member);
 				checkedElements.add(element);
@@ -156,6 +164,7 @@ public class InjectionMetadata {
 	 * or {@link #EMPTY} in case of no elements
 	 * @since 5.2
 	 */
+	// 将收集到的被标记的元素放入到新创建的 InjectionMetadata 的实例里
 	public static InjectionMetadata forElements(Collection<InjectedElement> elements, Class<?> clazz) {
 		return (elements.isEmpty() ? InjectionMetadata.EMPTY : new InjectionMetadata(clazz, elements));
 	}
@@ -175,12 +184,16 @@ public class InjectionMetadata {
 	/**
 	 * A single injected element.
 	 */
+	// 内部类
 	public abstract static class InjectedElement {
 
+		// 被注解标记的成员，Field（属性）还是 Method（方法）
 		protected final Member member;
 
+		// 是否为Field 被注入
 		protected final boolean isField;
 
+		// 属性描述，javabeans 中的接口
 		@Nullable
 		protected final PropertyDescriptor pd;
 

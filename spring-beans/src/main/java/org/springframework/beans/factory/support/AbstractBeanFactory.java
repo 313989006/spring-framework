@@ -171,9 +171,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	private final Map<String, RootBeanDefinition> mergedBeanDefinitions = new ConcurrentHashMap<>(256);
 
 	/** Names of beans that have already been created at least once. */
+	// 不管是单例还是原型，均会被标记，主要用在循环依赖无法解决的时候擦屁股用的
 	private final Set<String> alreadyCreated = Collections.newSetFromMap(new ConcurrentHashMap<>(256));
 
 	/** Names of beans that are currently in creation. */
+	// 本次线程创建的 scope 为 prototype 的 bean 实例会放在这个正在创建的名字列表里，而线程之间是不相互干扰的
 	private final ThreadLocal<Object> prototypesCurrentlyInCreation =
 			new NamedThreadLocal<>("Prototype beans currently in creation");
 
@@ -277,12 +279,14 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			// We're assumably within a circular reference.
 			// 若 scope 为prototype 并且还在创建中，则基本是循环依赖的情况
 			// 针对 prototype 的循环依赖， spring 无解，直接抛出异常
+			// 比如 A 创建依赖-->B 创建依赖-->A
 			if (isPrototypeCurrentlyInCreation(beanName)) {
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
 
 			// Check if bean definition exists in this factory.
 			BeanFactory parentBeanFactory = getParentBeanFactory();
+			// 判断是否存在父容器，并且当前容器不包含此Bean 的 BeanDefinition 实例，则尝试从父容器中递归查询
 			// 从当前容器中找不到指定名称的 bean，此时递归过去 parentBeanFactory 查找
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 				// Not found -> check parent.
@@ -318,7 +322,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			}
 
 			try {
-				// 将父类的 BeanDefinition 和子类的 BeanDefinition 进行合并覆盖
+				// 将父类的 BeanDefinition 和子类的 BeanDefinition 进行合并覆盖，获取到 BeanDefinition 实例
 				RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
 				// 对合并的 BeanDefinition 做验证，主要看属性是否为 abstract 的
 				checkMergedBeanDefinition(mbd, beanName, args);
@@ -328,11 +332,15 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				String[] dependsOn = mbd.getDependsOn();
 				// 如果当前 Bean 设置了dependsOn 属性
 				// dependsOn 用来指定 Bean 初始化及销毁时的顺序
+//				<bean id="a" class="com.mxk.A" depends-on="b"/>
+//				<bean id="b" class="com.mxk.B"/>
 				if (dependsOn != null) {
 					for (String dep : dependsOn) {
 						// 校验该依赖是否已经注册给当前 bean，注意这里传入的 key 是当前的 bean 名称
 						// 这里主要是判断是否有一下这种类型的依赖
 						// 如果有，则直接抛出异常
+						// Spring 是不支持显示定义循环依赖的，为什么？
+						// 既然显示的指定了循环依赖，表明某Bean一定是严格在另外一个Bean之前创建，depends-on是指定顺序的，Spring也不知道用户想要哪一个 bean 先创建出来
 						if (isDependent(beanName, dep)) {
 							throw new BeanCreationException(mbd.getResourceDescription(), beanName,
 									"Circular depends-on relationship between '" + beanName + "' and '" + dep + "'");
@@ -369,28 +377,36 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 							throw ex;
 						}
 					});
+					// 如果是普通 bean ，直接返回，如果是 FactoryBean，返回他的 getObject()
 					bean = getObjectForBeanInstance(sharedInstance, name, beanName, mbd);
 				}
 
 				else if (mbd.isPrototype()) {
 					// It's a prototype -> create a new instance.
+					//  Prototype 每次都会创建一个新的对象
 					Object prototypeInstance = null;
 					try {
+						// 默认的功能是注册当前创建的 prototype 对象为正在创建中
 						beforePrototypeCreation(beanName);
+						// 创建原型对象实例
 						prototypeInstance = createBean(beanName, mbd, args);
 					}
 					finally {
+						// 默认的功能是将先前注册的正在创建中的 Bean 信息给抹除掉
 						afterPrototypeCreation(beanName);
 					}
 					bean = getObjectForBeanInstance(prototypeInstance, name, beanName, mbd);
 				}
 
+				// 要创建的Bean 既不是单例模式，也不是原型模式，则根据 Bean 定义资源中配置的生命周期范围，选择实例化 Bean 的合适方法，这种在 Web 应用程序中比较常用
+				// 如 request，session，appplication 等生命周期
 				else {
 					String scopeName = mbd.getScope();
 					if (!StringUtils.hasLength(scopeName)) {
 						throw new IllegalStateException("No scope name defined for bean ´" + beanName + "'");
 					}
 					Scope scope = this.scopes.get(scopeName);
+					// Bean 定义资源中没有配置生命周期范围，则 Bean 定义不合法
 					if (scope == null) {
 						throw new IllegalStateException("No Scope registered for scope name '" + scopeName + "'");
 					}
@@ -398,6 +414,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 						Object scopedInstance = scope.get(beanName, () -> {
 							beforePrototypeCreation(beanName);
 							try {
+								// 创建适配于该scope 的bean 实例
 								return createBean(beanName, mbd, args);
 							}
 							finally {
@@ -1321,6 +1338,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 */
 	protected RootBeanDefinition getMergedLocalBeanDefinition(String beanName) throws BeansException {
 		// Quick check on the concurrent map first, with minimal locking.
+		// 尝试从 mergedBeanDefinitions 这个缓存获取容器里已经合并的 BeanDefinition 实例
 		RootBeanDefinition mbd = this.mergedBeanDefinitions.get(beanName);
 		if (mbd != null && !mbd.stale) {
 			return mbd;
@@ -1458,6 +1476,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	protected void checkMergedBeanDefinition(RootBeanDefinition mbd, String beanName, @Nullable Object[] args)
 			throws BeanDefinitionStoreException {
 
+		// 判断BeanDefiniton 是否是 abstract 的
 		if (mbd.isAbstract()) {
 			throw new BeanIsAbstractException(beanName);
 		}
@@ -1758,12 +1777,19 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * @param beanName the name of the bean
 	 */
 	protected void markBeanAsCreated(String beanName) {
+		// 双重检查锁机制
 		if (!this.alreadyCreated.contains(beanName)) {
 			synchronized (this.mergedBeanDefinitions) {
 				if (!this.alreadyCreated.contains(beanName)) {
 					// Let the bean definition get re-merged now that we're actually creating
 					// the bean... just in case some of its metadata changed in the meantime.
+					// 将原先合并之后的 RootBeanDefinition 的需要重新合并的状态设置为 true
+					// 表示需要重新合并一遍，以防原数据的改动
+//					<bean id="parent" class="com.mxk.Parent"><property name="name" value="ouyangfeng">
+					// 下面的 parent 表示这个 child 的 bean 的父亲是 id=parent 的类
+//					<bean id="child" class="com.mxk.Child" parent="parent"><property name="age" value="18">
 					clearMergedBeanDefinition(beanName);
+					// 将已经创建好的或者正在创建的 Bean 名称加到 alreadyCreated 这个缓存中
 					this.alreadyCreated.add(beanName);
 				}
 			}
