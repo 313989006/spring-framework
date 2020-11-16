@@ -4,14 +4,9 @@ import com.mxk.entity.User;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
+import org.springframework.stereotype.Component;
 
-/**
- * @ClassName AliasTest
- * @Description TODO
- * @Author ma.kangkang
- * @Date 2020/11/6 11:33
- **/
-public class AliasTest {
+public class AliasTestDemo {
 
 	public static void main(String[] args) {
 		User user = new User();
@@ -20,9 +15,12 @@ public class AliasTest {
 		ApplicationContext context = new FileSystemXmlApplicationContext(configPath);
 
 		String[] aliaes = context.getAliases("user");
-		for (String str : aliaes) {
-			System.out.println(str);
+		if (aliaes.length > 0){
+			for (String str : aliaes) {
+				System.out.println(str);
+			}
 		}
+
 
 	}
 }

@@ -1,4 +1,4 @@
-package com.mxk.impl;
+package com.mxk.service.impl;
 
 import org.springframework.stereotype.Repository;
 

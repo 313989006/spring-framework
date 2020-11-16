@@ -8,12 +8,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 
-/**
- * @ClassName WelcomeController
- * @Description TODO
- * @Author ma.kangkang
- * @Date 2020/11/5 16:18
- **/
 @Controller
 public class WelcomeController  implements ApplicationContextAware, BeanNameAware {
 

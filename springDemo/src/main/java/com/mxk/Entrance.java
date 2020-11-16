@@ -1,23 +1,20 @@
 package com.mxk;
 
+import com.mxk.controller.HelloController;
+import com.mxk.controller.HiController;
 import com.mxk.controller.WelcomeController;
 import com.mxk.entity.User;
-import com.mxk.impl.Company;
 import com.mxk.service.WelcomService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
-/**
- * @ClassName Entrance
- * @Description TODO
- * @Author ma.kangkang
- * @Date 2020/10/30 11:18
- **/
 @Configuration
 @ComponentScan("com.mxk")
+@EnableAspectJAutoProxy
 public class Entrance {
 
 	public static void main1(String[] args) {
@@ -58,6 +55,13 @@ public class Entrance {
 
 	public static void main(String[] args) {
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
-		Company company = (Company) applicationContext.getBean("company");
+//		Company company = (Company) applicationContext.getBean("company");
+		// AOP 实现
+		HelloController helloController = (HelloController) applicationContext.getBean("helloController");
+		HiController hiController = (HiController) applicationContext.getBean("hiController");
+
+		helloController.handleRequest();
+		hiController.handleRequest();
+
 	}
 }

@@ -1,4 +1,4 @@
-package com.mxk.impl;
+package com.mxk.service.impl;
 
 import com.mxk.service.WelcomService;
 import org.springframework.stereotype.Service;

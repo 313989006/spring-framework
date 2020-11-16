@@ -10,7 +10,10 @@ repositories {
 }
 
 dependencies {
+    // 添加此模块对上下文模块的依赖
     compile(project(":spring-context"))
+    // 增加此模块对AOP模块的依赖
+    compile(project(":spring-aspects"))
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
