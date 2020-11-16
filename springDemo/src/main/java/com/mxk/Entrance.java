@@ -4,6 +4,7 @@ import com.mxk.controller.HelloController;
 import com.mxk.controller.HiController;
 import com.mxk.controller.WelcomeController;
 import com.mxk.entity.User;
+import com.mxk.introduction.LittleUniverse;
 import com.mxk.service.WelcomService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -57,11 +58,14 @@ public class Entrance {
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
 //		Company company = (Company) applicationContext.getBean("company");
 		// AOP 实现
-		HelloController helloController = (HelloController) applicationContext.getBean("helloController");
+//		HelloController helloController = (HelloController) applicationContext.getBean("helloController");
+//		HiController hiController = (HiController) applicationContext.getBean("hiController");
+//
+//		helloController.handleRequest();
+//		hiController.handleRequest();
+
+		// 测试 introduction--引入型 Advice
 		HiController hiController = (HiController) applicationContext.getBean("hiController");
-
-		helloController.handleRequest();
-		hiController.handleRequest();
-
+		((LittleUniverse)hiController).burningUp();
 	}
 }

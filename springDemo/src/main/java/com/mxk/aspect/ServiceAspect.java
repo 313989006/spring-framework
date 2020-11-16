@@ -1,5 +1,6 @@
 package com.mxk.aspect;
 
+import com.mxk.introduction.LittleUniverse;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -54,5 +55,8 @@ public class ServiceAspect {
 		System.out.println("抛出异常 ： " + exception.getMessage());
 	}
 
+	// Introduction :引入型 Advice
+	@DeclareParents(value = "com.mxk.controller..*",defaultImpl = com.mxk.introduction.impl.LittleUniverseImpl.class)
+	public LittleUniverse littleUniverse;
 
 }
