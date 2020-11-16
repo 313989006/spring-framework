@@ -58,6 +58,9 @@ import org.springframework.util.ObjectUtils;
  * @since 2.0
  * @see org.springframework.core.annotation.SynthesizingMethodParameter
  */
+/**
+* 用来封装 setter 方法及其里面的参数，方便后续的注入
+*/
 public class MethodParameter {
 
 	private static final Annotation[] EMPTY_ANNOTATION_ARRAY = new Annotation[0];

@@ -2,6 +2,7 @@ package com.mxk;
 
 import com.mxk.controller.WelcomeController;
 import com.mxk.entity.User;
+import com.mxk.impl.Company;
 import com.mxk.service.WelcomService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -31,7 +32,7 @@ public class Entrance {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		// 容器实例，两种方式：1、注解的方式，2：配置文件的方式
 		// 注解的方式
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
@@ -53,5 +54,10 @@ public class Entrance {
 		// 结合 CustomizedBeanDefinitionRegistryPostProcessor ， 验证 user5 是否通过 CustomizedBeanDefinitionRegistryPostProcessor 被注册到容器里
 		User user5 = (User) applicationContext.getBean("user5");
 		System.out.println("CustomizedBeanDefinitionRegistryPostProcessor 创建的对象： " + user5);
+	}
+
+	public static void main(String[] args) {
+		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
+		Company company = (Company) applicationContext.getBean("company");
 	}
 }
