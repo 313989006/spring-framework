@@ -1,5 +1,6 @@
 package com.mxk;
 
+import com.mxk.aspect.OutSide;
 import com.mxk.controller.HelloController;
 import com.mxk.controller.HiController;
 import com.mxk.controller.WelcomeController;
@@ -7,14 +8,12 @@ import com.mxk.entity.User;
 import com.mxk.introduction.LittleUniverse;
 import com.mxk.service.WelcomService;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 @Configuration
 @ComponentScan("com.mxk")
+@Import(OutSide.class)
 @EnableAspectJAutoProxy
 public class Entrance {
 
@@ -67,5 +66,8 @@ public class Entrance {
 		// 测试 introduction--引入型 Advice
 		HiController hiController = (HiController) applicationContext.getBean("hiController");
 		((LittleUniverse)hiController).burningUp();
+
+		OutSide outSide = (OutSide)applicationContext.getBean("com.mxk.aspect.OutSide");
+		outSide.say();
 	}
 }

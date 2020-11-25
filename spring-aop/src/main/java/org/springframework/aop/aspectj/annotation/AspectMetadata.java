@@ -63,6 +63,7 @@ public class AspectMetadata implements Serializable {
 	 * AspectJ reflection information (AspectJ 5 / Java 5 specific).
 	 * Re-resolved on deserialization since it isn't serializable itself.
 	 */
+	// 切面数据详情
 	private transient AjType<?> ajType;
 
 	/**
@@ -83,6 +84,8 @@ public class AspectMetadata implements Serializable {
 
 		Class<?> currClass = aspectClass;
 		AjType<?> ajType = null;
+		// 此处会一直遍历到祖先直到 Object，在这个过程中只要找到有一个是 Aspect 切面就行
+		// 然后将其保存起来，因此我们也可以把切面逻辑写在父类上
 		while (currClass != Object.class) {
 			AjType<?> ajTypeToCheck = AjTypeSystem.getAjType(currClass);
 			if (ajTypeToCheck.isAspect()) {
@@ -91,6 +94,7 @@ public class AspectMetadata implements Serializable {
 			}
 			currClass = currClass.getSuperclass();
 		}
+		// 当前类或者父类需要 @Aspect
 		if (ajType == null) {
 			throw new IllegalArgumentException("Class '" + aspectClass.getName() + "' is not an @AspectJ aspect");
 		}

@@ -83,35 +83,49 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 	public List<Advisor> buildAspectJAdvisors() {
 		List<String> aspectNames = this.aspectBeanNames;
 
+		// 如果为null，说明是首次加载
 		if (aspectNames == null) {
 			synchronized (this) {
 				aspectNames = this.aspectBeanNames;
 				if (aspectNames == null) {
 					List<Advisor> advisors = new ArrayList<>();
+					// 用于保存切面的名称集合
 					aspectNames = new ArrayList<>();
+					// 获取所有的 beanName
+					// AOP 功能中在这里传入的是 Object 对象，代表去容器中获取到所有的组件的名称，然后再进行遍历，这个过程是是十分的消耗性能的，
+					// 所以说 Spring 会在这里加入了保存切面信息的缓存
 					String[] beanNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(
 							this.beanFactory, Object.class, true, false);
+					// 遍历从 IOC 容器中获取到的所有 Bean 的名称
 					for (String beanName : beanNames) {
 						if (!isEligibleBean(beanName)) {
 							continue;
 						}
 						// We must be careful not to instantiate beans eagerly as in this case they
 						// would be cached by the Spring container but would not have been weaved.
+						// 获取对应的 bean 的类型
 						Class<?> beanType = this.beanFactory.getType(beanName, false);
 						if (beanType == null) {
 							continue;
 						}
+						// 提取 @Aspect 注解标记的 Class
 						if (this.advisorFactory.isAspect(beanType)) {
+							// 是切面类
+							// 加入到缓存中
 							aspectNames.add(beanName);
 							AspectMetadata amd = new AspectMetadata(beanType, beanName);
 							if (amd.getAjType().getPerClause().getKind() == PerClauseKind.SINGLETON) {
 								MetadataAwareAspectInstanceFactory factory =
 										new BeanFactoryAspectInstanceFactory(this.beanFactory, beanName);
+								// Aspect 里面的 advice 和pointcut 被拆分成一个的 advisor
+								// advisor 里的 advice 和 pointcut 是一对一的关系
 								List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory);
 								if (this.beanFactory.isSingleton(beanName)) {
+									// 单例则直接将 Advisor 类存到缓存
 									this.advisorsCache.put(beanName, classAdvisors);
 								}
 								else {
+									// 否则将其对应的工厂缓存
 									this.aspectFactoryCache.put(beanName, factory);
 								}
 								advisors.addAll(classAdvisors);

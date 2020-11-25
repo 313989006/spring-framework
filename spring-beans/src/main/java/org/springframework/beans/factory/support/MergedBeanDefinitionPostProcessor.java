@@ -44,6 +44,10 @@ public interface MergedBeanDefinitionPostProcessor extends BeanPostProcessor {
 	 * @param beanName the name of the bean
 	 * @see AbstractAutowireCapableBeanFactory#applyMergedBeanDefinitionPostProcessors
 	 */
+	// 在 bean 实例化完毕后调用，可以用来秀爱 merged BeanDefinition 的一些 properties 或者用来给后续回调中缓存一些
+	// 这个算是将 merged BeanDefinition 暴露出来的一个回调
+	// 重点关注 AutowiredAnnotationBeanPostProcessor ，该类会把 @Autowired 等标记的
+	// 需要依赖注入的成员变量或者方法实例给记录下来，方便后续 populateBean 使用
 	void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName);
 
 	/**

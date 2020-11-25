@@ -119,6 +119,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+// 使用 @Import 注解将 AspectJAutoProxyRegistrar 作为 bean 管理起来
 @Import(AspectJAutoProxyRegistrar.class)
 public @interface EnableAspectJAutoProxy {
 
@@ -126,6 +127,9 @@ public @interface EnableAspectJAutoProxy {
 	 * Indicate whether subclass-based (CGLIB) proxies are to be created as opposed
 	 * to standard Java interface-based proxies. The default is {@code false}.
 	 */
+	// 表明该类采用 CGLIB 动态代理还是使用 JDK 的动态代理
+	// 为 true 则采用 CGLIB 动态代理
+	// 为 false 则采用 JDK 的动态代理
 	boolean proxyTargetClass() default false;
 
 	/**
@@ -134,6 +138,9 @@ public @interface EnableAspectJAutoProxy {
 	 * Off by default, i.e. no guarantees that {@code AopContext} access will work.
 	 * @since 4.3.1
 	 */
+	// 解决内部调用不能使用代理的场景，默认为 false 表示不处理
+	// 为true 则表示这个代理对象的副本就可以通过 AopContext.currentP[roxy（）获取（ThreadLocal 里面）
+	// 从而我们可以很方便得在 Spring 框架上下文中拿到当前的代理对象（处理事务时很方便）
 	boolean exposeProxy() default false;
 
 }

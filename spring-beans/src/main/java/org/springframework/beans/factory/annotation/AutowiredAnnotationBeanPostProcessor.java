@@ -243,8 +243,9 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
-		// 寻找被注解标记的元数据
+		// 收集 Bean 里被@Autowired 或者 @Value 注解标记的成员变量或者方法实例
 		InjectionMetadata metadata = findAutowiringMetadata(beanName, beanType, null);
+		// 将他们存入缓存中
 		metadata.checkConfigMembers(beanDefinition);
 	}
 

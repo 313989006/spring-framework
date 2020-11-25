@@ -52,12 +52,14 @@ public interface Advised extends TargetClassAware {
 	 * Return the interfaces proxied by the AOP proxy.
 	 * <p>Will not include the target class, which may also be proxied.
 	 */
+	// 返回了被代理的接口们
 	Class<?>[] getProxiedInterfaces();
 
 	/**
 	 * Determine whether the given interface is proxied.
 	 * @param intf the interface to check
 	 */
+	// 决定这个指定的接口是否被代理了
 	boolean isInterfaceProxied(Class<?> intf);
 
 	/**
@@ -65,6 +67,7 @@ public interface Advised extends TargetClassAware {
 	 * <p>Only works if the configuration isn't {@linkplain #isFrozen frozen}.
 	 * @param targetSource new TargetSource to use
 	 */
+	// 设置一个 targetSource，targetSource 即被代理的 Bean，只有 isFrozen 为 false 才调用此方法
 	void setTargetSource(TargetSource targetSource);
 
 	/**

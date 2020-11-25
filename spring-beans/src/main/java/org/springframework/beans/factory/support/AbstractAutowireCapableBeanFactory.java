@@ -1142,7 +1142,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		for (BeanPostProcessor bp : getBeanPostProcessors()) {
 			if (bp instanceof MergedBeanDefinitionPostProcessor) {
 				MergedBeanDefinitionPostProcessor bdp = (MergedBeanDefinitionPostProcessor) bp;
-				// 重点关注 AutowiredAnnotationBeanPostProcessor ，该类会把 @Autowired 等标记的需要依赖注入的成员变量或者方法实例给记录下来，方便后续populateBean 使用
+				// 重点关注 AutowiredAnnotationBeanPostProcessor ，该类会把 @Autowired 等标记的
+				// 需要依赖注入的成员变量或者方法实例给记录下来，方便后续populateBean 使用
 				bdp.postProcessMergedBeanDefinition(mbd, beanType, beanName);
 			}
 		}
@@ -1158,8 +1159,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	@Nullable
 	protected Object resolveBeforeInstantiation(String beanName, RootBeanDefinition mbd) {
 		Object bean = null;
+		// 如果 beforeInstantiationResolved 还没有设置或者是 false(说明还没有需要在实例化前执行的操作)
 		if (!Boolean.FALSE.equals(mbd.beforeInstantiationResolved)) {
 			// Make sure bean class is actually resolved at this point.
+			// mbd.isSynthetic() 默认为 false
+			// 如果注册了 InstantiationAwareBeanPostProcessors 类型的 BeanPostProcessor
 			if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 				Class<?> targetType = determineTargetType(beanName, mbd);
 				if (targetType != null) {
