@@ -134,7 +134,7 @@ public abstract class AbstractHttpInvokerRequestExecutor implements HttpInvokerR
 
 		ByteArrayOutputStream baos = getByteArrayOutputStream(invocation);
 		if (logger.isDebugEnabled()) {
-			logger.debug("Sending HTTP invoker request for service at [" + config.getServiceUrl() +
+			logger.debug("Sending HTTP invoker request for com.mxk.service at [" + config.getServiceUrl() +
 					"], with size " + baos.size());
 		}
 		return doExecuteRequest(config, baos);
@@ -208,7 +208,7 @@ public abstract class AbstractHttpInvokerRequestExecutor implements HttpInvokerR
 	 * <p>Implementations will usually call {@code readRemoteInvocationResult}
 	 * to deserialize a returned RemoteInvocationResult object.
 	 * @param config the HTTP invoker configuration that specifies the
-	 * target service
+	 * target com.mxk.service
 	 * @param baos the ByteArrayOutputStream that contains the serialized
 	 * RemoteInvocation object
 	 * @return the RemoteInvocationResult object

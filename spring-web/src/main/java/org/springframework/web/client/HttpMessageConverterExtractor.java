@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.FileCopyUtils;
 
 /**
- * Response extractor that uses the given {@linkplain HttpMessageConverter entity converters}
+ * Response extractor that uses the given {@linkplain HttpMessageConverter com.mxk.entity converters}
  * to convert the response into a type {@code T}.
  *
  * @author Arjen Poutsma

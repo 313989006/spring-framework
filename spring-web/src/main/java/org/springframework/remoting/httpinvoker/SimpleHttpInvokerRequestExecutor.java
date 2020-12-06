@@ -97,7 +97,7 @@ public class SimpleHttpInvokerRequestExecutor extends AbstractHttpInvokerRequest
 	/**
 	 * Open an {@link HttpURLConnection} for the given remote invocation request.
 	 * @param config the HTTP invoker configuration that specifies the
-	 * target service
+	 * target com.mxk.service
 	 * @return the HttpURLConnection for the given request
 	 * @throws IOException if thrown by I/O methods
 	 * @see java.net.URL#openConnection()
@@ -153,7 +153,7 @@ public class SimpleHttpInvokerRequestExecutor extends AbstractHttpInvokerRequest
 	 * <p>The default implementation simply write the serialized invocation to the
 	 * HttpURLConnection's OutputStream. This can be overridden, for example, to write
 	 * a specific encoding and potentially set appropriate HTTP request headers.
-	 * @param config the HTTP invoker configuration that specifies the target service
+	 * @param config the HTTP invoker configuration that specifies the target com.mxk.service
 	 * @param con the HttpURLConnection to write the request body to
 	 * @param baos the ByteArrayOutputStream that contains the serialized
 	 * RemoteInvocation object
@@ -173,7 +173,7 @@ public class SimpleHttpInvokerRequestExecutor extends AbstractHttpInvokerRequest
 	 * throwing an exception if it does not correspond to a successful HTTP response.
 	 * <p>Default implementation rejects any HTTP status code beyond 2xx, to avoid
 	 * parsing the response body and trying to deserialize from a corrupted stream.
-	 * @param config the HTTP invoker configuration that specifies the target service
+	 * @param config the HTTP invoker configuration that specifies the target com.mxk.service
 	 * @param con the HttpURLConnection to validate
 	 * @throws IOException if validation failed
 	 * @see java.net.HttpURLConnection#getResponseCode()
@@ -194,7 +194,7 @@ public class SimpleHttpInvokerRequestExecutor extends AbstractHttpInvokerRequest
 	 * <p>The default implementation simply reads the serialized invocation
 	 * from the HttpURLConnection's InputStream. If the response is recognized
 	 * as GZIP response, the InputStream will get wrapped in a GZIPInputStream.
-	 * @param config the HTTP invoker configuration that specifies the target service
+	 * @param config the HTTP invoker configuration that specifies the target com.mxk.service
 	 * @param con the HttpURLConnection to read the response body from
 	 * @return an InputStream for the response body
 	 * @throws IOException if thrown by I/O methods

@@ -21,7 +21,7 @@ package org.springframework.cache.config;
  * due to issues with Gradle test fixtures and AspectJ configuration
  * in the Gradle build.
  *
- * <p>Basic service interface for caching tests.
+ * <p>Basic com.mxk.service interface for caching tests.
  *
  * @author Costin Leau
  * @author Phillip Webb

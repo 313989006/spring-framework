@@ -32,6 +32,6 @@ dependencies {
 	testCompile("org.xmlunit:xmlunit-assertj")
 	testCompile("org.xmlunit:xmlunit-matchers")
 	testRuntime("com.sun.xml.bind:jaxb-core")
-	testRuntime("com.sun.xml.bind:jaxb-impl")
+	testRuntime("com.sun.xml.bind:jaxb-com.mxk.service.impl")
 	testRuntime("com.sun.activation:javax.activation")
 }

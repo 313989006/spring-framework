@@ -41,7 +41,7 @@ configure(allprojects) { project ->
 				entry 'log4j-api'
 				entry 'log4j-core'
 				entry 'log4j-jul'
-				entry 'log4j-slf4j-impl'
+				entry 'log4j-slf4j-com.mxk.service.impl'
 			}
 			dependency "org.slf4j:slf4j-api:1.7.30"
 			dependency "com.google.code.findbugs:jsr305:3.0.2"
@@ -233,7 +233,7 @@ configure(allprojects) { project ->
 			dependency "com.sun.mail:javax.mail:1.6.2"
 			dependencySet(group: 'com.sun.xml.bind', version: '2.3.0.1') {
 				entry 'jaxb-core'
-				entry 'jaxb-impl'
+				entry 'jaxb-com.mxk.service.impl'
 				entry 'jaxb-xjc'
 			}
 
@@ -349,7 +349,7 @@ configure([rootProject] + javaProjects) { project ->
 		testRuntime("org.junit.platform:junit-platform-launcher")
 		testRuntime("org.junit.jupiter:junit-jupiter-engine")
 		testRuntime("org.apache.logging.log4j:log4j-core")
-		testRuntime("org.apache.logging.log4j:log4j-slf4j-impl")
+		testRuntime("org.apache.logging.log4j:log4j-slf4j-com.mxk.service.impl")
 		testRuntime("org.apache.logging.log4j:log4j-jul")
 		// JSR-305 only used for non-required meta-annotations
 		compileOnly("com.google.code.findbugs:jsr305")

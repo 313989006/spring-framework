@@ -38,7 +38,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
- * Abstract exporter for JAX-WS services, autodetecting annotated service beans
+ * Abstract exporter for JAX-WS services, autodetecting annotated com.mxk.service beans
  * (through the JAX-WS {@link javax.jws.WebService} annotation).
  *
  * <p>Subclasses need to implement the {@link #publishEndpoint} template methods
@@ -72,7 +72,7 @@ public abstract class AbstractJaxWsServiceExporter implements BeanFactoryAware, 
 
 	/**
 	 * Set the property bag for the endpoint, including properties such as
-	 * "javax.xml.ws.wsdl.service" or "javax.xml.ws.wsdl.port".
+	 * "javax.xml.ws.wsdl.com.mxk.service" or "javax.xml.ws.wsdl.port".
 	 * @see javax.xml.ws.Endpoint#setProperties
 	 * @see javax.xml.ws.Endpoint#WSDL_SERVICE
 	 * @see javax.xml.ws.Endpoint#WSDL_PORT
@@ -83,7 +83,7 @@ public abstract class AbstractJaxWsServiceExporter implements BeanFactoryAware, 
 
 	/**
 	 * Set the JDK concurrent executor to use for dispatching incoming requests
-	 * to exported service instances.
+	 * to exported com.mxk.service instances.
 	 * @see javax.xml.ws.Endpoint#setExecutor
 	 */
 	public void setExecutor(Executor executor) {
@@ -108,7 +108,7 @@ public abstract class AbstractJaxWsServiceExporter implements BeanFactoryAware, 
 	}
 
 	/**
-	 * Obtains all web service beans and publishes them as JAX-WS endpoints.
+	 * Obtains all web com.mxk.service beans and publishes them as JAX-WS endpoints.
 	 */
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) {
@@ -174,7 +174,7 @@ public abstract class AbstractJaxWsServiceExporter implements BeanFactoryAware, 
 
 	/**
 	 * Create the actual Endpoint instance.
-	 * @param bean the service object to wrap
+	 * @param bean the com.mxk.service object to wrap
 	 * @return the Endpoint instance
 	 * @see Endpoint#create(Object)
 	 * @see Endpoint#create(String, Object)
@@ -189,14 +189,14 @@ public abstract class AbstractJaxWsServiceExporter implements BeanFactoryAware, 
 	/**
 	 * Actually publish the given endpoint. To be implemented by subclasses.
 	 * @param endpoint the JAX-WS Endpoint object
-	 * @param annotation the service bean's WebService annotation
+	 * @param annotation the com.mxk.service bean's WebService annotation
 	 */
 	protected abstract void publishEndpoint(Endpoint endpoint, WebService annotation);
 
 	/**
 	 * Actually publish the given provider endpoint. To be implemented by subclasses.
 	 * @param endpoint the JAX-WS Provider Endpoint object
-	 * @param annotation the service bean's WebServiceProvider annotation
+	 * @param annotation the com.mxk.service bean's WebServiceProvider annotation
 	 */
 	protected abstract void publishEndpoint(Endpoint endpoint, WebServiceProvider annotation);
 

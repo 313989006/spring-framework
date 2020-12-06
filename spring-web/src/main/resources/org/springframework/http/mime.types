@@ -186,7 +186,7 @@ application/mathml+xml				mathml
 # application/mbms-register+xml
 # application/mbms-register-response+xml
 # application/mbms-schedule+xml
-# application/mbms-user-service-description+xml
+# application/mbms-user-com.mxk.service-description+xml
 application/mbox				mbox
 # application/media-policy-dataset+xml
 # application/media_control+xml
@@ -435,8 +435,8 @@ application/vnd.cinderella			cdy
 application/vnd.claymore			cla
 application/vnd.cloanto.rp9			rp9
 application/vnd.clonk.c4group			c4g c4d c4f c4p c4u
-application/vnd.cluetrust.cartomobile-config		c11amc
-application/vnd.cluetrust.cartomobile-config-pkg	c11amz
+application/vnd.cluetrust.cartomobile-com.mxk.config		c11amc
+application/vnd.cluetrust.cartomobile-com.mxk.config-pkg	c11amz
 # application/vnd.coffeescript
 # application/vnd.collection+json
 # application/vnd.collection.doc+json
@@ -507,7 +507,7 @@ application/vnd.dvb.ait				ait
 # application/vnd.dvb.notif-ia-registration-response+xml
 # application/vnd.dvb.notif-init+xml
 # application/vnd.dvb.pfr
-application/vnd.dvb.service			svc
+application/vnd.dvb.com.mxk.service			svc
 # application/vnd.dxr
 application/vnd.dynageo				geo
 # application/vnd.dzr
@@ -674,7 +674,7 @@ application/vnd.irepository.package+xml		irp
 application/vnd.is-xpr				xpr
 application/vnd.isac.fcs			fcs
 application/vnd.jam				jam
-# application/vnd.japannet-directory-service
+# application/vnd.japannet-directory-com.mxk.service
 # application/vnd.japannet-jpnstore-wakeup
 # application/vnd.japannet-payment-wakeup
 # application/vnd.japannet-registration
@@ -819,7 +819,7 @@ application/vnd.noblenet-web			nnw
 # application/vnd.nokia.catalogs
 # application/vnd.nokia.conml+wbxml
 # application/vnd.nokia.conml+xml
-# application/vnd.nokia.iptv.config+xml
+# application/vnd.nokia.iptv.com.mxk.config+xml
 # application/vnd.nokia.isds-radio-presets
 # application/vnd.nokia.landmark+wbxml
 # application/vnd.nokia.landmark+xml
@@ -871,7 +871,7 @@ application/vnd.oasis.opendocument.text-web		oth
 # application/vnd.oipf.ueprofile+xml
 # application/vnd.oipf.userprofile+xml
 application/vnd.olpc-sugar			xo
-# application/vnd.oma-scws-config
+# application/vnd.oma-scws-com.mxk.config
 # application/vnd.oma-scws-http-request
 # application/vnd.oma-scws-http-response
 # application/vnd.oma.bcast.associated-procedure-parameter+xml
@@ -1354,7 +1354,7 @@ application/xhtml+xml				xhtml xht
 # application/xhtml-voice+xml
 application/xml					xml xsl
 application/xml-dtd				dtd
-# application/xml-external-parsed-entity
+# application/xml-external-parsed-com.mxk.entity
 # application/xml-patch+xml
 # application/xmpp+xml
 application/xop+xml				xop
@@ -1514,7 +1514,7 @@ audio/vnd.rip					rip
 # audio/vnd.sealedmedia.softseal.mpeg
 # audio/vnd.vmx.cvsd
 # audio/vorbis
-# audio/vorbis-config
+# audio/vorbis-com.mxk.config
 audio/webm					weba
 audio/x-aac					aac
 audio/x-aiff					aif aiff aifc
@@ -1756,7 +1756,7 @@ text/x-uuencode					uu
 text/x-vcalendar				vcs
 text/x-vcard					vcf
 # text/xml
-# text/xml-external-parsed-entity
+# text/xml-external-parsed-com.mxk.entity
 # video/1d-interleaved-parityfec
 video/3gpp					3gp
 # video/3gpp-tt

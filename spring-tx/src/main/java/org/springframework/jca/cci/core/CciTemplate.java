@@ -57,11 +57,11 @@ import org.springframework.util.Assert;
  * instances, or alternatively implement callback interfaces for creating input
  * Records and extracting result objects from output Records (or CCI ResultSets).
  *
- * <p>Can be used within a service implementation via direct instantiation
+ * <p>Can be used within a com.mxk.service implementation via direct instantiation
  * with a ConnectionFactory reference, or get prepared in an application context
  * and given to services as bean reference. Note: The ConnectionFactory should
  * always be configured as a bean in the application context, in the first case
- * given to the service directly, in the second case to the prepared template.
+ * given to the com.mxk.service directly, in the second case to the prepared template.
  *
  * @author Thierry Templier
  * @author Juergen Hoeller

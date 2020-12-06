@@ -30,8 +30,8 @@ import org.springframework.remoting.support.RemoteInvocation;
 import org.springframework.remoting.support.RemoteInvocationResult;
 
 /**
- * HTTP request handler that exports the specified service bean as
- * HTTP invoker service endpoint, accessible via an HTTP invoker proxy.
+ * HTTP request handler that exports the specified com.mxk.service bean as
+ * HTTP invoker com.mxk.service endpoint, accessible via an HTTP invoker proxy.
  * Designed for Sun's JRE 1.6 HTTP server, implementing the
  * {@link com.sun.net.httpserver.HttpHandler} interface.
  *

@@ -48,10 +48,10 @@ public class HtmlCharacterEntityReferencesTests {
 						.as("The unicode character " + character + " should be mapped to a reference")
 						.isTrue();
 				assertThat(references.convertToReference((char) character))
-						.as("The reference of unicode character " + character + " should be entity " + referenceName)
+						.as("The reference of unicode character " + character + " should be com.mxk.entity " + referenceName)
 						.isEqualTo(fullReference);
 				assertThat(references.convertToCharacter(referenceName))
-						.as("The entity reference [" + referenceName + "] should be mapped to unicode character " + character)
+						.as("The com.mxk.entity reference [" + referenceName + "] should be mapped to unicode character " + character)
 						.isEqualTo((char) character);
 			}
 			else if (character == 39) {
@@ -63,18 +63,18 @@ public class HtmlCharacterEntityReferencesTests {
 						.as("The unicode character " + character + " should not be mapped to a reference")
 						.isFalse();
 				assertThat(references.convertToReference((char) character))
-						.as("No entity reference of unicode character " + character + " should exist")
+						.as("No com.mxk.entity reference of unicode character " + character + " should exist")
 						.isNull();
 			}
 		}
 		assertThat(references.getSupportedReferenceCount())
-				.as("The registered entity count of entityReferences should match the number of entity references")
+				.as("The registered com.mxk.entity count of entityReferences should match the number of com.mxk.entity references")
 				.isEqualTo(charactersMap.size() + 1);
 		assertThat(references.getSupportedReferenceCount()).as(
-				"The HTML 4.0 Standard defines 252+1 entity references so do entityReferences")
+				"The HTML 4.0 Standard defines 252+1 com.mxk.entity references so do entityReferences")
 				.isEqualTo(252 + 1);
 		assertThat((int) references.convertToCharacter("invalid"))
-				.as("Invalid entity reference names should not be convertible")
+				.as("Invalid com.mxk.entity reference names should not be convertible")
 				.isEqualTo((char) -1);
 	}
 

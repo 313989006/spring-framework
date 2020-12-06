@@ -5,8 +5,8 @@
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="welcomService" class="com.mxk.service.impl.WelcomServiceImpl"></bean>
+	<bean id="welcomService" class="com.mxk.com.mxk.service.com.mxk.service.impl.WelcomServiceImpl"></bean>
 
-	<bean id="user5" class="com.mxk.entity.User" ></bean>
+	<bean id="user5" class="com.mxk.com.mxk.entity.User" ></bean>
 	<alias name="user5" alias="Alias1,Alias2,Alias3"></alias>
 </beans>

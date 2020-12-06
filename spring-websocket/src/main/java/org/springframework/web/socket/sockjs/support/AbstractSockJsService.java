@@ -119,14 +119,14 @@ public abstract class AbstractSockJsService implements SockJsService, CorsConfig
 	}
 
 	/**
-	 * Set a unique name for this service (mainly for logging purposes).
+	 * Set a unique name for this com.mxk.service (mainly for logging purposes).
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	/**
-	 * Return the unique name associated with this service.
+	 * Return the unique name associated with this com.mxk.service.
 	 */
 	public String getName() {
 		return this.name;
@@ -190,7 +190,7 @@ public abstract class AbstractSockJsService implements SockJsService, CorsConfig
 	 * AJAX/XHR -- that can do requests across domains but does not send any cookies. In
 	 * those cases, the SockJS client prefers the "iframe-htmlfile" transport over
 	 * "xdr-streaming" in order to be able to send cookies.
-	 * <p>The SockJS protocol also expects a SockJS service to echo back the JSESSIONID
+	 * <p>The SockJS protocol also expects a SockJS com.mxk.service to echo back the JSESSIONID
 	 * cookie when this property is set to true. However, when running in a Servlet
 	 * container this is not necessary since the container takes care of it.
 	 * <p>The default value is "true" to maximize the chance for applications to work

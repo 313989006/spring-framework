@@ -150,7 +150,7 @@ public class LocalSessionFactoryBuilder extends Configuration {
 	 * @param dataSource the JDBC DataSource that the resulting Hibernate SessionFactory should be using
 	 * (may be {@code null})
 	 * @param resourceLoader the ResourceLoader to load application classes from
-	 * @param metadataSources the Hibernate MetadataSources service to use (e.g. reusing an existing one)
+	 * @param metadataSources the Hibernate MetadataSources com.mxk.service to use (e.g. reusing an existing one)
 	 * @since 4.3
 	 */
 	public LocalSessionFactoryBuilder(
@@ -251,7 +251,7 @@ public class LocalSessionFactoryBuilder extends Configuration {
 	 * Set a Hibernate {@link org.hibernate.resource.beans.container.spi.BeanContainer}
 	 * for the given Spring {@link ConfigurableListableBeanFactory}.
 	 * <p>Note: Bean container integration requires Hibernate 5.3 or higher.
-	 * It enables autowiring of Hibernate attribute converters and entity listeners.
+	 * It enables autowiring of Hibernate attribute converters and com.mxk.entity listeners.
 	 * @since 5.1
 	 * @see SpringBeanContainer
 	 * @see AvailableSettings#BEAN_CONTAINER
@@ -296,7 +296,7 @@ public class LocalSessionFactoryBuilder extends Configuration {
 	}
 
 	/**
-	 * Specify custom type filters for Spring-based scanning for entity classes.
+	 * Specify custom type filters for Spring-based scanning for com.mxk.entity classes.
 	 * <p>Default is to search all specified packages for classes annotated with
 	 * {@code @javax.persistence.Entity}, {@code @javax.persistence.Embeddable}
 	 * or {@code @javax.persistence.MappedSuperclass}.
@@ -332,7 +332,7 @@ public class LocalSessionFactoryBuilder extends Configuration {
 	}
 
 	/**
-	 * Perform Spring-based scanning for entity classes, registering them
+	 * Perform Spring-based scanning for com.mxk.entity classes, registering them
 	 * as annotated classes with this {@code Configuration}.
 	 * @param packagesToScan one or more Java package names
 	 * @throws HibernateException if scanning fails for any reason
@@ -387,7 +387,7 @@ public class LocalSessionFactoryBuilder extends Configuration {
 	}
 
 	/**
-	 * Check whether any of the configured entity type filters matches
+	 * Check whether any of the configured com.mxk.entity type filters matches
 	 * the current class descriptor contained in the metadata reader.
 	 */
 	private boolean matchesEntityTypeFilter(MetadataReader reader, MetadataReaderFactory readerFactory) throws IOException {

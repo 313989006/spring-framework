@@ -96,11 +96,11 @@
 		</cache:caching>
 	</cache:advice>
 
-	<aop:config>
+	<aop:com.mxk.config>
 		<aop:advisor advice-ref="cacheAdviceInterface" pointcut="execution(* *..DefaultCacheableService.*(..))" order="1"/>
 		<aop:advisor advice-ref="cacheAdviceClass" pointcut="execution(* *..AnnotatedClassCacheableService.*(..))" order="1"/>
 		<aop:advisor advice-ref="debugInterceptor" pointcut="execution(* *..CacheableService.*(..))" order="2"/>
-	</aop:config>
+	</aop:com.mxk.config>
 
 	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
 		<property name="caches">
@@ -126,7 +126,7 @@
 
 	<bean id="debugInterceptor" class="org.springframework.aop.interceptor.DebugInterceptor"/>
 
-	<bean id="service" class="org.springframework.context.testfixture.cache.beans.DefaultCacheableService"/>
+	<bean id="com.mxk.service" class="org.springframework.context.testfixture.cache.beans.DefaultCacheableService"/>
 
 	<bean id="classService" class="org.springframework.context.testfixture.cache.beans.AnnotatedClassCacheableService"/>
 </beans>

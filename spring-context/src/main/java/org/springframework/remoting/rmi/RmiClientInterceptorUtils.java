@@ -38,7 +38,7 @@ import org.springframework.util.ReflectionUtils;
 
 /**
  * Factored-out methods for performing invocations within an RMI client.
- * Can handle both RMI and non-RMI service interfaces working on an RMI stub.
+ * Can handle both RMI and non-RMI com.mxk.service interfaces working on an RMI stub.
  *
  * <p>Note: This is an SPI class, not intended to be used by applications.
  *
@@ -90,7 +90,7 @@ public abstract class RmiClientInterceptorUtils {
 	 * in either a RemoteException or a Spring RemoteAccessException (if the
 	 * method signature does not support RemoteException).
 	 * <p>Only call this for remote access exceptions, not for exceptions
-	 * thrown by the target service itself!
+	 * thrown by the target com.mxk.service itself!
 	 * @param method the invoked method
 	 * @param ex the exception that happened, to be used as cause for the
 	 * RemoteAccessException or RemoteException
@@ -116,7 +116,7 @@ public abstract class RmiClientInterceptorUtils {
 	 * support RemoteException. Else, return the original RemoteException.
 	 * @param method the invoked method
 	 * @param ex the RemoteException that happened
-	 * @param serviceName the name of the service (for debugging purposes)
+	 * @param serviceName the name of the com.mxk.service (for debugging purposes)
 	 * @return the exception to be thrown to the caller
 	 */
 	public static Exception convertRmiAccessException(Method method, RemoteException ex, String serviceName) {
@@ -131,24 +131,24 @@ public abstract class RmiClientInterceptorUtils {
 	 * @param ex the RemoteException that happened
 	 * @param isConnectFailure whether the given exception should be considered
 	 * a connect failure
-	 * @param serviceName the name of the service (for debugging purposes)
+	 * @param serviceName the name of the com.mxk.service (for debugging purposes)
 	 * @return the exception to be thrown to the caller
 	 */
 	public static Exception convertRmiAccessException(
 			Method method, RemoteException ex, boolean isConnectFailure, String serviceName) {
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("Remote service [" + serviceName + "] threw exception", ex);
+			logger.debug("Remote com.mxk.service [" + serviceName + "] threw exception", ex);
 		}
 		if (ReflectionUtils.declaresException(method, ex.getClass())) {
 			return ex;
 		}
 		else {
 			if (isConnectFailure) {
-				return new RemoteConnectFailureException("Could not connect to remote service [" + serviceName + "]", ex);
+				return new RemoteConnectFailureException("Could not connect to remote com.mxk.service [" + serviceName + "]", ex);
 			}
 			else {
-				return new RemoteAccessException("Could not access remote service [" + serviceName + "]", ex);
+				return new RemoteAccessException("Could not access remote com.mxk.service [" + serviceName + "]", ex);
 			}
 		}
 	}

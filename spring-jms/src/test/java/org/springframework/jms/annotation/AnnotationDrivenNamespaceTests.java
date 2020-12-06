@@ -40,7 +40,7 @@ class AnnotationDrivenNamespaceTests extends AbstractJmsAnnotationDrivenTests {
 	@Test
 	void sampleConfiguration() {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"annotation-driven-sample-config.xml", getClass());
+				"annotation-driven-sample-com.mxk.config.xml", getClass());
 		testSampleConfiguration(context);
 	}
 
@@ -48,7 +48,7 @@ class AnnotationDrivenNamespaceTests extends AbstractJmsAnnotationDrivenTests {
 	@Test
 	void fullConfiguration() {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"annotation-driven-full-config.xml", getClass());
+				"annotation-driven-full-com.mxk.config.xml", getClass());
 		testFullConfiguration(context);
 	}
 
@@ -56,7 +56,7 @@ class AnnotationDrivenNamespaceTests extends AbstractJmsAnnotationDrivenTests {
 	@Test
 	void fullConfigurableConfiguration() {
 		ApplicationContext context = new ClassPathXmlApplicationContext(
-				"annotation-driven-full-configurable-config.xml", getClass());
+				"annotation-driven-full-configurable-com.mxk.config.xml", getClass());
 		testFullConfiguration(context);
 	}
 

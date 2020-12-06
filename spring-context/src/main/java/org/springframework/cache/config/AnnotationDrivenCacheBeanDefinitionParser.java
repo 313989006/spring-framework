@@ -112,7 +112,7 @@ class AnnotationDrivenCacheBeanDefinitionParser implements BeanDefinitionParser 
 	/**
 	 * Parse the cache resolution strategy to use. If a 'cache-resolver' attribute
 	 * is set, it is injected. Otherwise the 'cache-manager' is set. If {@code setBoth}
-	 * is {@code true}, both service are actually injected.
+	 * is {@code true}, both com.mxk.service are actually injected.
 	 */
 	private static void parseCacheResolution(Element element, BeanDefinition def, boolean setBoth) {
 		String name = element.getAttribute("cache-resolver");

@@ -316,7 +316,7 @@ public class CrossOriginTests {
 			Object handler = chain.getHandler();
 			assertThat(handler.getClass().getSimpleName().equals("PreFlightHandler")).isTrue();
 			DirectFieldAccessor accessor = new DirectFieldAccessor(handler);
-			return (CorsConfiguration)accessor.getPropertyValue("config");
+			return (CorsConfiguration)accessor.getPropertyValue("com.mxk.config");
 		}
 		else {
 			HandlerInterceptor[] interceptors = chain.getInterceptors();
@@ -324,7 +324,7 @@ public class CrossOriginTests {
 				for (HandlerInterceptor interceptor : interceptors) {
 					if (interceptor.getClass().getSimpleName().equals("CorsInterceptor")) {
 						DirectFieldAccessor accessor = new DirectFieldAccessor(interceptor);
-						return (CorsConfiguration) accessor.getPropertyValue("config");
+						return (CorsConfiguration) accessor.getPropertyValue("com.mxk.config");
 					}
 				}
 			}

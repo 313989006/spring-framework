@@ -343,11 +343,11 @@ The following table summarizes the strategy for converting `String` objects to `
 | Prefix| Example| Explanation
 
 | classpath:
-| `classpath:com/myapp/config.xml`
+| `classpath:com/myapp/com.mxk.config.xml`
 | Loaded from the classpath.
 
 | file:
-| `file:///data/config.xml`
+| `file:///data/com.mxk.config.xml`
 | Loaded as a `URL` from the filesystem. See also <<resources-filesystemresource-caveats>>.
 
 | http:
@@ -355,7 +355,7 @@ The following table summarizes the strategy for converting `String` objects to `
 | Loaded as a `URL`.
 
 | (none)
-| `/data/config.xml`
+| `/data/com.mxk.config.xml`
 | Depends on the underlying `ApplicationContext`.
 |===
 
@@ -709,14 +709,14 @@ Consider the following example of a resource location:
 
 [literal,subs="verbatim,quotes"]
 ----
-com/mycompany/package1/service-context.xml
+com/mycompany/package1/com.mxk.service-context.xml
 ----
 
 Now consider an Ant-style path that someone might use to try to find that file:
 
 [literal,subs="verbatim,quotes"]
 ----
-classpath:com/mycompany/**/service-context.xml
+classpath:com/mycompany/**/com.mxk.service-context.xml
 ----
 
 Such a resource may be in only one location, but when a path such as the preceding example

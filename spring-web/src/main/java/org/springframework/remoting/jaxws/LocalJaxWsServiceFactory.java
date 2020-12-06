@@ -65,7 +65,7 @@ public class LocalJaxWsServiceFactory {
 
 
 	/**
-	 * Set the URL of the WSDL document that describes the service.
+	 * Set the URL of the WSDL document that describes the com.mxk.service.
 	 * @see #setWsdlDocumentResource(Resource)
 	 */
 	public void setWsdlDocumentUrl(@Nullable URL wsdlDocumentUrl) {
@@ -82,7 +82,7 @@ public class LocalJaxWsServiceFactory {
 	}
 
 	/**
-	 * Return the URL of the WSDL document that describes the service.
+	 * Return the URL of the WSDL document that describes the com.mxk.service.
 	 */
 	@Nullable
 	public URL getWsdlDocumentUrl() {
@@ -90,7 +90,7 @@ public class LocalJaxWsServiceFactory {
 	}
 
 	/**
-	 * Set the namespace URI of the service.
+	 * Set the namespace URI of the com.mxk.service.
 	 * Corresponds to the WSDL "targetNamespace".
 	 */
 	public void setNamespaceUri(@Nullable String namespaceUri) {
@@ -98,7 +98,7 @@ public class LocalJaxWsServiceFactory {
 	}
 
 	/**
-	 * Return the namespace URI of the service.
+	 * Return the namespace URI of the com.mxk.service.
 	 */
 	@Nullable
 	public String getNamespaceUri() {
@@ -106,15 +106,15 @@ public class LocalJaxWsServiceFactory {
 	}
 
 	/**
-	 * Set the name of the service to look up.
-	 * Corresponds to the "wsdl:service" name.
+	 * Set the name of the com.mxk.service to look up.
+	 * Corresponds to the "wsdl:com.mxk.service" name.
 	 */
 	public void setServiceName(@Nullable String serviceName) {
 		this.serviceName = serviceName;
 	}
 
 	/**
-	 * Return the name of the service.
+	 * Return the name of the com.mxk.service.
 	 */
 	@Nullable
 	public String getServiceName() {
@@ -123,7 +123,7 @@ public class LocalJaxWsServiceFactory {
 
 	/**
 	 * Specify WebServiceFeature objects (e.g. as inner bean definitions)
-	 * to apply to JAX-WS service creation.
+	 * to apply to JAX-WS com.mxk.service creation.
 	 * @since 4.0
 	 * @see Service#create(QName, WebServiceFeature...)
 	 */
@@ -156,7 +156,7 @@ public class LocalJaxWsServiceFactory {
 	 * @see #setWsdlDocumentUrl
 	 */
 	public Service createJaxWsService() {
-		Assert.notNull(this.serviceName, "No service name specified");
+		Assert.notNull(this.serviceName, "No com.mxk.service name specified");
 		Service service;
 
 		if (this.serviceFeatures != null) {

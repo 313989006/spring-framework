@@ -52,7 +52,7 @@ public class MultipartBodyBuilderTests {
 		HttpHeaders entityHeaders = new HttpHeaders();
 		entityHeaders.add("foo", "bar");
 		HttpEntity<String> entity = new HttpEntity<>("body", entityHeaders);
-		builder.part("entity", entity).header("baz", "qux");
+		builder.part("com.mxk.entity", entity).header("baz", "qux");
 
 		Publisher<String> publisher = Flux.just("foo", "bar", "baz");
 		builder.asyncPart("publisherClass", publisher, String.class).header("baz", "qux");
@@ -71,7 +71,7 @@ public class MultipartBodyBuilderTests {
 		assertThat(resultEntity.getBody()).isEqualTo(logo);
 		assertThat(resultEntity.getHeaders().getFirst("baz")).isEqualTo("qux");
 
-		resultEntity = result.getFirst("entity");
+		resultEntity = result.getFirst("com.mxk.entity");
 		assertThat(resultEntity).isNotNull();
 		assertThat(resultEntity.getBody()).isEqualTo("body");
 		assertThat(resultEntity.getHeaders().getFirst("foo")).isEqualTo("bar");

@@ -48,7 +48,7 @@ import org.springframework.util.StringUtils;
  * JDK's introspection facilities themselves.
  *
  * <p>As a general rule for runtime-retained application annotations (e.g. for
- * transaction control, authorization, or service exposure), always use the
+ * transaction control, authorization, or com.mxk.service exposure), always use the
  * lookup methods on this class (e.g. {@link #findAnnotation(Method, Class)} or
  * {@link #getAnnotation(Method, Class)}) instead of the plain annotation lookup
  * methods in the JDK. You can still explicitly choose between a <em>get</em>

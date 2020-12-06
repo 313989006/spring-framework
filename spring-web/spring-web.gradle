@@ -74,7 +74,7 @@ dependencies {
 	testCompile("org.xmlunit:xmlunit-matchers")
 	testRuntime("com.sun.mail:javax.mail")
 	testRuntime("com.sun.xml.bind:jaxb-core")
-	testRuntime("com.sun.xml.bind:jaxb-impl")
+	testRuntime("com.sun.xml.bind:jaxb-com.mxk.service.impl")
 	testRuntime("javax.json:javax.json-api")
 	testRuntime("org.apache.johnzon:johnzon-jsonb")
 	testFixturesApi("javax.servlet:javax.servlet-api")

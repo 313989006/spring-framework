@@ -378,7 +378,7 @@ public class RmiSupportTests {
 		factory.afterPropertiesSet();
 		IBusinessBean proxy = (IBusinessBean) factory.getObject();
 
-		// shouldn't go through to remote service
+		// shouldn't go through to remote com.mxk.service
 		assertThat(proxy.toString().contains("RMI invoker")).isTrue();
 		assertThat(proxy.toString().contains(serviceUrl)).isTrue();
 		assertThat(proxy.hashCode()).isEqualTo(proxy.hashCode());

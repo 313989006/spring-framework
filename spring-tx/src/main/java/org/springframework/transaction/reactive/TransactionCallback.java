@@ -25,7 +25,7 @@ import org.springframework.transaction.ReactiveTransaction;
  * {@code execute} method, often as anonymous class within a method implementation.
  *
  * <p>Typically used to assemble various calls to transaction-unaware data access
- * services into a higher-level service method with transaction demarcation. As an
+ * services into a higher-level com.mxk.service method with transaction demarcation. As an
  * alternative, consider the use of declarative transaction demarcation (e.g. through
  * Spring's {@link org.springframework.transaction.annotation.Transactional} annotation).
  *

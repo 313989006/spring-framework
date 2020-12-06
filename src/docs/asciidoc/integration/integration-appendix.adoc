@@ -187,7 +187,7 @@ without `jee`:
 	<bean id="simple"
 			class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
 		<property name="jndiName" value="ejb/RentalServiceBean"/>
-		<property name="businessInterface" value="com.foo.service.RentalService"/>
+		<property name="businessInterface" value="com.foo.com.mxk.service.RentalService"/>
 	</bean>
 ----
 
@@ -198,7 +198,7 @@ with `jee`:
 [subs="verbatim,quotes"]
 ----
 	<jee:local-slsb id="simpleSlsb" jndi-name="ejb/RentalServiceBean"
-			business-interface="com.foo.service.RentalService"/>
+			business-interface="com.foo.com.mxk.service.RentalService"/>
 ----
 
 
@@ -217,7 +217,7 @@ and a number of properties without `jee`:
 	<bean id="complexLocalEjb"
 			class="org.springframework.ejb.access.LocalStatelessSessionProxyFactoryBean">
 		<property name="jndiName" value="ejb/RentalServiceBean"/>
-		<property name="businessInterface" value="com.example.service.RentalService"/>
+		<property name="businessInterface" value="com.example.com.mxk.service.RentalService"/>
 		<property name="cacheHome" value="true"/>
 		<property name="lookupHomeOnStartup" value="true"/>
 		<property name="resourceRef" value="true"/>
@@ -232,7 +232,7 @@ and a number of properties with `jee`:
 ----
 	<jee:local-slsb id="complexLocalEjb"
 			jndi-name="ejb/RentalServiceBean"
-			business-interface="com.foo.service.RentalService"
+			business-interface="com.foo.com.mxk.service.RentalService"
 			cache-home="true"
 			lookup-home-on-startup="true"
 			resource-ref="true">
@@ -253,11 +253,11 @@ without `jee`:
 	<bean id="complexRemoteEjb"
 			class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
 		<property name="jndiName" value="ejb/MyRemoteBean"/>
-		<property name="businessInterface" value="com.foo.service.RentalService"/>
+		<property name="businessInterface" value="com.foo.com.mxk.service.RentalService"/>
 		<property name="cacheHome" value="true"/>
 		<property name="lookupHomeOnStartup" value="true"/>
 		<property name="resourceRef" value="true"/>
-		<property name="homeInterface" value="com.foo.service.RentalService"/>
+		<property name="homeInterface" value="com.foo.com.mxk.service.RentalService"/>
 		<property name="refreshHomeOnConnectFailure" value="true"/>
 	</bean>
 ----
@@ -270,11 +270,11 @@ with `jee`:
 ----
 	<jee:remote-slsb id="complexRemoteEjb"
 			jndi-name="ejb/MyRemoteBean"
-			business-interface="com.foo.service.RentalService"
+			business-interface="com.foo.com.mxk.service.RentalService"
 			cache-home="true"
 			lookup-home-on-startup="true"
 			resource-ref="true"
-			home-interface="com.foo.service.RentalService"
+			home-interface="com.foo.com.mxk.service.RentalService"
 			refresh-home-on-connect-failure="true">
 ----
 

@@ -1,5 +1,5 @@
 /**
- * Support classes for integrating a JSF web layer with a Spring service layer
+ * Support classes for integrating a JSF web layer with a Spring com.mxk.service layer
  * which is hosted in a Spring root WebApplicationContext.
  *
  * <p>Supports easy access to beans in the Spring root WebApplicationContext

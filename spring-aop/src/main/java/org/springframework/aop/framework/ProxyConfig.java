@@ -141,8 +141,8 @@ public class ProxyConfig implements Serializable {
 	}
 
 	/**
-	 * Set whether this config should be frozen.
-	 * <p>When a config is frozen, no advice changes can be made. This is
+	 * Set whether this com.mxk.config should be frozen.
+	 * <p>When a com.mxk.config is frozen, no advice changes can be made. This is
 	 * useful for optimization, and useful when we don't want callers to
 	 * be able to manipulate configuration after casting to Advised.
 	 */
@@ -151,7 +151,7 @@ public class ProxyConfig implements Serializable {
 	}
 
 	/**
-	 * Return whether the config is frozen, and no advice changes can be made.
+	 * Return whether the com.mxk.config is frozen, and no advice changes can be made.
 	 */
 	public boolean isFrozen() {
 		return this.frozen;
@@ -159,7 +159,7 @@ public class ProxyConfig implements Serializable {
 
 
 	/**
-	 * Copy configuration from the other config object.
+	 * Copy configuration from the other com.mxk.config object.
 	 * @param other object to copy configuration from
 	 */
 	public void copyFrom(ProxyConfig other) {

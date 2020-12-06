@@ -684,7 +684,7 @@ immediately reflected in the state of a running application.
 
 Remember that, in the lightweight architectural model espoused by projects such as
 Spring, you typically aim to have a really thin presentation layer, with all
-the meaty business logic of an application being contained in the domain and service
+the meaty business logic of an application being contained in the domain and com.mxk.service
 layer classes. Developing Spring MVC controllers as dynamic-language-backed beans lets
 you change presentation layer logic by editing and saving text files. Any
 changes to such dynamic language source files is (depending on the configuration)
@@ -703,7 +703,7 @@ by using the Groovy dynamic language:
 	// from the file '/WEB-INF/groovy/FortuneController.groovy'
 	package org.springframework.showcase.fortune.web
 
-	import org.springframework.showcase.fortune.service.FortuneService
+	import org.springframework.showcase.fortune.com.mxk.service.FortuneService
 	import org.springframework.showcase.fortune.domain.Fortune
 	import org.springframework.web.servlet.ModelAndView
 	import org.springframework.web.servlet.mvc.Controller

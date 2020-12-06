@@ -46,7 +46,7 @@ import org.springframework.web.context.request.async.WebAsyncUtils;
  * the original transactions already being completed.
  *
  * <p>This interceptor makes Hibernate Sessions available via the current thread,
- * which will be autodetected by transaction managers. It is suitable for service layer
+ * which will be autodetected by transaction managers. It is suitable for com.mxk.service layer
  * transactions via {@link org.springframework.orm.hibernate5.HibernateTransactionManager}
  * as well as for non-transactional execution (if configured appropriately).
  *

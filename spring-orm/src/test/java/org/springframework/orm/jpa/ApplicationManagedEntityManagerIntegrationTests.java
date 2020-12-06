@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * An application-managed entity manager can join an existing transaction,
+ * An application-managed com.mxk.entity manager can join an existing transaction,
  * but such joining must be made programmatically, not transactionally.
  *
  * @author Rod Johnson

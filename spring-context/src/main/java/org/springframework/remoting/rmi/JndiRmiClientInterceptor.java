@@ -45,9 +45,9 @@ import org.springframework.util.Assert;
  * this accessor also performs narrowing through PortableRemoteObject.
  *
  * <p>With conventional RMI services, this invoker is typically used with the RMI
- * service interface. Alternatively, this invoker can also proxy a remote RMI service
+ * com.mxk.service interface. Alternatively, this invoker can also proxy a remote RMI com.mxk.service
  * with a matching non-RMI business interface, i.e. an interface that mirrors the RMI
- * service methods but does not declare RemoteExceptions. In the latter case,
+ * com.mxk.service methods but does not declare RemoteExceptions. In the latter case,
  * RemoteExceptions thrown by the RMI stub will automatically get converted to
  * Spring's unchecked RemoteAccessException.
  *
@@ -93,9 +93,9 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 
 
 	/**
-	 * Set the interface of the service to access.
-	 * The interface must be suitable for the particular service and remoting tool.
-	 * <p>Typically required to be able to create a suitable service proxy,
+	 * Set the interface of the com.mxk.service to access.
+	 * The interface must be suitable for the particular com.mxk.service and remoting tool.
+	 * <p>Typically required to be able to create a suitable com.mxk.service proxy,
 	 * but can also be optional if the lookup returns a typed stub.
 	 */
 	public void setServiceInterface(Class<?> serviceInterface) {
@@ -105,7 +105,7 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 	}
 
 	/**
-	 * Return the interface of the service to access.
+	 * Return the interface of the com.mxk.service to access.
 	 */
 	public Class<?> getServiceInterface() {
 		return this.serviceInterface;
@@ -199,7 +199,7 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 				}
 				else if (getServiceInterface() != null) {
 					boolean isImpl = getServiceInterface().isInstance(remoteObj);
-					logger.debug("Using service interface [" + getServiceInterface().getName() +
+					logger.debug("Using com.mxk.service interface [" + getServiceInterface().getName() +
 							"] for JNDI RMI object [" + getJndiName() + "] - " +
 							(!isImpl ? "not " : "") + "directly implemented");
 				}
@@ -214,7 +214,7 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 	 * Create the RMI stub, typically by looking it up.
 	 * <p>Called on interceptor initialization if "cacheStub" is "true";
 	 * else called for each invocation by {@link #getStub()}.
-	 * <p>The default implementation retrieves the service from the
+	 * <p>The default implementation retrieves the com.mxk.service from the
 	 * JNDI environment. This can be overridden in subclasses.
 	 * @return the RMI stub to store in this interceptor
 	 * @throws RemoteLookupFailureException if RMI stub creation failed
@@ -226,7 +226,7 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 			return lookup();
 		}
 		catch (NamingException ex) {
-			throw new RemoteLookupFailureException("JNDI lookup for RMI service [" + getJndiName() + "] failed", ex);
+			throw new RemoteLookupFailureException("JNDI lookup for RMI com.mxk.service [" + getJndiName() + "] failed", ex);
 		}
 	}
 
@@ -274,7 +274,7 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 			stub = getStub();
 		}
 		catch (NamingException ex) {
-			throw new RemoteLookupFailureException("JNDI lookup for RMI service [" + getJndiName() + "] failed", ex);
+			throw new RemoteLookupFailureException("JNDI lookup for RMI com.mxk.service [" + getJndiName() + "] failed", ex);
 		}
 
 		Context ctx = (this.exposeAccessContext ? getJndiTemplate().getContext() : null);
@@ -320,10 +320,10 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 	private Object handleRemoteConnectFailure(MethodInvocation invocation, Exception ex) throws Throwable {
 		if (this.refreshStubOnConnectFailure) {
 			if (logger.isDebugEnabled()) {
-				logger.debug("Could not connect to RMI service [" + getJndiName() + "] - retrying", ex);
+				logger.debug("Could not connect to RMI com.mxk.service [" + getJndiName() + "] - retrying", ex);
 			}
 			else if (logger.isInfoEnabled()) {
-				logger.info("Could not connect to RMI service [" + getJndiName() + "] - retrying");
+				logger.info("Could not connect to RMI com.mxk.service [" + getJndiName() + "] - retrying");
 			}
 			return refreshAndRetry(invocation);
 		}
@@ -376,7 +376,7 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 			}
 			catch (Throwable ex) {
 				throw new RemoteInvocationFailureException("Invocation of method [" + invocation.getMethod() +
-						"] failed in RMI service [" + getJndiName() + "]", ex);
+						"] failed in RMI com.mxk.service [" + getJndiName() + "]", ex);
 			}
 		}
 		else {
@@ -412,7 +412,7 @@ public class JndiRmiClientInterceptor extends JndiObjectLocator implements Metho
 			throws RemoteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
 		if (AopUtils.isToStringMethod(methodInvocation.getMethod())) {
-			return "RMI invoker proxy for service URL [" + getJndiName() + "]";
+			return "RMI invoker proxy for com.mxk.service URL [" + getJndiName() + "]";
 		}
 
 		return invocationHandler.invoke(createRemoteInvocation(methodInvocation));

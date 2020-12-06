@@ -141,7 +141,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
 						profileSpec, BeanDefinitionParserDelegate.MULTI_VALUE_ATTRIBUTE_DELIMITERS);
 				// We cannot use Profiles.of(...) since profile expressions are not supported
-				// in XML config. See SPR-12458 for details.
+				// in XML com.mxk.config. See SPR-12458 for details.
 				// 判断这个切面是否是激活的环境，如果不是直接返回，表示这个配置文件不是当前运行环境的配置文件
 				if (!getReaderContext().getEnvironment().acceptsProfiles(specifiedProfiles)) {
 					if (logger.isDebugEnabled()) {

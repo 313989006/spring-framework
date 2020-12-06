@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 class MBeanServerConnectionFactoryBeanTests extends AbstractMBeanServerTests {
 
-	private final String serviceUrl = "service:jmx:jmxmp://localhost:" + SocketUtils.findAvailableTcpPort();
+	private final String serviceUrl = "com.mxk.service:jmx:jmxmp://localhost:" + SocketUtils.findAvailableTcpPort();
 
 
 	@Test

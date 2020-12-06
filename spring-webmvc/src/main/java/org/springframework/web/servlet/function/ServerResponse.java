@@ -281,8 +281,8 @@ public interface ServerResponse {
 		B allow(Set<HttpMethod> allowedMethods);
 
 		/**
-		 * Set the entity tag of the body, as specified by the {@code ETag} header.
-		 * @param eTag the new entity tag
+		 * Set the com.mxk.entity tag of the body, as specified by the {@code ETag} header.
+		 * @param eTag the new com.mxk.entity tag
 		 * @return this builder
 		 * @see HttpHeaders#setETag(String)
 		 */
@@ -336,12 +336,12 @@ public interface ServerResponse {
 		B varyBy(String... requestHeaders);
 
 		/**
-		 * Build the response entity with no body.
+		 * Build the response com.mxk.entity with no body.
 		 */
 		ServerResponse build();
 
 		/**
-		 * Build the response entity with a custom write function.
+		 * Build the response com.mxk.entity with a custom write function.
 		 * @param writeFunction the function used to write to the {@link HttpServletResponse}
 		 */
 		ServerResponse build(BiFunction<HttpServletRequest, HttpServletResponse,

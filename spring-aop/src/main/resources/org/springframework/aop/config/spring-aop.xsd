@@ -16,7 +16,7 @@
 		]]></xsd:documentation>
 	</xsd:annotation>
 
-	<xsd:element name="config">
+	<xsd:element name="com.mxk.config">
 		<xsd:annotation>
 			<xsd:documentation><![CDATA[
 	A section (compartmentalization) of AOP-specific configuration (including
@@ -238,7 +238,7 @@
 				<xsd:documentation><![CDATA[
 	The pointcut expression.
 
-	For example : 'execution(* com.xyz.myapp.service.*.*(..))'
+	For example : 'execution(* com.xyz.myapp.com.mxk.service.*.*(..))'
 				]]></xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
@@ -262,7 +262,7 @@
 				]]></xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
-		<xsd:attribute name="default-impl" type="xsd:string">
+		<xsd:attribute name="default-com.mxk.service.impl" type="xsd:string">
 			<xsd:annotation>
 				<xsd:documentation source="java:java.lang.Class"><![CDATA[
 	The fully qualified name of the class that will be instantiated to serve

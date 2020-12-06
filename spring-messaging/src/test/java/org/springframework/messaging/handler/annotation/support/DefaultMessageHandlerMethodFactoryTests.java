@@ -79,7 +79,7 @@ public class DefaultMessageHandlerMethodFactoryTests {
 	public void customConversionServiceFailure() throws Exception {
 		DefaultMessageHandlerMethodFactory instance = createInstance();
 		GenericConversionService conversionService = new GenericConversionService();
-		assertThat(conversionService.canConvert(Integer.class, String.class)).as("conversion service should fail to convert payload").isFalse();
+		assertThat(conversionService.canConvert(Integer.class, String.class)).as("conversion com.mxk.service should fail to convert payload").isFalse();
 		instance.setConversionService(conversionService);
 		instance.afterPropertiesSet();
 

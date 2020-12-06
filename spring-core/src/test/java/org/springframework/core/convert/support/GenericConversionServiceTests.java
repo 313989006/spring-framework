@@ -346,7 +346,7 @@ class GenericConversionServiceTests {
 	@EnabledForTestGroups(PERFORMANCE)
 	void testPerformance2() throws Exception {
 		StopWatch watch = new StopWatch("list<string> -> list<integer> conversionPerformance");
-		watch.start("convert 4,000,000 with conversion service");
+		watch.start("convert 4,000,000 with conversion com.mxk.service");
 		List<String> source = new LinkedList<>();
 		source.add("1");
 		source.add("2");
@@ -371,7 +371,7 @@ class GenericConversionServiceTests {
 	@EnabledForTestGroups(PERFORMANCE)
 	void testPerformance3() throws Exception {
 		StopWatch watch = new StopWatch("map<string, string> -> map<string, integer> conversionPerformance");
-		watch.start("convert 4,000,000 with conversion service");
+		watch.start("convert 4,000,000 with conversion com.mxk.service");
 		Map<String, String> source = new HashMap<>();
 		source.put("1", "1");
 		source.put("2", "2");

@@ -1,6 +1,6 @@
 --
 -- In your Quartz properties file, you'll need to set 
--- org.quartz.jobStore.driverDelegateClass = org.quartz.impl.jdbcjobstore.HSQLDBDelegate
+-- org.quartz.jobStore.driverDelegateClass = org.quartz.com.mxk.service.impl.jdbcjobstore.HSQLDBDelegate
 --
 -- Column lengths are only suggestions.  For names, groups, use at least 40 chars.
 -- for blobs (VARBINARY) use a size that is sure to meet the needs of the amount of data

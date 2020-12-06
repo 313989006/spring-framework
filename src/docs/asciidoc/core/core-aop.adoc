@@ -25,7 +25,7 @@ The lower-level AOP support is discussed in <<aop-api, the following chapter>>.
 
 AOP is used in the Spring Framework to:
 
-* Provide declarative enterprise services. The most important such service is
+* Provide declarative enterprise services. The most important such com.mxk.service is
   <<data-access.adoc#transaction-declarative, declarative transaction management>>.
 * Let users implement custom aspects, complementing their use of OOP with AOP.
 
@@ -110,7 +110,7 @@ The concept of join points matched by pointcuts is the key to AOP, which disting
 it from older technologies offering only interception. Pointcuts enable advice to be
 targeted independently of the object-oriented hierarchy. For example, you can apply an
 around advice providing declarative transaction management to a set of methods that span
-multiple objects (such as all business operations in the service layer).
+multiple objects (such as all business operations in the com.mxk.service layer).
 
 
 
@@ -549,11 +549,11 @@ for this purpose. Such an aspect typically resembles the following example:
 		public void inWebLayer() {}
 
 		/**
-		 * A join point is in the service layer if the method is defined
-		 * in a type in the com.xyz.myapp.service package or any sub-package
+		 * A join point is in the com.mxk.service layer if the method is defined
+		 * in a type in the com.xyz.myapp.com.mxk.service package or any sub-package
 		 * under that.
 		 */
-		@Pointcut("within(com.xyz.myapp.service..*)")
+		@Pointcut("within(com.xyz.myapp.com.mxk.service..*)")
 		public void inServiceLayer() {}
 
 		/**
@@ -565,20 +565,20 @@ for this purpose. Such an aspect typically resembles the following example:
 		public void inDataAccessLayer() {}
 
 		/**
-		 * A business service is the execution of any method defined on a service
+		 * A business com.mxk.service is the execution of any method defined on a com.mxk.service
 		 * interface. This definition assumes that interfaces are placed in the
-		 * "service" package, and that implementation types are in sub-packages.
+		 * "com.mxk.service" package, and that implementation types are in sub-packages.
 		 *
-		 * If you group service interfaces by functional area (for example,
-		 * in packages com.xyz.myapp.abc.service and com.xyz.myapp.def.service) then
-		 * the pointcut expression "execution(* com.xyz.myapp..service.*.*(..))"
+		 * If you group com.mxk.service interfaces by functional area (for example,
+		 * in packages com.xyz.myapp.abc.com.mxk.service and com.xyz.myapp.def.com.mxk.service) then
+		 * the pointcut expression "execution(* com.xyz.myapp..com.mxk.service.*.*(..))"
 		 * could be used instead.
 		 *
 		 * Alternatively, you can write the expression using the 'bean'
 		 * PCD, like so "bean(*Service)". (This assumes that you have
-		 * named your Spring service beans in a consistent fashion.)
+		 * named your Spring com.mxk.service beans in a consistent fashion.)
 		 */
-		@Pointcut("execution(* com.xyz.myapp..service.*.*(..))")
+		@Pointcut("execution(* com.xyz.myapp..com.mxk.service.*.*(..))")
 		public void businessService() {}
 
 		/**
@@ -612,11 +612,11 @@ for this purpose. Such an aspect typically resembles the following example:
 		}
 
 		/**
-		* A join point is in the service layer if the method is defined
-		* in a type in the com.xyz.myapp.service package or any sub-package
+		* A join point is in the com.mxk.service layer if the method is defined
+		* in a type in the com.xyz.myapp.com.mxk.service package or any sub-package
 		* under that.
 		*/
-		@Pointcut("within(com.xyz.myapp.service..*)")
+		@Pointcut("within(com.xyz.myapp.com.mxk.service..*)")
 		fun inServiceLayer() {
 		}
 
@@ -630,20 +630,20 @@ for this purpose. Such an aspect typically resembles the following example:
 		}
 
 		/**
-		* A business service is the execution of any method defined on a service
+		* A business com.mxk.service is the execution of any method defined on a com.mxk.service
 		* interface. This definition assumes that interfaces are placed in the
-		* "service" package, and that implementation types are in sub-packages.
+		* "com.mxk.service" package, and that implementation types are in sub-packages.
 		*
-		* If you group service interfaces by functional area (for example,
-		* in packages com.xyz.myapp.abc.service and com.xyz.myapp.def.service) then
-		* the pointcut expression "execution(* com.xyz.myapp..service.*.*(..))"
+		* If you group com.mxk.service interfaces by functional area (for example,
+		* in packages com.xyz.myapp.abc.com.mxk.service and com.xyz.myapp.def.com.mxk.service) then
+		* the pointcut expression "execution(* com.xyz.myapp..com.mxk.service.*.*(..))"
 		* could be used instead.
 		*
 		* Alternatively, you can write the expression using the 'bean'
 		* PCD, like so "bean(*Service)". (This assumes that you have
-		* named your Spring service beans in a consistent fashion.)
+		* named your Spring com.mxk.service beans in a consistent fashion.)
 		*/
-		@Pointcut("execution(* com.xyz.myapp..service.*.*(..))")
+		@Pointcut("execution(* com.xyz.myapp..com.mxk.service.*.*(..))")
 		fun businessService() {
 		}
 
@@ -660,16 +660,16 @@ for this purpose. Such an aspect typically resembles the following example:
 ----
 
 You can refer to the pointcuts defined in such an aspect anywhere you need a
-pointcut expression. For example, to make the service layer transactional, you could
+pointcut expression. For example, to make the com.mxk.service layer transactional, you could
 write the following:
 
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 		<aop:advisor
 			pointcut="com.xyz.myapp.CommonPointcuts.businessService()"
 			advice-ref="tx-advice"/>
-	</aop:config>
+	</aop:com.mxk.config>
 
 	<tx:advice id="tx-advice">
 		<tx:attributes>
@@ -678,7 +678,7 @@ write the following:
 	</tx:advice>
 ----
 
-The `<aop:config>` and `<aop:advisor>` elements are discussed in <<aop-schema>>. The
+The `<aop:com.mxk.config>` and `<aop:advisor>` elements are discussed in <<aop-schema>>. The
 transaction elements are discussed in <<data-access.adoc#transaction, Transaction Management>>.
 
 
@@ -730,36 +730,36 @@ The following examples show some common pointcut expressions:
 +
 [literal,subs="verbatim,quotes"]
 ----
-	execution(* com.xyz.service.AccountService.*(..))
+	execution(* com.xyz.com.mxk.service.AccountService.*(..))
 ----
 
-* The execution of any method defined in the `service` package:
+* The execution of any method defined in the `com.mxk.service` package:
 +
 [literal,subs="verbatim,quotes"]
 ----
-	execution(* com.xyz.service.\*.*(..))
+	execution(* com.xyz.com.mxk.service.\*.*(..))
 ----
 
-* The execution of any method defined in the service package or one of its sub-packages:
+* The execution of any method defined in the com.mxk.service package or one of its sub-packages:
 +
 [literal,subs="verbatim,quotes"]
 ----
-	execution(* com.xyz.service..\*.*(..))
+	execution(* com.xyz.com.mxk.service..\*.*(..))
 ----
 
-* Any join point (method execution only in Spring AOP) within the service package:
+* Any join point (method execution only in Spring AOP) within the com.mxk.service package:
 +
 [literal,subs="verbatim,quotes"]
 ----
-	within(com.xyz.service.*)
+	within(com.xyz.com.mxk.service.*)
 ----
 
-* Any join point (method execution only in Spring AOP) within the service package or one of its
+* Any join point (method execution only in Spring AOP) within the com.mxk.service package or one of its
 sub-packages:
 +
 [literal,subs="verbatim,quotes"]
 ----
-	within(com.xyz.service..*)
+	within(com.xyz.com.mxk.service..*)
 ----
 
 * Any join point (method execution only in Spring AOP) where the proxy implements the
@@ -767,7 +767,7 @@ sub-packages:
 +
 [literal,subs="verbatim,quotes"]
 ----
-	this(com.xyz.service.AccountService)
+	this(com.xyz.com.mxk.service.AccountService)
 ----
 +
 NOTE: 'this' is more commonly used in a binding form. See the section on <<aop-advice>>
@@ -778,7 +778,7 @@ implements the `AccountService` interface:
 +
 [literal,subs="verbatim,quotes"]
 ----
-	target(com.xyz.service.AccountService)
+	target(com.xyz.com.mxk.service.AccountService)
 ----
 +
 NOTE: 'target' is more commonly used in a binding form. See the <<aop-advice>> section
@@ -1229,7 +1229,7 @@ behavior of `proceed` for around advice compiled by the AspectJ compiler. For ar
 advice written using the traditional AspectJ language, the number of arguments passed to
 `proceed` must match the number of arguments passed to the around advice (not the number
 of arguments taken by the underlying join point), and the value passed to proceed in a
-given argument position supplants the original value at the join point for the entity
+given argument position supplants the original value at the join point for the com.mxk.entity
 the value was bound to (do not worry if this does not make sense right now). The approach
 taken by Spring is simpler and a better match to its proxy-based, execution-only
 semantics. You only need to be aware of this difference if you compile @AspectJ
@@ -1681,7 +1681,7 @@ that interface on behalf of those objects.
 You can make an introduction by using the `@DeclareParents` annotation. This annotation is used
 to declare that matching types have a new parent (hence the name). For example, given an
 interface named `UsageTracked` and an implementation of that interface named `DefaultUsageTracked`,
-the following aspect declares that all implementors of service interfaces also implement
+the following aspect declares that all implementors of com.mxk.service interfaces also implement
 the `UsageTracked` interface (to expose statistics via JMX for example):
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
@@ -1690,7 +1690,7 @@ the `UsageTracked` interface (to expose statistics via JMX for example):
 	@Aspect
 	public class UsageTracking {
 
-		@DeclareParents(value="com.xzy.myapp.service.*+", defaultImpl=DefaultUsageTracked.class)
+		@DeclareParents(value="com.xzy.myapp.com.mxk.service.*+", defaultImpl=DefaultUsageTracked.class)
 		public static UsageTracked mixin;
 
 		@Before("com.xyz.myapp.CommonPointcuts.businessService() && this(usageTracked)")
@@ -1707,7 +1707,7 @@ the `UsageTracked` interface (to expose statistics via JMX for example):
 	class UsageTracking {
 
 		companion object {
-			@DeclareParents(value = "com.xzy.myapp.service.*+", defaultImpl = DefaultUsageTracked::class)
+			@DeclareParents(value = "com.xzy.myapp.com.mxk.service.*+", defaultImpl = DefaultUsageTracked::class)
 			lateinit var mixin: UsageTracked
 		}
 
@@ -1721,7 +1721,7 @@ the `UsageTracked` interface (to expose statistics via JMX for example):
 The interface to be implemented is determined by the type of the annotated field. The
 `value` attribute of the `@DeclareParents` annotation is an AspectJ type pattern. Any
 bean of a matching type implements the `UsageTracked` interface. Note that, in the
-before advice of the preceding example, service beans can be directly used as
+before advice of the preceding example, com.mxk.service beans can be directly used as
 implementations of the `UsageTracked` interface. If accessing a bean programmatically,
 you would write the following:
 
@@ -1784,13 +1784,13 @@ annotation. Consider the following example:
 ----
 
 In the preceding example, the effect of the `perthis` clause is that one aspect instance
-is created for each unique service object that performs a business service (each unique
+is created for each unique com.mxk.service object that performs a business com.mxk.service (each unique
 object bound to `this` at join points matched by the pointcut expression). The aspect
-instance is created the first time that a method is invoked on the service object. The
-aspect goes out of scope when the service object goes out of scope. Before the aspect
+instance is created the first time that a method is invoked on the com.mxk.service object. The
+aspect goes out of scope when the com.mxk.service object goes out of scope. Before the aspect
 instance is created, none of the advice within it runs. As soon as the aspect instance
 has been created, the advice declared within it runs at matched join points, but only
-when the service object is the one with which this aspect is associated. See the AspectJ
+when the com.mxk.service object is the one with which this aspect is associated. See the AspectJ
 Programming Guide for more information on `per` clauses.
 
 The `pertarget` instantiation model works in exactly the same way as `perthis`, but it
@@ -1810,7 +1810,7 @@ on the next try. For business services where it is appropriate to retry in such
 conditions (idempotent operations that do not need to go back to the user for conflict
 resolution), we want to transparently retry the operation to avoid the client seeing a
 `PessimisticLockingFailureException`. This is a requirement that clearly cuts across
-multiple services in the service layer and, hence, is ideal for implementing through an
+multiple services in the com.mxk.service layer and, hence, is ideal for implementing through an
 aspect.
 
 Because we want to retry the operation, we need to use around advice so that we can
@@ -1911,7 +1911,7 @@ The corresponding Spring configuration follows:
 ----
 	<aop:aspectj-autoproxy/>
 
-	<bean id="concurrentOperationExecutor" class="com.xyz.myapp.service.impl.ConcurrentOperationExecutor">
+	<bean id="concurrentOperationExecutor" class="com.xyz.myapp.com.mxk.service.com.mxk.service.impl.ConcurrentOperationExecutor">
 		<property name="maxRetries" value="3"/>
 		<property name="order" value="100"/>
 	</bean>
@@ -1935,7 +1935,7 @@ To refine the aspect so that it retries only idempotent operations, we might def
 	annotation class Idempotent// marker annotation
 ----
 
-We can then use the annotation to annotate the implementation of service operations. The change
+We can then use the annotation to annotate the implementation of com.mxk.service operations. The change
 to the aspect to retry only idempotent operations involves refining the pointcut
 expression so that only `@Idempotent` operations match, as follows:
 
@@ -1943,7 +1943,7 @@ expression so that only `@Idempotent` operations match, as follows:
 .Java
 ----
 	@Around("com.xyz.myapp.CommonPointcuts.businessService() && " +
-			"@annotation(com.xyz.myapp.service.Idempotent)")
+			"@annotation(com.xyz.myapp.com.mxk.service.Idempotent)")
 	public Object doConcurrentOperation(ProceedingJoinPoint pjp) throws Throwable {
 		// ...
 	}
@@ -1952,7 +1952,7 @@ expression so that only `@Idempotent` operations match, as follows:
 .Kotlin
 ----
 	@Around("com.xyz.myapp.CommonPointcuts.businessService() && " +
-			"@annotation(com.xyz.myapp.service.Idempotent)")
+			"@annotation(com.xyz.myapp.com.mxk.service.Idempotent)")
 	fun doConcurrentOperation(pjp: ProceedingJoinPoint): Any {
 		// ...
 	}
@@ -1976,15 +1976,15 @@ XML Schema-based configuration>>. See <<core.adoc#xsd-schemas-aop, the AOP schem
 for how to import the tags in the `aop` namespace.
 
 Within your Spring configurations, all aspect and advisor elements must be placed within
-an `<aop:config>` element (you can have more than one `<aop:config>` element in an
-application context configuration). An `<aop:config>` element can contain pointcut,
+an `<aop:com.mxk.config>` element (you can have more than one `<aop:com.mxk.config>` element in an
+application context configuration). An `<aop:com.mxk.config>` element can contain pointcut,
 advisor, and aspect elements (note that these must be declared in that order).
 
-WARNING: The `<aop:config>` style of configuration makes heavy use of Spring's
+WARNING: The `<aop:com.mxk.config>` style of configuration makes heavy use of Spring's
 <<aop-autoproxy, auto-proxying>> mechanism. This can cause issues (such as advice
 not being woven) if you already use explicit auto-proxying through the use of
 `BeanNameAutoProxyCreator` or something similar. The recommended usage pattern is to
-use either only the `<aop:config>` style or only the `AutoProxyCreator` style and
+use either only the `<aop:com.mxk.config>` style or only the `AutoProxyCreator` style and
 never mix them.
 
 
@@ -2001,11 +2001,11 @@ by using the `ref` attribute, as the following example shows:
 
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 		<aop:aspect id="myAspect" ref="aBean">
 			...
 		</aop:aspect>
-	</aop:config>
+	</aop:com.mxk.config>
 
 	<bean id="aBean" class="...">
 		...
@@ -2020,20 +2020,20 @@ dependency injected just like any other Spring bean.
 [[aop-schema-pointcuts]]
 === Declaring a Pointcut
 
-You can declare a named pointcut inside an `<aop:config>` element, letting the pointcut
+You can declare a named pointcut inside an `<aop:com.mxk.config>` element, letting the pointcut
 definition be shared across several aspects and advisors.
 
-A pointcut that represents the execution of any business service in the service layer can
+A pointcut that represents the execution of any business com.mxk.service in the com.mxk.service layer can
 be defined as follows:
 
 [source,xml,indent=0,subs="verbatim"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 
 		<aop:pointcut id="businessService"
-			expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+			expression="execution(* com.xyz.myapp.com.mxk.service.*.*(..))"/>
 
-	</aop:config>
+	</aop:com.mxk.config>
 ----
 
 Note that the pointcut expression itself is using the same AspectJ pointcut expression
@@ -2043,12 +2043,12 @@ pointcut expression. Another way of defining the above pointcut would be as foll
 
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 
 		<aop:pointcut id="businessService"
 			expression="com.xyz.myapp.CommonPointcuts.businessService()"/>
 
-	</aop:config>
+	</aop:com.mxk.config>
 ----
 
 Assume that you have a `CommonPointcuts` aspect as described in <<aop-common-pointcuts>>.
@@ -2058,18 +2058,18 @@ as the following example shows:
 
 [source,xml,indent=0,subs="verbatim"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 
 		<aop:aspect id="myAspect" ref="aBean">
 
 			<aop:pointcut id="businessService"
-				expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+				expression="execution(* com.xyz.myapp.com.mxk.service.*.*(..))"/>
 
 			...
 
 		</aop:aspect>
 
-	</aop:config>
+	</aop:com.mxk.config>
 ----
 
 In much the same way as an @AspectJ aspect, pointcuts declared by using the schema based
@@ -2078,12 +2078,12 @@ collects the `this` object as the join point context and passes it to the advice
 
 [source,xml,indent=0,subs="verbatim"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 
 		<aop:aspect id="myAspect" ref="aBean">
 
 			<aop:pointcut id="businessService"
-				expression="execution(* com.xyz.myapp.service.*.*(..)) &amp;&amp; this(service)"/>
+				expression="execution(* com.xyz.myapp.com.mxk.service.*.*(..)) &amp;&amp; this(com.mxk.service)"/>
 
 			<aop:before pointcut-ref="businessService" method="monitor"/>
 
@@ -2091,7 +2091,7 @@ collects the `this` object as the join point context and passes it to the advice
 
 		</aop:aspect>
 
-	</aop:config>
+	</aop:com.mxk.config>
 ----
 
 The advice must be declared to receive the collected join point context by including
@@ -2100,14 +2100,14 @@ parameters of the matching names, as follows:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	public void monitor(Object service) {
+	public void monitor(Object com.mxk.service) {
 		// ...
 	}
 ----
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	fun monitor(service: Any) {
+	fun monitor(com.mxk.service: Any) {
 		// ...
 	}
 ----
@@ -2119,18 +2119,18 @@ follows:
 
 [source,xml,indent=0,subs="verbatim"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 
 		<aop:aspect id="myAspect" ref="aBean">
 
 			<aop:pointcut id="businessService"
-				expression="execution(* com.xyz.myapp.service.*.*(..)) and this(service)"/>
+				expression="execution(* com.xyz.myapp.com.mxk.service.*.*(..)) and this(com.mxk.service)"/>
 
 			<aop:before pointcut-ref="businessService" method="monitor"/>
 
 			...
 		</aop:aspect>
-	</aop:config>
+	</aop:com.mxk.config>
 ----
 
 Note that pointcuts defined in this way are referred to by their XML `id` and cannot be
@@ -2166,7 +2166,7 @@ Before advice runs before a matched method execution. It is declared inside an
 	</aop:aspect>
 ----
 
-Here, `dataAccessOperation` is the `id` of a pointcut defined at the top (`<aop:config>`)
+Here, `dataAccessOperation` is the `id` of a pointcut defined at the top (`<aop:com.mxk.config>`)
 level. To define the pointcut inline instead, replace the `pointcut-ref` attribute with
 a `pointcut` attribute, as follows:
 
@@ -2406,7 +2406,7 @@ some around advice used in conjunction with a number of strongly typed parameter
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	package x.y.service;
+	package x.y.com.mxk.service;
 
 	public interface PersonService {
 
@@ -2423,7 +2423,7 @@ some around advice used in conjunction with a number of strongly typed parameter
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	package x.y.service
+	package x.y.com.mxk.service
 
 	interface PersonService {
 
@@ -2499,23 +2499,23 @@ preceding advice for a particular join point:
 			http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
 
 		<!-- this is the object that will be proxied by Spring's AOP infrastructure -->
-		<bean id="personService" class="x.y.service.DefaultPersonService"/>
+		<bean id="personService" class="x.y.com.mxk.service.DefaultPersonService"/>
 
 		<!-- this is the actual advice itself -->
 		<bean id="profiler" class="x.y.SimpleProfiler"/>
 
-		<aop:config>
+		<aop:com.mxk.config>
 			<aop:aspect ref="profiler">
 
 				<aop:pointcut id="theExecutionOfSomePersonServiceMethod"
-					expression="execution(* x.y.service.PersonService.getPerson(String,int))
+					expression="execution(* x.y.com.mxk.service.PersonService.getPerson(String,int))
 					and args(name, age)"/>
 
 				<aop:around pointcut-ref="theExecutionOfSomePersonServiceMethod"
 					method="profile"/>
 
 			</aop:aspect>
-		</aop:config>
+		</aop:com.mxk.config>
 
 	</beans>
 ----
@@ -2527,7 +2527,7 @@ Consider the following driver script:
 ----
 	import org.springframework.beans.factory.BeanFactory;
 	import org.springframework.context.support.ClassPathXmlApplicationContext;
-	import x.y.service.PersonService;
+	import x.y.com.mxk.service.PersonService;
 
 	public final class Boot {
 
@@ -2601,7 +2601,7 @@ that interface on behalf of those objects.
 You can make an introduction by using the `aop:declare-parents` element inside an `aop:aspect`.
 You can use the `aop:declare-parents` element to declare that matching types have a new parent (hence the name).
 For example, given an interface named `UsageTracked` and an implementation of that interface named
-`DefaultUsageTracked`, the following aspect declares that all implementors of service
+`DefaultUsageTracked`, the following aspect declares that all implementors of com.mxk.service
 interfaces also implement the `UsageTracked` interface. (In order to expose statistics
 through JMX for example.)
 
@@ -2610,9 +2610,9 @@ through JMX for example.)
 	<aop:aspect id="usageTrackerAspect" ref="usageTracking">
 
 		<aop:declare-parents
-			types-matching="com.xzy.myapp.service.*+"
-			implement-interface="com.xyz.myapp.service.tracking.UsageTracked"
-			default-impl="com.xyz.myapp.service.tracking.DefaultUsageTracked"/>
+			types-matching="com.xzy.myapp.com.mxk.service.*+"
+			implement-interface="com.xyz.myapp.com.mxk.service.tracking.UsageTracked"
+			default-com.mxk.service.impl="com.xyz.myapp.com.mxk.service.tracking.DefaultUsageTracked"/>
 
 		<aop:before
 			pointcut="com.xyz.myapp.CommonPointcuts.businessService()
@@ -2642,7 +2642,7 @@ The class that backs the `usageTracking` bean would then contain the following m
 The interface to be implemented is determined by the `implement-interface` attribute. The
 value of the `types-matching` attribute is an AspectJ type pattern. Any bean of a
 matching type implements the `UsageTracked` interface. Note that, in the before
-advice of the preceding example, service beans can be directly used as implementations of
+advice of the preceding example, com.mxk.service beans can be directly used as implementations of
 the `UsageTracked` interface. To access a bean programmatically, you could write the
 following:
 
@@ -2682,16 +2682,16 @@ namespace support in Spring. The following example shows an advisor:
 
 [source,xml,indent=0,subs="verbatim"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 
 		<aop:pointcut id="businessService"
-			expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+			expression="execution(* com.xyz.myapp.com.mxk.service.*.*(..))"/>
 
 		<aop:advisor
 			pointcut-ref="businessService"
 			advice-ref="tx-advice"/>
 
-	</aop:config>
+	</aop:com.mxk.config>
 
 	<tx:advice id="tx-advice">
 		<tx:attributes>
@@ -2720,7 +2720,7 @@ on the next try. For business services where it is appropriate to retry in such
 conditions (idempotent operations that do not need to go back to the user for conflict
 resolution), we want to transparently retry the operation to avoid the client seeing a
 `PessimisticLockingFailureException`. This is a requirement that clearly cuts across
-multiple services in the service layer and, hence, is ideal for implementing through an
+multiple services in the com.mxk.service layer and, hence, is ideal for implementing through an
 aspect.
 
 Because we want to retry the operation, we need to use around advice so that we can
@@ -2819,12 +2819,12 @@ The corresponding Spring configuration is as follows:
 
 [source,xml,indent=0,subs="verbatim"]
 ----
-	<aop:config>
+	<aop:com.mxk.config>
 
 		<aop:aspect id="concurrentOperationRetry" ref="concurrentOperationExecutor">
 
 			<aop:pointcut id="idempotentOperation"
-				expression="execution(* com.xyz.myapp.service.*.*(..))"/>
+				expression="execution(* com.xyz.myapp.com.mxk.service.*.*(..))"/>
 
 			<aop:around
 				pointcut-ref="idempotentOperation"
@@ -2832,10 +2832,10 @@ The corresponding Spring configuration is as follows:
 
 		</aop:aspect>
 
-	</aop:config>
+	</aop:com.mxk.config>
 
 	<bean id="concurrentOperationExecutor"
-		class="com.xyz.myapp.service.impl.ConcurrentOperationExecutor">
+		class="com.xyz.myapp.com.mxk.service.com.mxk.service.impl.ConcurrentOperationExecutor">
 			<property name="maxRetries" value="3"/>
 			<property name="order" value="100"/>
 	</bean>
@@ -2844,7 +2844,7 @@ The corresponding Spring configuration is as follows:
 Notice that, for the time, being we assume that all business services are idempotent. If
 this is not the case, we can refine the aspect so that it retries only genuinely
 idempotent operations, by introducing an `Idempotent` annotation and using the annotation
-to annotate the implementation of service operations, as the following example shows:
+to annotate the implementation of com.mxk.service operations, as the following example shows:
 
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
@@ -2870,8 +2870,8 @@ pointcut expression so that only `@Idempotent` operations match, as follows:
 [source,xml,indent=0,subs="verbatim"]
 ----
 	<aop:pointcut id="idempotentOperation"
-			expression="execution(* com.xyz.myapp.service.*.*(..)) and
-			@annotation(com.xyz.myapp.service.Idempotent)"/>
+			expression="execution(* com.xyz.myapp.com.mxk.service.*.*(..)) and
+			@annotation(com.xyz.myapp.com.mxk.service.Idempotent)"/>
 ----
 
 
@@ -3019,13 +3019,13 @@ you can do so. However, you should consider the following issues:
   corresponding debug log entries from Spring's AOP support.
 
 To force the use of CGLIB proxies, set the value of the `proxy-target-class` attribute
-of the `<aop:config>` element to true, as follows:
+of the `<aop:com.mxk.config>` element to true, as follows:
 
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
-	<aop:config proxy-target-class="true">
+	<aop:com.mxk.config proxy-target-class="true">
 		<!-- other beans defined here... -->
-	</aop:config>
+	</aop:com.mxk.config>
 ----
 
 To force CGLIB proxying when you use the @AspectJ auto-proxy support, set the
@@ -3039,14 +3039,14 @@ as follows:
 
 [NOTE]
 ====
-Multiple `<aop:config/>` sections are collapsed into a single unified auto-proxy creator
+Multiple `<aop:com.mxk.config/>` sections are collapsed into a single unified auto-proxy creator
 at runtime, which applies the _strongest_ proxy settings that any of the
-`<aop:config/>` sections (typically from different XML bean definition files) specified.
+`<aop:com.mxk.config/>` sections (typically from different XML bean definition files) specified.
 This also applies to the `<tx:annotation-driven/>` and `<aop:aspectj-autoproxy/>`
 elements.
 
 To be clear, using `proxy-target-class="true"` on `<tx:annotation-driven/>`,
-`<aop:aspectj-autoproxy/>`, or `<aop:config/>` elements forces the use of CGLIB
+`<aop:aspectj-autoproxy/>`, or `<aop:com.mxk.config/>` elements forces the use of CGLIB
 proxies _for all three of them_.
 ====
 
@@ -3250,7 +3250,7 @@ it is not a proxy-based AOP framework.
 [[aop-aspectj-programmatic]]
 == Programmatic Creation of @AspectJ Proxies
 
-In addition to declaring aspects in your configuration by using either `<aop:config>`
+In addition to declaring aspects in your configuration by using either `<aop:com.mxk.config>`
 or `<aop:aspectj-autoproxy>`, it is also possible to programmatically create proxies
 that advise target objects. For the full details of Spring's AOP API, see the
 <<aop-api, next chapter>>. Here, we want to focus on the ability to automatically
@@ -3408,7 +3408,7 @@ annotation. You can specify either `@Configurable(autowire=Autowire.BY_TYPE)` or
 `@Configurable(autowire=Autowire.BY_NAME` for autowiring by type or by name,
 respectively. As an alternative, it is preferable to specify explicit, annotation-driven
 dependency injection for your `@Configurable` beans through `@Autowired` or `@Inject`
-at the field or method level (see <<beans-annotation-config>> for further details).
+at the field or method level (see <<beans-annotation-com.mxk.config>> for further details).
 
 Finally, you can enable Spring dependency checking for the object references in the newly
 created and configured object by using the `dependencyCheck` attribute (for example,
@@ -3500,7 +3500,7 @@ configuration aspect. The following example shows how to use the `depends-on` at
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
 	<bean id="myService"
-			class="com.xzy.myapp.service.MyService"
+			class="com.xzy.myapp.com.mxk.service.MyService"
 			depends-on="org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect">
 
 		<!-- ... -->
@@ -3824,7 +3824,7 @@ the following example:
 			http://www.springframework.org/schema/context
 			https://www.springframework.org/schema/context/spring-context.xsd">
 
-		<!-- a service object; we will be profiling its methods -->
+		<!-- a com.mxk.service object; we will be profiling its methods -->
 		<bean id="entitlementCalculationService"
 				class="foo.StubEntitlementCalculationService"/>
 

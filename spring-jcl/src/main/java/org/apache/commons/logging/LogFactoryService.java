@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * A minimal subclass of the standard Apache Commons Logging's {@code LogFactory} class,
  * overriding the abstract {@code getInstance} lookup methods. This is just applied in
  * case of the standard {@code commons-logging} jar accidentally ending up on the classpath,
- * with the standard {@code LogFactory} class performing its META-INF service discovery.
+ * with the standard {@code LogFactory} class performing its META-INF com.mxk.service discovery.
  * This implementation simply delegates to Spring's common {@link Log} factory methods.
  *
  * @author Juergen Hoeller

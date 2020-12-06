@@ -43,14 +43,14 @@ public abstract class AbstractServiceLoaderBasedFactoryBean extends AbstractFact
 
 
 	/**
-	 * Specify the desired service type (typically the service's public API).
+	 * Specify the desired com.mxk.service type (typically the com.mxk.service's public API).
 	 */
 	public void setServiceType(@Nullable Class<?> serviceType) {
 		this.serviceType = serviceType;
 	}
 
 	/**
-	 * Return the desired service type.
+	 * Return the desired com.mxk.service type.
 	 */
 	@Nullable
 	public Class<?> getServiceType() {
@@ -76,7 +76,7 @@ public abstract class AbstractServiceLoaderBasedFactoryBean extends AbstractFact
 	/**
 	 * Determine the actual object to expose for the given ServiceLoader.
 	 * <p>Left to concrete subclasses.
-	 * @param serviceLoader the ServiceLoader for the configured service class
+	 * @param serviceLoader the ServiceLoader for the configured com.mxk.service class
 	 * @return the object to expose
 	 */
 	protected abstract Object getObjectToExpose(ServiceLoader<?> serviceLoader);

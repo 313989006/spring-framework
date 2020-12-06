@@ -206,13 +206,13 @@ class CorsAbstractHandlerMappingTests {
 			Object handler = chain.getHandler();
 			assertThat(handler.getClass().getSimpleName()).isEqualTo("PreFlightHandler");
 			DirectFieldAccessor accessor = new DirectFieldAccessor(handler);
-			corsConfig = (CorsConfiguration) accessor.getPropertyValue("config");
+			corsConfig = (CorsConfiguration) accessor.getPropertyValue("com.mxk.config");
 		}
 		else {
 			HandlerInterceptor[] interceptors = chain.getInterceptors();
 			if (!ObjectUtils.isEmpty(interceptors)) {
 				DirectFieldAccessor accessor = new DirectFieldAccessor(interceptors[0]);
-				corsConfig = (CorsConfiguration) accessor.getPropertyValue("config");
+				corsConfig = (CorsConfiguration) accessor.getPropertyValue("com.mxk.config");
 			}
 		}
 		assertThat(corsConfig).isNotNull();

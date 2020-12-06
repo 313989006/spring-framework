@@ -7,7 +7,7 @@
 
 	<context:spring-configured/>
 
-	<context:annotation-config/>
+	<context:annotation-com.mxk.config/>
 
 	<import resource="beanConfigurerTests-beans.xml"/>
 

@@ -36,14 +36,14 @@ import org.springframework.util.ReflectionUtils;
  *
  * <p>Exports services via the {@link javax.rmi.PortableRemoteObject} class.
  * You need to run "rmic" with the "-iiop" option to generate corresponding
- * stubs and skeletons for each exported service.
+ * stubs and skeletons for each exported com.mxk.service.
  *
- * <p>Also supports exposing any non-RMI service via RMI invokers, to be accessed
+ * <p>Also supports exposing any non-RMI com.mxk.service via RMI invokers, to be accessed
  * via {@link JndiRmiClientInterceptor} / {@link JndiRmiProxyFactoryBean}'s
  * automatic detection of such invokers.
  *
  * <p>With an RMI invoker, RMI communication works on the {@link RmiInvocationHandler}
- * level, needing only one stub for any service. Service interfaces do not have to
+ * level, needing only one stub for any com.mxk.service. Service interfaces do not have to
  * extend {@code java.rmi.Remote} or throw {@code java.rmi.RemoteException}
  * on all methods, but in and out parameters have to be serializable.
  *
@@ -117,7 +117,7 @@ public class JndiRmiServiceExporter extends RmiBasedExporter implements Initiali
 	}
 
 	/**
-	 * Set the JNDI name of the exported RMI service.
+	 * Set the JNDI name of the exported RMI com.mxk.service.
 	 */
 	public void setJndiName(String jndiName) {
 		this.jndiName = jndiName;
@@ -130,9 +130,9 @@ public class JndiRmiServiceExporter extends RmiBasedExporter implements Initiali
 	}
 
 	/**
-	 * Initialize this service exporter, binding the specified service to JNDI.
-	 * @throws NamingException if service binding failed
-	 * @throws RemoteException if service export failed
+	 * Initialize this com.mxk.service exporter, binding the specified com.mxk.service to JNDI.
+	 * @throws NamingException if com.mxk.service binding failed
+	 * @throws RemoteException if com.mxk.service export failed
 	 */
 	public void prepare() throws NamingException, RemoteException {
 		if (this.jndiName == null) {
@@ -147,24 +147,24 @@ public class JndiRmiServiceExporter extends RmiBasedExporter implements Initiali
 	}
 
 	/**
-	 * Rebind the specified service to JNDI, for recovering in case
+	 * Rebind the specified com.mxk.service to JNDI, for recovering in case
 	 * of the target registry having been restarted.
-	 * @throws NamingException if service binding failed
+	 * @throws NamingException if com.mxk.service binding failed
 	 */
 	public void rebind() throws NamingException {
 		if (logger.isDebugEnabled()) {
-			logger.debug("Binding RMI service to JNDI location [" + this.jndiName + "]");
+			logger.debug("Binding RMI com.mxk.service to JNDI location [" + this.jndiName + "]");
 		}
 		this.jndiTemplate.rebind(this.jndiName, this.exportedObject);
 	}
 
 	/**
-	 * Unbind the RMI service from JNDI on bean factory shutdown.
+	 * Unbind the RMI com.mxk.service from JNDI on bean factory shutdown.
 	 */
 	@Override
 	public void destroy() throws NamingException, RemoteException {
 		if (logger.isDebugEnabled()) {
-			logger.debug("Unbinding RMI service from JNDI location [" + this.jndiName + "]");
+			logger.debug("Unbinding RMI com.mxk.service from JNDI location [" + this.jndiName + "]");
 		}
 		this.jndiTemplate.unbind(this.jndiName);
 		invokePortableRemoteObject(unexportObject);

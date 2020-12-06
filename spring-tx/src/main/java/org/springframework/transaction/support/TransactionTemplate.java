@@ -46,11 +46,11 @@ import org.springframework.util.Assert;
  * application services utilizing this class, making calls to the low-level
  * services via an inner-class callback object.
  *
- * <p>Can be used within a service implementation via direct instantiation with
+ * <p>Can be used within a com.mxk.service implementation via direct instantiation with
  * a transaction manager reference, or get prepared in an application context
  * and passed to services as bean reference. Note: The transaction manager should
  * always be configured as bean in the application context: in the first case given
- * to the service directly, in the second case given to the prepared template.
+ * to the com.mxk.service directly, in the second case given to the prepared template.
  *
  * <p>Supports setting the propagation behavior and the isolation level by name,
  * for convenient configuration in context definitions.

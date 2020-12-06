@@ -146,10 +146,10 @@ public abstract class ModuleVisitor {
   }
 
   /**
-   * Visit a service used by the current module. The name must be the internal name of an interface
+   * Visit a com.mxk.service used by the current module. The name must be the internal name of an interface
    * or a class.
    *
-   * @param service the internal name of the service.
+   * @param service the internal name of the com.mxk.service.
    */
   public void visitUse(final String service) {
     if (mv != null) {
@@ -158,10 +158,10 @@ public abstract class ModuleVisitor {
   }
 
   /**
-   * Visit an implementation of a service.
+   * Visit an implementation of a com.mxk.service.
    *
-   * @param service the internal name of the service.
-   * @param providers the internal names of the implementations of the service (there is at least
+   * @param service the internal name of the com.mxk.service.
+   * @param providers the internal names of the implementations of the com.mxk.service (there is at least
    *     one provider).
    */
   public void visitProvide(final String service, final String... providers) {

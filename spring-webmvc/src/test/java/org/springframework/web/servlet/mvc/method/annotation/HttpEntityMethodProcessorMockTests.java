@@ -178,7 +178,7 @@ public class HttpEntityMethodProcessorMockTests {
 		assertThat(processor.supportsParameter(paramHttpEntity)).as("HttpEntity parameter not supported").isTrue();
 		assertThat(processor.supportsParameter(paramRequestEntity)).as("RequestEntity parameter not supported").isTrue();
 		assertThat(processor.supportsParameter(paramResponseEntity)).as("ResponseEntity parameter supported").isFalse();
-		assertThat(processor.supportsParameter(paramInt)).as("non-entity parameter supported").isFalse();
+		assertThat(processor.supportsParameter(paramInt)).as("non-com.mxk.entity parameter supported").isFalse();
 	}
 
 	@Test

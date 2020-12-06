@@ -113,13 +113,13 @@ public final class CloseStatus {
 	public static final CloseStatus SERVER_ERROR = new CloseStatus(1011);
 
 	/**
-	 * "1012 indicates that the service is restarted. A client may reconnect, and if it
+	 * "1012 indicates that the com.mxk.service is restarted. A client may reconnect, and if it
 	 * chooses to do, should reconnect using a randomized delay of 5 - 30s."
 	 */
 	public static final CloseStatus SERVICE_RESTARTED = new CloseStatus(1012);
 
 	/**
-	 * "1013 indicates that the service is experiencing overload. A client should only
+	 * "1013 indicates that the com.mxk.service is experiencing overload. A client should only
 	 * connect to a different IP (when there are multiple for the target) or reconnect to
 	 * the same IP upon user action."
 	 */

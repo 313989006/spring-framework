@@ -1209,7 +1209,7 @@ two global advisors:
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
 	<bean id="proxy" class="org.springframework.aop.framework.ProxyFactoryBean">
-		<property name="target" ref="service"/>
+		<property name="target" ref="com.mxk.service"/>
 		<property name="interceptorNames">
 			<list>
 				<value>global*</value>
@@ -1692,7 +1692,7 @@ EJBs, in which a pool of identical instances is maintained, with method invocati
 going to free objects in the pool.
 
 A crucial difference between Spring pooling and SLSB pooling is that Spring pooling can
-be applied to any POJO. As with Spring in general, this service can be applied in a
+be applied to any POJO. As with Spring in general, this com.mxk.service can be applied in a
 non-invasive way.
 
 Spring provides support for Commons Pool 2.2, which provides a
@@ -1741,7 +1741,7 @@ need to define an advisor similar to the following:
 
 [source,xml,indent=0,subs="verbatim,quotes"]
 ----
-	<bean id="poolConfigAdvisor" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	<bean id="poolConfigAdvisor" class="org.springframework.beans.factory.com.mxk.config.MethodInvokingFactoryBean">
 		<property name="targetObject" ref="poolTargetSource"/>
 		<property name="targetMethod" value="getPoolingConfigMixin"/>
 	</bean>
@@ -1767,7 +1767,7 @@ The cast is defined as follows:
 	println("Max pool size is " + conf.maxSize)
 ----
 
-NOTE: Pooling stateless service objects is not usually necessary. We do not believe it should
+NOTE: Pooling stateless com.mxk.service objects is not usually necessary. We do not believe it should
 be the default choice, as most stateless objects are naturally thread safe, and instance
 pooling is problematic if resources are cached.
 

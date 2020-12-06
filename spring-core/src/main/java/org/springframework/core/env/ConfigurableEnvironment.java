@@ -22,7 +22,7 @@ import java.util.Map;
  * Configuration interface to be implemented by most if not all {@link Environment} types.
  * Provides facilities for setting active and default profiles and manipulating underlying
  * property sources. Allows clients to set and validate required properties, customize the
- * conversion service and more through the {@link ConfigurablePropertyResolver}
+ * conversion com.mxk.service and more through the {@link ConfigurablePropertyResolver}
  * superinterface.
  *
  * <h2>Manipulating property sources</h2>

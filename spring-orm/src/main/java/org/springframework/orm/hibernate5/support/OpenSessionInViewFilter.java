@@ -46,13 +46,13 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * already being completed.
  *
  * <p>This filter makes Hibernate Sessions available via the current thread, which
- * will be autodetected by transaction managers. It is suitable for service layer
+ * will be autodetected by transaction managers. It is suitable for com.mxk.service layer
  * transactions via {@link org.springframework.orm.hibernate5.HibernateTransactionManager}
  * as well as for non-transactional execution (if configured appropriately).
  *
  * <p><b>NOTE</b>: This filter will by default <i>not</i> flush the Hibernate Session,
  * with the flush mode set to {@code FlushMode.MANUAL}. It assumes to be used
- * in combination with service layer transactions that care for the flushing: The
+ * in combination with com.mxk.service layer transactions that care for the flushing: The
  * active transaction manager will temporarily change the flush mode to
  * {@code FlushMode.AUTO} during a read-write transaction, with the flush
  * mode reset to {@code FlushMode.MANUAL} at the end of each transaction.

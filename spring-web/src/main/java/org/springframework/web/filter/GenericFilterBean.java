@@ -54,10 +54,10 @@ import org.springframework.web.util.NestedServletException;
 
 /**
  * Simple base implementation of {@link javax.servlet.Filter} which treats
- * its config parameters ({@code init-param} entries within the
+ * its com.mxk.config parameters ({@code init-param} entries within the
  * {@code filter} tag in {@code web.xml}) as bean properties.
  *
- * <p>A handy superclass for any type of filter. Type conversion of config
+ * <p>A handy superclass for any type of filter. Type conversion of com.mxk.config
  * parameters is automatic, with the corresponding setter method getting
  * invoked with the converted value. It is also possible for subclasses to
  * specify required properties. Parameters without matching bean property
@@ -68,7 +68,7 @@ import org.springframework.web.util.NestedServletException;
  *
  * <p>This generic filter base class has no dependency on the Spring
  * {@link org.springframework.context.ApplicationContext} concept.
- * Filters usually don't load their own context but rather access service
+ * Filters usually don't load their own context but rather access com.mxk.service
  * beans from the Spring root application context, accessible via the
  * filter's {@link #getServletContext() ServletContext} (see
  * {@link org.springframework.web.context.support.WebApplicationContextUtils}).
@@ -188,7 +188,7 @@ public abstract class GenericFilterBean implements Filter, BeanNameAware, Enviro
 	/**
 	 * Subclasses can invoke this method to specify that this property
 	 * (which must match a JavaBean property they expose) is mandatory,
-	 * and must be supplied as a config parameter. This should be called
+	 * and must be supplied as a com.mxk.config parameter. This should be called
 	 * from the constructor of a subclass.
 	 * <p>This method is only relevant in case of traditional initialization
 	 * driven by a FilterConfig instance.
@@ -200,7 +200,7 @@ public abstract class GenericFilterBean implements Filter, BeanNameAware, Enviro
 
 	/**
 	 * Standard way of initializing this filter.
-	 * Map config parameters onto bean properties of this filter, and
+	 * Map com.mxk.config parameters onto bean properties of this filter, and
 	 * invoke subclass initialization.
 	 * @param filterConfig the configuration for this filter
 	 * @throws ServletException if bean properties are invalid (or required

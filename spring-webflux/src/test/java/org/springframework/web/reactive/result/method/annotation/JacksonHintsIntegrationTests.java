@@ -74,7 +74,7 @@ class JacksonHintsIntegrationTests extends AbstractRequestMappingIntegrationTest
 		startServer(httpServer);
 
 		String expected = "{\"withView1\":\"with\"}";
-		assertThat(performGet("/response/entity", MediaType.APPLICATION_JSON, String.class).getBody()).isEqualTo(expected);
+		assertThat(performGet("/response/com.mxk.entity", MediaType.APPLICATION_JSON, String.class).getBody()).isEqualTo(expected);
 	}
 
 	@ParameterizedHttpServerTest
@@ -108,7 +108,7 @@ class JacksonHintsIntegrationTests extends AbstractRequestMappingIntegrationTest
 		startServer(httpServer);
 
 		String expected = "{\"withView1\":\"with\",\"withView2\":null,\"withoutView\":null}";
-		assertThat(performPost("/request/entity/mono", MediaType.APPLICATION_JSON,
+		assertThat(performPost("/request/com.mxk.entity/mono", MediaType.APPLICATION_JSON,
 				new JacksonViewBean("with", "with", "without"),
 				MediaType.APPLICATION_JSON, String.class).getBody()).isEqualTo(expected);
 	}
@@ -120,7 +120,7 @@ class JacksonHintsIntegrationTests extends AbstractRequestMappingIntegrationTest
 		String expected = "[" +
 				"{\"withView1\":\"with\",\"withView2\":null,\"withoutView\":null}," +
 				"{\"withView1\":\"with\",\"withView2\":null,\"withoutView\":null}]";
-		assertThat(performPost("/request/entity/flux", MediaType.APPLICATION_JSON,
+		assertThat(performPost("/request/com.mxk.entity/flux", MediaType.APPLICATION_JSON,
 				Arrays.asList(new JacksonViewBean("with", "with", "without"),
 						new JacksonViewBean("with", "with", "without")),
 				MediaType.APPLICATION_JSON, String.class).getBody()).isEqualTo(expected);

@@ -21,21 +21,21 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.ObjectUtils;
 
 /**
- * Represents an HTTP request or response entity, consisting of headers and body.
+ * Represents an HTTP request or response com.mxk.entity, consisting of headers and body.
  *
  * <p>Typically used in combination with the {@link org.springframework.web.client.RestTemplate},
  * like so:
  * <pre class="code">
  * HttpHeaders headers = new HttpHeaders();
  * headers.setContentType(MediaType.TEXT_PLAIN);
- * HttpEntity&lt;String&gt; entity = new HttpEntity&lt;String&gt;(helloWorld, headers);
- * URI location = template.postForLocation("https://example.com", entity);
+ * HttpEntity&lt;String&gt; com.mxk.entity = new HttpEntity&lt;String&gt;(helloWorld, headers);
+ * URI location = template.postForLocation("https://example.com", com.mxk.entity);
  * </pre>
  * or
  * <pre class="code">
- * HttpEntity&lt;String&gt; entity = template.getForEntity("https://example.com", String.class);
- * String body = entity.getBody();
- * MediaType contentType = entity.getHeaders().getContentType();
+ * HttpEntity&lt;String&gt; com.mxk.entity = template.getForEntity("https://example.com", String.class);
+ * String body = com.mxk.entity.getBody();
+ * MediaType contentType = com.mxk.entity.getHeaders().getContentType();
  * </pre>
  * Can also be used in Spring MVC, as a return value from a @Controller method:
  * <pre class="code">
@@ -78,7 +78,7 @@ public class HttpEntity<T> {
 
 	/**
 	 * Create a new {@code HttpEntity} with the given body and no headers.
-	 * @param body the entity body
+	 * @param body the com.mxk.entity body
 	 */
 	public HttpEntity(T body) {
 		this(body, null);
@@ -86,7 +86,7 @@ public class HttpEntity<T> {
 
 	/**
 	 * Create a new {@code HttpEntity} with the given headers and no body.
-	 * @param headers the entity headers
+	 * @param headers the com.mxk.entity headers
 	 */
 	public HttpEntity(MultiValueMap<String, String> headers) {
 		this(null, headers);
@@ -94,8 +94,8 @@ public class HttpEntity<T> {
 
 	/**
 	 * Create a new {@code HttpEntity} with the given body and headers.
-	 * @param body the entity body
-	 * @param headers the entity headers
+	 * @param body the com.mxk.entity body
+	 * @param headers the com.mxk.entity headers
 	 */
 	public HttpEntity(@Nullable T body, @Nullable MultiValueMap<String, String> headers) {
 		this.body = body;
@@ -108,14 +108,14 @@ public class HttpEntity<T> {
 
 
 	/**
-	 * Returns the headers of this entity.
+	 * Returns the headers of this com.mxk.entity.
 	 */
 	public HttpHeaders getHeaders() {
 		return this.headers;
 	}
 
 	/**
-	 * Returns the body of this entity.
+	 * Returns the body of this com.mxk.entity.
 	 */
 	@Nullable
 	public T getBody() {
@@ -123,7 +123,7 @@ public class HttpEntity<T> {
 	}
 
 	/**
-	 * Indicates whether this entity has a body.
+	 * Indicates whether this com.mxk.entity has a body.
 	 */
 	public boolean hasBody() {
 		return (this.body != null);

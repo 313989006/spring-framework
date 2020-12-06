@@ -23,10 +23,10 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 /**
- * Abstract base class for classes that export a remote service.
- * Provides "service" and "serviceInterface" bean properties.
+ * Abstract base class for classes that export a remote com.mxk.service.
+ * Provides "com.mxk.service" and "serviceInterface" bean properties.
  *
- * <p>Note that the service interface being used will show some signs of
+ * <p>Note that the com.mxk.service interface being used will show some signs of
  * remotability, like the granularity of method calls that it offers.
  * Furthermore, it has to have serializable arguments etc.
  *
@@ -45,7 +45,7 @@ public abstract class RemoteExporter extends RemotingSupport {
 
 
 	/**
-	 * Set the service to export.
+	 * Set the com.mxk.service to export.
 	 * Typically populated via a bean reference.
 	 */
 	public void setService(Object service) {
@@ -53,15 +53,15 @@ public abstract class RemoteExporter extends RemotingSupport {
 	}
 
 	/**
-	 * Return the service to export.
+	 * Return the com.mxk.service to export.
 	 */
 	public Object getService() {
 		return this.service;
 	}
 
 	/**
-	 * Set the interface of the service to export.
-	 * The interface must be suitable for the particular service and remoting strategy.
+	 * Set the interface of the com.mxk.service to export.
+	 * The interface must be suitable for the particular com.mxk.service and remoting strategy.
 	 */
 	public void setServiceInterface(Class<?> serviceInterface) {
 		Assert.notNull(serviceInterface, "'serviceInterface' must not be null");
@@ -70,7 +70,7 @@ public abstract class RemoteExporter extends RemotingSupport {
 	}
 
 	/**
-	 * Return the interface of the service to export.
+	 * Return the interface of the com.mxk.service to export.
 	 */
 	public Class<?> getServiceInterface() {
 		return this.serviceInterface;
@@ -106,16 +106,16 @@ public abstract class RemoteExporter extends RemotingSupport {
 
 
 	/**
-	 * Check whether the service reference has been set.
+	 * Check whether the com.mxk.service reference has been set.
 	 * @see #setService
 	 */
 	protected void checkService() throws IllegalArgumentException {
-		Assert.notNull(getService(), "Property 'service' is required");
+		Assert.notNull(getService(), "Property 'com.mxk.service' is required");
 	}
 
 	/**
-	 * Check whether a service reference has been set,
-	 * and whether it matches the specified service.
+	 * Check whether a com.mxk.service reference has been set,
+	 * and whether it matches the specified com.mxk.service.
 	 * @see #setServiceInterface
 	 * @see #setService
 	 */
@@ -126,19 +126,19 @@ public abstract class RemoteExporter extends RemotingSupport {
 		Object service = getService();
 		if (service instanceof String) {
 			throw new IllegalArgumentException("Service [" + service + "] is a String " +
-					"rather than an actual service reference: Have you accidentally specified " +
-					"the service bean name as value instead of as reference?");
+					"rather than an actual com.mxk.service reference: Have you accidentally specified " +
+					"the com.mxk.service bean name as value instead of as reference?");
 		}
 		if (!serviceInterface.isInstance(service)) {
 			throw new IllegalArgumentException("Service interface [" + serviceInterface.getName() +
-					"] needs to be implemented by service [" + service + "] of class [" +
+					"] needs to be implemented by com.mxk.service [" + service + "] of class [" +
 					service.getClass().getName() + "]");
 		}
 	}
 
 	/**
-	 * Get a proxy for the given service object, implementing the specified
-	 * service interface.
+	 * Get a proxy for the given com.mxk.service object, implementing the specified
+	 * com.mxk.service interface.
 	 * <p>Used to export a proxy that does not expose any internals but just
 	 * a specific interface intended for remote access. Furthermore, a
 	 * {@link RemoteInvocationTraceInterceptor} will be registered (by default).

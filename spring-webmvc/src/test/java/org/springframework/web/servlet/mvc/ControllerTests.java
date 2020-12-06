@@ -118,13 +118,13 @@ public class ControllerTests {
 		swc.setServletClass(TestServlet.class);
 		swc.setServletName("action");
 		Properties props = new Properties();
-		props.setProperty("config", "myValue");
+		props.setProperty("com.mxk.config", "myValue");
 		swc.setInitParameters(props);
 
 		swc.afterPropertiesSet();
 		assertThat(TestServlet.config).isNotNull();
 		assertThat(TestServlet.config.getServletName()).isEqualTo("action");
-		assertThat(TestServlet.config.getInitParameter("config")).isEqualTo("myValue");
+		assertThat(TestServlet.config.getInitParameter("com.mxk.config")).isEqualTo("myValue");
 		assertThat(TestServlet.request).isNull();
 		assertThat(TestServlet.destroyed).isFalse();
 

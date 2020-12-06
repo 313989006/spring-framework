@@ -32,14 +32,14 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.lang.Nullable;
 
 /**
- * RMI exporter that exposes the specified service as RMI object with the specified name.
+ * RMI exporter that exposes the specified com.mxk.service as RMI object with the specified name.
  * Such services can be accessed via plain RMI or via {@link RmiProxyFactoryBean}.
- * Also supports exposing any non-RMI service via RMI invokers, to be accessed via
+ * Also supports exposing any non-RMI com.mxk.service via RMI invokers, to be accessed via
  * {@link RmiClientInterceptor} / {@link RmiProxyFactoryBean}'s automatic detection
  * of such invokers.
  *
  * <p>With an RMI invoker, RMI communication works on the {@link RmiInvocationHandler}
- * level, needing only one stub for any service. Service interfaces do not have to
+ * level, needing only one stub for any com.mxk.service. Service interfaces do not have to
  * extend {@code java.rmi.Remote} or throw {@code java.rmi.RemoteException}
  * on all methods, but in and out parameters have to be serializable.
  *
@@ -54,7 +54,7 @@ import org.springframework.lang.Nullable;
  * on your network configuration, in some cases it will resolve the IP to the loopback
  * address. To ensure that RMI will use the host name bound to the correct network
  * interface, you should pass the {@code java.rmi.server.hostname} property to the
- * JVM that will export the registry and/or the service using the "-D" JVM argument.
+ * JVM that will export the registry and/or the com.mxk.service using the "-D" JVM argument.
  * For example: {@code -Djava.rmi.server.hostname=myserver.com}
  *
  * @author Juergen Hoeller
@@ -96,7 +96,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 
 
 	/**
-	 * Set the name of the exported RMI service,
+	 * Set the name of the exported RMI com.mxk.service,
 	 * i.e. {@code rmi://host:port/NAME}
 	 */
 	public void setServiceName(String serviceName) {
@@ -104,7 +104,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 	}
 
 	/**
-	 * Set the port that the exported RMI service will use.
+	 * Set the port that the exported RMI com.mxk.service will use.
 	 * <p>Default is 0 (anonymous port).
 	 */
 	public void setServicePort(int servicePort) {
@@ -112,7 +112,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 	}
 
 	/**
-	 * Set a custom RMI client socket factory to use for exporting the service.
+	 * Set a custom RMI client socket factory to use for exporting the com.mxk.service.
 	 * <p>If the given object also implements {@code java.rmi.server.RMIServerSocketFactory},
 	 * it will automatically be registered as server socket factory too.
 	 * @see #setServerSocketFactory
@@ -125,7 +125,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 	}
 
 	/**
-	 * Set a custom RMI server socket factory to use for exporting the service.
+	 * Set a custom RMI server socket factory to use for exporting the com.mxk.service.
 	 * <p>Only needs to be specified when the client socket factory does not
 	 * implement {@code java.rmi.server.RMIServerSocketFactory} already.
 	 * @see #setClientSocketFactory
@@ -138,7 +138,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 	}
 
 	/**
-	 * Specify the RMI registry to register the exported service with.
+	 * Specify the RMI registry to register the exported com.mxk.service with.
 	 * Typically used in combination with RmiRegistryFactoryBean.
 	 * <p>Alternatively, you can specify all registry properties locally.
 	 * This exporter will then try to locate the specified registry,
@@ -156,7 +156,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 	}
 
 	/**
-	 * Set the host of the registry for the exported RMI service,
+	 * Set the host of the registry for the exported RMI com.mxk.service,
 	 * i.e. {@code rmi://HOST:port/name}
 	 * <p>Default is localhost.
 	 */
@@ -165,7 +165,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 	}
 
 	/**
-	 * Set the port of the registry for the exported RMI service,
+	 * Set the port of the registry for the exported RMI com.mxk.service,
 	 * i.e. {@code rmi://host:PORT/name}
 	 * <p>Default is {@code Registry.REGISTRY_PORT} (1099).
 	 * @see java.rmi.registry.Registry#REGISTRY_PORT
@@ -214,9 +214,9 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 	/**
 	 * Set whether to replace an existing binding in the RMI registry,
 	 * that is, whether to simply override an existing binding with the
-	 * specified service in case of a naming conflict in the registry.
+	 * specified com.mxk.service in case of a naming conflict in the registry.
 	 * <p>Default is "true", assuming that an existing binding for this
-	 * exporter's service name is an accidental leftover from a previous
+	 * exporter's com.mxk.service name is an accidental leftover from a previous
 	 * execution. Switch this to "false" to make the exporter fail in such
 	 * a scenario, indicating that there was already an RMI object bound.
 	 */
@@ -231,9 +231,9 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 	}
 
 	/**
-	 * Initialize this service exporter, registering the service as RMI object.
+	 * Initialize this com.mxk.service exporter, registering the com.mxk.service as RMI object.
 	 * <p>Creates an RMI registry on the specified port if none exists.
-	 * @throws RemoteException if service registration failed
+	 * @throws RemoteException if com.mxk.service registration failed
 	 */
 	public void prepare() throws RemoteException {
 		checkService();
@@ -274,7 +274,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 		this.exportedObject = getObjectToExport();
 
 		if (logger.isDebugEnabled()) {
-			logger.debug("Binding service '" + this.serviceName + "' to RMI registry: " + this.registry);
+			logger.debug("Binding com.mxk.service '" + this.serviceName + "' to RMI registry: " + this.registry);
 		}
 
 		// Export RMI object.
@@ -296,7 +296,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 			}
 		}
 		catch (AlreadyBoundException ex) {
-			// Already an RMI object bound for the specified service name...
+			// Already an RMI object bound for the specified com.mxk.service name...
 			unexportObjectSilently();
 			throw new IllegalStateException(
 					"Already an RMI object bound for name '"  + this.serviceName + "': " + ex.toString());
@@ -423,12 +423,12 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 
 
 	/**
-	 * Unbind the RMI service from the registry on bean factory shutdown.
+	 * Unbind the RMI com.mxk.service from the registry on bean factory shutdown.
 	 */
 	@Override
 	public void destroy() throws RemoteException {
 		if (logger.isDebugEnabled()) {
-			logger.debug("Unbinding RMI service '" + this.serviceName +
+			logger.debug("Unbinding RMI com.mxk.service '" + this.serviceName +
 					"' from registry" + (this.createdRegistry ? (" at port '" + this.registryPort + "'") : ""));
 		}
 		try {
@@ -436,7 +436,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 		}
 		catch (NotBoundException ex) {
 			if (logger.isInfoEnabled()) {
-				logger.info("RMI service '" + this.serviceName + "' is not bound to registry" +
+				logger.info("RMI com.mxk.service '" + this.serviceName + "' is not bound to registry" +
 						(this.createdRegistry ? (" at port '" + this.registryPort + "' anymore") : ""), ex);
 			}
 		}
@@ -454,7 +454,7 @@ public class RmiServiceExporter extends RmiBasedExporter implements Initializing
 		}
 		catch (NoSuchObjectException ex) {
 			if (logger.isInfoEnabled()) {
-				logger.info("RMI object for service '" + this.serviceName + "' is not exported anymore", ex);
+				logger.info("RMI object for com.mxk.service '" + this.serviceName + "' is not exported anymore", ex);
 			}
 		}
 	}

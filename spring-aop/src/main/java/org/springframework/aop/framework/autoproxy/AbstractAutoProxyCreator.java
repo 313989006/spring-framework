@@ -483,7 +483,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 		// 处理 proxyTargetClass 属性
 		// 如果希望使用 CGLIB 来代理接口，可以配置 proxy-target-class = true,这样不管有没有接口，都使用 CGLIB 来生成代理
-		// <aop:config proxy-target-class="true"/>
+		// <aop:com.mxk.config proxy-target-class="true"/>
 		if (!proxyFactory.isProxyTargetClass()) {
 			if (shouldProxyTargetClass(beanClass, beanName)) {
 				proxyFactory.setProxyTargetClass(true);

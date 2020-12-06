@@ -29,7 +29,7 @@ import org.springframework.cache.annotation.Caching;
  * due to issues with Gradle test fixtures and AspectJ configuration
  * in the Gradle build.
  *
- * <p>Simple cacheable service.
+ * <p>Simple cacheable com.mxk.service.
  *
  * @author Costin Leau
  * @author Phillip Webb

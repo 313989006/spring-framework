@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 /**
- * Abstract base class for remote service exporters that explicitly deserialize
+ * Abstract base class for remote com.mxk.service exporters that explicitly deserialize
  * {@link org.springframework.remoting.support.RemoteInvocation} objects and serialize
  * {@link org.springframework.remoting.support.RemoteInvocationResult} objects,
  * for example Spring's HTTP invoker.
@@ -100,7 +100,7 @@ public abstract class RemoteInvocationSerializingExporter extends RemoteInvocati
 	}
 
 	/**
-	 * Initialize this service exporter.
+	 * Initialize this com.mxk.service exporter.
 	 */
 	public void prepare() {
 		this.proxy = getProxyForService();

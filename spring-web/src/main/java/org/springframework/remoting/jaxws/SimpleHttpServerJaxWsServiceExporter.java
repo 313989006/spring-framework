@@ -34,11 +34,11 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
- * Simple exporter for JAX-WS services, autodetecting annotated service beans
+ * Simple exporter for JAX-WS services, autodetecting annotated com.mxk.service beans
  * (through the JAX-WS {@link javax.jws.WebService} annotation) and exporting
  * them through the HTTP server included in Sun's JDK 1.6. The full address
- * for each service will consist of the server's base address with the
- * service name appended (e.g. "http://localhost:8080/OrderService").
+ * for each com.mxk.service will consist of the server's base address with the
+ * com.mxk.service name appended (e.g. "http://localhost:8080/OrderService").
  *
  * <p>Note that this exporter will only work on Sun's JDK 1.6 or higher, as well
  * as on JDKs that ship Sun's entire class library as included in the Sun JDK.
@@ -81,7 +81,7 @@ public class SimpleHttpServerJaxWsServiceExporter extends AbstractJaxWsServiceEx
 
 
 	/**
-	 * Specify an existing HTTP server to register the web service contexts
+	 * Specify an existing HTTP server to register the web com.mxk.service contexts
 	 * with. This will typically be a server managed by the general Spring
 	 * {@link org.springframework.remoting.support.SimpleHttpServerFactoryBean}.
 	 * <p>Alternatively, configure a local HTTP server through the
@@ -133,8 +133,8 @@ public class SimpleHttpServerJaxWsServiceExporter extends AbstractJaxWsServiceEx
 
 	/**
 	 * Set the base path for context publication. Default is "/".
-	 * <p>For each context publication path, the service name will be
-	 * appended to this base address. E.g. service name "OrderService"
+	 * <p>For each context publication path, the com.mxk.service name will be
+	 * appended to this base address. E.g. com.mxk.service name "OrderService"
 	 * -> "/OrderService".
 	 * @see javax.xml.ws.Endpoint#publish(Object)
 	 * @see javax.jws.WebService#serviceName()
@@ -189,7 +189,7 @@ public class SimpleHttpServerJaxWsServiceExporter extends AbstractJaxWsServiceEx
 	/**
 	 * Build the HttpContext for the given endpoint.
 	 * @param endpoint the JAX-WS Provider Endpoint object
-	 * @param serviceName the given service name
+	 * @param serviceName the given com.mxk.service name
 	 * @return the fully populated HttpContext
 	 */
 	protected HttpContext buildHttpContext(Endpoint endpoint, String serviceName) {
@@ -208,7 +208,7 @@ public class SimpleHttpServerJaxWsServiceExporter extends AbstractJaxWsServiceEx
 	/**
 	 * Calculate the full endpoint path for the given endpoint.
 	 * @param endpoint the JAX-WS Provider Endpoint object
-	 * @param serviceName the given service name
+	 * @param serviceName the given com.mxk.service name
 	 * @return the full endpoint path
 	 */
 	protected String calculateEndpointPath(Endpoint endpoint, String serviceName) {

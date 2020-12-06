@@ -96,7 +96,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 	/**
 	 * Construct a new JdkDynamicAopProxy for the given AOP configuration.
 	 * @param config the AOP configuration as AdvisedSupport object
-	 * @throws AopConfigException if the config is invalid. We try to throw an informative
+	 * @throws AopConfigException if the com.mxk.config is invalid. We try to throw an informative
 	 * exception in this case, rather than let a mysterious failure happen later.
 	 */
 	public JdkDynamicAopProxy(AdvisedSupport config) throws AopConfigException {
@@ -174,13 +174,13 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 			}
 			// 如果当前方法是 spring 织入的 DecoratingProxy 接口中的方法，则返回目标对象的 Class 类型
 			else if (method.getDeclaringClass() == DecoratingProxy.class) {
-				// There is only getDecoratedClass() declared -> dispatch to proxy config.
+				// There is only getDecoratedClass() declared -> dispatch to proxy com.mxk.config.
 				return AopProxyUtils.ultimateTargetClass(this.advised);
 			}
 			// 如果被代理的对象本身就实现了 Advised 接口，则证明该类里面的方法已经被代理了，直接执行即可
 			else if (!this.advised.opaque && method.getDeclaringClass().isInterface() &&
 					method.getDeclaringClass().isAssignableFrom(Advised.class)) {
-				// Service invocations on ProxyConfig with the proxy config...
+				// Service invocations on ProxyConfig with the proxy com.mxk.config...
 				return AopUtils.invokeJoinpointUsingReflection(this.advised, method, args);
 			}
 

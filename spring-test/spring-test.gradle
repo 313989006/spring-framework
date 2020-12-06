@@ -74,7 +74,7 @@ dependencies {
 	}
 	testRuntime("org.glassfish:javax.el")
 	testRuntime("com.sun.xml.bind:jaxb-core")
-	testRuntime("com.sun.xml.bind:jaxb-impl")
+	testRuntime("com.sun.xml.bind:jaxb-com.mxk.service.impl")
 }
 
 task junit(type: Test) {

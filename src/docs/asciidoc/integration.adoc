@@ -88,7 +88,7 @@ model and corresponding services:
 	}
 ----
 
-This section starts by exposing the service to a remote client by using RMI and talk a bit
+This section starts by exposing the com.mxk.service to a remote client by using RMI and talk a bit
 about the drawbacks of using RMI. It then continues with an example that uses Hessian as
 the protocol.
 
@@ -110,10 +110,10 @@ plug in security frameworks or custom security credentials.
 
 Using the `RmiServiceExporter`, we can expose the interface of our AccountService object
 as RMI object. The interface can be accessed by using `RmiProxyFactoryBean`, or via
-plain RMI in case of a traditional RMI service. The `RmiServiceExporter` explicitly
+plain RMI in case of a traditional RMI com.mxk.service. The `RmiServiceExporter` explicitly
 supports the exposing of any non-RMI services via RMI invokers.
 
-We first have to set up our service in the Spring container.
+We first have to set up our com.mxk.service in the Spring container.
 The following example shows how to do so:
 
 [source,xml,indent=0]
@@ -124,7 +124,7 @@ The following example shows how to do so:
 	</bean>
 ----
 
-Next, we have to expose our service by using `RmiServiceExporter`.
+Next, we have to expose our com.mxk.service by using `RmiServiceExporter`.
 The following example shows how to do so:
 
 [source,xml,indent=0]
@@ -133,7 +133,7 @@ The following example shows how to do so:
 	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
 		<!-- does not necessarily have to be the same name as the bean to be exported -->
 		<property name="serviceName" value="AccountService"/>
-		<property name="service" ref="accountService"/>
+		<property name="com.mxk.service" ref="accountService"/>
 		<property name="serviceInterface" value="example.AccountService"/>
 		<!-- defaults to 1099 -->
 		<property name="registryPort" value="1199"/>
@@ -142,12 +142,12 @@ The following example shows how to do so:
 
 In the preceding example, we override the port for the RMI registry. Often, your application
 server also maintains an RMI registry, and it is wise to not interfere with that one.
-Furthermore, the service name is used to bind the service. So, in the preceding example, the
-service is bound at `'rmi://HOST:1199/AccountService'`. We use this URL later on to link in
-the service at the client side.
+Furthermore, the com.mxk.service name is used to bind the com.mxk.service. So, in the preceding example, the
+com.mxk.service is bound at `'rmi://HOST:1199/AccountService'`. We use this URL later on to link in
+the com.mxk.service at the client side.
 
 NOTE: The `servicePort` property has been omitted (it defaults to 0). This means that an
-anonymous port is used to communicate with the service.
+anonymous port is used to communicate with the com.mxk.service.
 
 
 [[remoting-rmi-client]]
@@ -171,8 +171,8 @@ as the following example shows:
 	}
 ----
 
-To link in the service on the client, we create a separate Spring container,
-to contain the following simple object and the service linking configuration bits:
+To link in the com.mxk.service on the client, we create a separate Spring container,
+to contain the following simple object and the com.mxk.service linking configuration bits:
 
 [source,xml,indent=0]
 [subs="verbatim,quotes"]
@@ -187,8 +187,8 @@ to contain the following simple object and the service linking configuration bit
 	</bean>
 ----
 
-That is all we need to do to support the remote account service on the client. Spring
-transparently creates an invoker and remotely enables the account service through the
+That is all we need to do to support the remote account com.mxk.service on the client. Spring
+transparently creates an invoker and remotely enables the account com.mxk.service through the
 `RmiServiceExporter`. At the client, we link it in by using the `RmiProxyFactoryBean`.
 
 
@@ -249,14 +249,14 @@ In the newly created application context called `remoting-servlet.xml`, we creat
 	</bean>
 
 	<bean name="/AccountService" class="org.springframework.remoting.caucho.HessianServiceExporter">
-		<property name="service" ref="accountService"/>
+		<property name="com.mxk.service" ref="accountService"/>
 		<property name="serviceInterface" value="example.AccountService"/>
 	</bean>
 ----
 
-Now we are ready to link in the service at the client. No explicit handler mapping is
+Now we are ready to link in the com.mxk.service at the client. No explicit handler mapping is
 specified (to map request URLs onto services), so we use `BeanNameUrlHandlerMapping`
-used. Hence, the service is exported at the URL indicated through its bean name
+used. Hence, the com.mxk.service is exported at the URL indicated through its bean name
 within the containing `DispatcherServlet` instance's mapping (as defined earlier):
 `https://HOST:8080/remoting/AccountService`.
 
@@ -267,7 +267,7 @@ in `WEB-INF/applicationContext.xml`), as the following example shows:
 [subs="verbatim,quotes"]
 ----
 	<bean name="accountExporter" class="org.springframework.remoting.caucho.HessianServiceExporter">
-		<property name="service" ref="accountService"/>
+		<property name="com.mxk.service" ref="accountService"/>
 		<property name="serviceInterface" value="example.AccountService"/>
 	</bean>
 ----
@@ -295,7 +295,7 @@ the target exporter. The following example shows how to do so:
 [[remoting-caucho-protocols-hessian-client]]
 ==== Linking in the Service on the Client
 
-By using the `HessianProxyFactoryBean`, we can link in the service at the client. The same
+By using the `HessianProxyFactoryBean`, we can link in the com.mxk.service at the client. The same
 principles apply as with the RMI example. We create a separate bean factory or
 application context and mention the following beans where the `SimpleObject` is by using
 the `AccountService` to manage accounts, as the following example shows:
@@ -381,7 +381,7 @@ and https://openjdk.java.net/jeps/290.
 [[remoting-httpinvoker-server]]
 ==== Exposing the Service Object
 
-Setting up the HTTP invoker infrastructure for a service object closely resembles the
+Setting up the HTTP invoker infrastructure for a com.mxk.service object closely resembles the
 way you would do the same by using Hessian. As Hessian support provides
 `HessianServiceExporter`, Spring's HttpInvoker support provides
 `org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter`.
@@ -394,7 +394,7 @@ dispatcher's application context, as the following example shows:
 [subs="verbatim,quotes"]
 ----
 	<bean name="/AccountService" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service" ref="accountService"/>
+		<property name="com.mxk.service" ref="accountService"/>
 		<property name="serviceInterface" value="example.AccountService"/>
 	</bean>
 ----
@@ -409,7 +409,7 @@ Alternatively, you can create an `HttpInvokerServiceExporter` in your root appli
 [subs="verbatim,quotes"]
 ----
 	<bean name="accountExporter" class="org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter">
-		<property name="service" ref="accountService"/>
+		<property name="com.mxk.service" ref="accountService"/>
 		<property name="serviceInterface" value="example.AccountService"/>
 	</bean>
 ----
@@ -435,9 +435,9 @@ servlet name matching the bean name of the target exporter, as the following exa
 [[remoting-httpinvoker-client]]
 ==== Linking in the Service at the Client
 
-Again, linking in the service from the client much resembles the way you would do it
+Again, linking in the com.mxk.service from the client much resembles the way you would do it
 when you use Hessian. By using a proxy, Spring can translate your calls to
-HTTP POST requests to the URL that points to the exported service. The following example
+HTTP POST requests to the URL that points to the exported com.mxk.service. The following example
 shows how to configure this arrangement:
 
 [source,xml,indent=0]
@@ -495,16 +495,16 @@ shows our class that extends `SpringBeanAutowiringSupport`:
 	 * to the AccountService implementation in the root web application context.
 	 *
 	 * This wrapper class is necessary because JAX-WS requires working with dedicated
-	 * endpoint classes. If an existing service needs to be exported, a wrapper that
+	 * endpoint classes. If an existing com.mxk.service needs to be exported, a wrapper that
 	 * extends SpringBeanAutowiringSupport for simple Spring bean autowiring (through
 	 * the @Autowired annotation) is the simplest JAX-WS compliant way.
 	 *
 	 * This is the class registered with the server-side JAX-WS implementation.
 	 * In the case of a Java EE server, this would simply be defined as a servlet
 	 * in web.xml, with the server detecting that this is a JAX-WS endpoint and reacting
-	 * accordingly. The servlet name usually needs to match the specified WS service name.
+	 * accordingly. The servlet name usually needs to match the specified WS com.mxk.service name.
 	 *
-	 * The web service engine manages the lifecycle of instances of this class.
+	 * The web com.mxk.service engine manages the lifecycle of instances of this class.
 	 * Spring bean references will just be wired in here.
 	 */
 	import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -530,7 +530,7 @@ shows our class that extends `SpringBeanAutowiringSupport`:
 Our `AccountServiceEndpoint` needs to run in the same web application as the Spring
 context to allow for access to Spring's facilities. This is the case by default in Java
 EE environments, using the standard contract for JAX-WS servlet endpoint deployment.
-See the various Java EE web service tutorials for details.
+See the various Java EE web com.mxk.service tutorials for details.
 
 
 [[remoting-web-services-jaxws-export-standalone]]
@@ -605,7 +605,7 @@ environments, such as Tomcat, that embed the JAX-WS RI as part of the web applic
 The differences from the standard style of exporting servlet-based endpoints are that
 the lifecycle of the endpoint instances themselves are managed by Spring and that there
 is only one JAX-WS servlet defined in `web.xml`. With the standard Java EE style (as
-shown earlier), you have one servlet definition per service endpoint, with each endpoint
+shown earlier), you have one servlet definition per com.mxk.service endpoint, with each endpoint
 typically delegating to Spring beans (through the use of `@Autowired`, as shown earlier).
 
 See https://jax-ws-commons.java.net/spring/[https://jax-ws-commons.java.net/spring/]
@@ -615,10 +615,10 @@ for details on setup and usage style.
 [[remoting-web-services-jaxws-access]]
 ==== Accessing Web Services by Using JAX-WS
 
-Spring provides two factory beans to create JAX-WS web service proxies, namely
+Spring provides two factory beans to create JAX-WS web com.mxk.service proxies, namely
 `LocalJaxWsServiceFactoryBean` and `JaxWsPortProxyFactoryBean`. The former can
-return only a JAX-WS service class for us to work with. The latter is the full-fledged
-version that can return a proxy that implements our business service interface.
+return only a JAX-WS com.mxk.service class for us to work with. The latter is the full-fledged
+version that can return a proxy that implements our business com.mxk.service interface.
 In the following example, we use `JaxWsPortProxyFactoryBean` to create a proxy for the
 `AccountService` endpoint (again):
 
@@ -638,10 +638,10 @@ In the following example, we use `JaxWsPortProxyFactoryBean` to create a proxy f
 
 `wsdlDocumentUrl` is the URL for the WSDL file. Spring needs this at startup time to
 create the JAX-WS Service. `namespaceUri` corresponds to the `targetNamespace` in the
-.wsdl file. `serviceName` corresponds to the service name in the .wsdl file. `portName`
+.wsdl file. `serviceName` corresponds to the com.mxk.service name in the .wsdl file. `portName`
 corresponds to the port name in the .wsdl file.
 
-Accessing the web service is easy, as we have a bean factory for it that exposes it as
+Accessing the web com.mxk.service is easy, as we have a bean factory for it that exposes it as
 an interface called `AccountService`. The following example shows how we can wire this
 up in Spring:
 
@@ -650,11 +650,11 @@ up in Spring:
 ----
 	<bean id="client" class="example.AccountClientImpl">
 		...
-		<property name="service" ref="accountWebService"/>
+		<property name="com.mxk.service" ref="accountWebService"/>
 	</bean>
 ----
 
-From the client code, we can access the web service as if it were a normal class,
+From the client code, we can access the web com.mxk.service as if it were a normal class,
 as the following example shows:
 
 [source,java,indent=0]
@@ -662,14 +662,14 @@ as the following example shows:
 ----
 	public class AccountClientImpl {
 
-		private AccountService service;
+		private AccountService com.mxk.service;
 
-		public void setService(AccountService service) {
-			this.service = service;
+		public void setService(AccountService com.mxk.service) {
+			this.com.mxk.service = com.mxk.service;
 		}
 
 		public void foo() {
-			service.insertAccount(...);
+			com.mxk.service.insertAccount(...);
 		}
 	}
 ----
@@ -747,7 +747,7 @@ on both the client and the server:
 [[remoting-jms-server]]
 ==== Server-side Configuration
 
-On the server, you need to expose the service object that uses the
+On the server, you need to expose the com.mxk.service object that uses the
 `JmsInvokerServiceExporter`, as the following example shows:
 
 [source,xml,indent=0]
@@ -762,7 +762,7 @@ On the server, you need to expose the service object that uses the
 		<bean id="checkingAccountService"
 				class="org.springframework.jms.remoting.JmsInvokerServiceExporter">
 			<property name="serviceInterface" value="com.foo.CheckingAccountService"/>
-			<property name="service">
+			<property name="com.mxk.service">
 				<bean class="com.foo.SimpleCheckingAccountService"/>
 			</property>
 		</bean>
@@ -833,8 +833,8 @@ The following example defines beans that you can inject into other client-side o
 
 		public static void main(String[] args) throws Exception {
 			ApplicationContext ctx = new ClassPathXmlApplicationContext("com/foo/client.xml", "com/foo/jms.xml");
-			CheckingAccountService service = (CheckingAccountService) ctx.getBean("checkingAccountService");
-			service.cancelAccount(new Long(10));
+			CheckingAccountService com.mxk.service = (CheckingAccountService) ctx.getBean("checkingAccountService");
+			com.mxk.service.cancelAccount(new Long(10));
 		}
 	}
 ----
@@ -858,14 +858,14 @@ implement internal callback interfaces, such as `InitializingBean` or `Disposabl
 which one would not want to expose to callers.
 
 Offering a proxy with all interfaces implemented by the target usually does not matter
-in the local case. However, when you export a remote service, you should expose a specific
-service interface, with specific operations intended for remote usage. Besides internal
+in the local case. However, when you export a remote com.mxk.service, you should expose a specific
+com.mxk.service interface, with specific operations intended for remote usage. Besides internal
 callback interfaces, the target might implement multiple business interfaces, with only
 one of them intended for remote exposure. For these reasons, we require such a
-service interface to be specified.
+com.mxk.service interface to be specified.
 
 This is a trade-off between configuration convenience and the risk of accidental
-exposure of internal methods. Always specifying a service interface is not too much
+exposure of internal methods. Always specifying a com.mxk.service interface is not too much
 effort and puts you on the safe side regarding controlled exposure of specific methods.
 ====
 
@@ -1123,7 +1123,7 @@ on the server side (for example, in Spring MVC REST controllers).
 Concrete implementations for the main media (MIME) types are provided in the framework
 and are, by default, registered with the `RestTemplate` on the client side and with
 `RequestMethodHandlerAdapter` on the server side (see
-<<web.adoc#mvc-config-message-converters, Configuring Message Converters>>).
+<<web.adoc#mvc-com.mxk.config-message-converters, Configuring Message Converters>>).
 
 The implementations of `HttpMessageConverter` are described in the following sections.
 For all converters, a default media type is used, but you can override it by setting the
@@ -1319,7 +1319,7 @@ a hand-coded Business Delegate unless you actually add real value in such code.
 [[ejb-access-local]]
 ==== Accessing Local SLSBs
 
-Assume that we have a web controller that needs to use a local EJB. We follow best
+Assume that we have a web com.mxk.controller that needs to use a local EJB. We follow best
 practice and use the EJB Business Methods Interface pattern, so that the EJB's local
 interface extends a non-EJB-specific business methods interface. We call this
 business methods interface `MyComponent`. The following example shows such an interface:
@@ -1335,13 +1335,13 @@ business methods interface `MyComponent`. The following example shows such an in
 One of the main reasons to use the Business Methods Interface pattern is to ensure that
 synchronization between method signatures in local interface and bean implementation
 class is automatic. Another reason is that it later makes it much easier for us to
-switch to a POJO (plain old Java object) implementation of the service if it makes sense
+switch to a POJO (plain old Java object) implementation of the com.mxk.service if it makes sense
 to do so. We also need to implement the local home interface and provide an
 implementation class that implements `SessionBean` and the `MyComponent` business
 methods interface. Now, the only Java coding we need to do to hook up our web tier
-controller to the EJB implementation is to expose a setter method of type `MyComponent`
-on the controller. This saves the reference as an instance variable in the
-controller. The following example shows how to do so:
+com.mxk.controller to the EJB implementation is to expose a setter method of type `MyComponent`
+on the com.mxk.controller. This saves the reference as an instance variable in the
+com.mxk.controller. The following example shows how to do so:
 
 [source,java,indent=0]
 [subs="verbatim,quotes"]
@@ -1353,11 +1353,11 @@ controller. The following example shows how to do so:
 	}
 ----
 
-We can subsequently use this instance variable in any business method in the controller.
-Now, assuming we obtain our controller object out of a Spring container, we can
+We can subsequently use this instance variable in any business method in the com.mxk.controller.
+Now, assuming we obtain our com.mxk.controller object out of a Spring container, we can
 (in the same context) configure a `LocalStatelessSessionProxyFactoryBean` instance,
 which is the EJB proxy object. We configure the proxy and set the
-`myComponent` property of the controller with the following configuration entry:
+`myComponent` property of the com.mxk.controller with the following configuration entry:
 
 [source,xml,indent=0]
 [subs="verbatim,quotes"]
@@ -1380,7 +1380,7 @@ method interface. The EJB local home is cached on startup, so there is only a si
 lookup. Each time the EJB is invoked, the proxy invokes the `classname` method on the
 local EJB and invokes the	corresponding business method on the EJB.
 
-The `myController` bean definition sets the `myComponent` property of the controller
+The `myController` bean definition sets the `myComponent` property of the com.mxk.controller
 class to the EJB proxy.
 
 Alternatively (and preferably in case of many such proxy definitions), consider using
@@ -1449,7 +1449,7 @@ that it does throw `RemoteException`), and rely on the proxy to dynamically trea
 interfaces as if they were the same. That is, client code does not have to deal with the
 checked `RemoteException` class. Any actual `RemoteException` that is thrown during the
 EJB invocation is re-thrown as the non-checked `RemoteAccessException` class, which
-is a subclass of `RuntimeException`. You can then switch the target service at will
+is a subclass of `RuntimeException`. You can then switch the target com.mxk.service at will
 between a local EJB or remote EJB (or even plain Java object) implementation, without
 the client code knowing or caring. Of course, this is optional: Nothing
 stops you from declaring `RemoteException` in your business interface.
@@ -1505,14 +1505,14 @@ The `org.springframework.jms.support.converter` package provides a `MessageConve
 abstraction to convert between Java objects and JMS messages.
 
 The `org.springframework.jms.support.destination` package provides various strategies
-for managing JMS destinations, such as providing a service locator for destinations
+for managing JMS destinations, such as providing a com.mxk.service locator for destinations
 stored in JNDI.
 
 The `org.springframework.jms.annotation` package provides the necessary infrastructure
 to support annotation-driven listener endpoints by using `@JmsListener`.
 
-The `org.springframework.jms.config` package provides the parser implementation for the
-`jms` namespace as well as the java config support to configure listener containers and
+The `org.springframework.jms.com.mxk.config` package provides the parser implementation for the
+`jms` namespace as well as the java com.mxk.config support to configure listener containers and
 create listener endpoints.
 
 Finally, the `org.springframework.jms.connection` package provides an implementation of
@@ -1660,7 +1660,7 @@ support for a hierarchical namespace of destinations. The `JmsTemplate` delegate
 resolution of a destination name to a JMS destination object that implements the
 `DestinationResolver` interface. `DynamicDestinationResolver` is the default
 implementation used by `JmsTemplate` and accommodates resolving dynamic destinations. A
-`JndiDestinationResolver` is also provided to act as a service locator for
+`JndiDestinationResolver` is also provided to act as a com.mxk.service locator for
 destinations contained in JNDI and optionally falls back to the behavior contained in
 `DynamicDestinationResolver`.
 
@@ -1771,7 +1771,7 @@ customizing the acknowledgment mode. If feasible for your scenario, This is stro
 recommended over externally managed transactions -- that is, if you can live with
 occasional duplicate messages in case of the JVM dying. Custom duplicate message
 detection steps in your business logic can cover such situations -- for example,
-in the form of a business entity existence check or a protocol table check.
+in the form of a business com.mxk.entity existence check or a protocol table check.
 Any such arrangements are significantly more efficient than the alternative:
 wrapping your entire processing with an XA transaction (through configuring your
 `DefaultMessageListenerContainer` with an `JtaTransactionManager`) to cover the
@@ -2455,7 +2455,7 @@ element, as the following example shows:
 	<jms:annotation-driven/>
 
 	<bean id="jmsListenerContainerFactory"
-			class="org.springframework.jms.config.DefaultJmsListenerContainerFactory">
+			class="org.springframework.jms.com.mxk.config.DefaultJmsListenerContainerFactory">
 		<property name="connectionFactory" ref="connectionFactory"/>
 		<property name="destinationResolver" ref="destinationResolver"/>
 		<property name="sessionTransacted" value="true"/>
@@ -3888,7 +3888,7 @@ The following example shows the XML equivalent of the preceding annotation-based
 CAUTION: Do not use interface-based AOP proxies in combination with autodetection of JMX
 annotations in your bean classes. Interface-based proxies "`hide`" the target class, which
 also hides the JMX-managed resource annotations. Hence, you should use target-class proxies in that
-case (through setting the 'proxy-target-class' flag on `<aop:config/>`,
+case (through setting the 'proxy-target-class' flag on `<aop:com.mxk.config/>`,
 `<tx:annotation-driven/>` and so on). Otherwise, your JMX beans might be silently ignored at
 startup.
 
@@ -3915,7 +3915,7 @@ following configuration:
 ----
 
 By default, `ConnectorServerFactoryBean` creates a `JMXConnectorServer` bound to
-`service:jmx:jmxmp://localhost:9875`. The `serverConnector` bean thus exposes the
+`com.mxk.service:jmx:jmxmp://localhost:9875`. The `serverConnector` bean thus exposes the
 local `MBeanServer` to clients through the JMXMP protocol on localhost, port 9875. Note
 that the JMXMP protocol is marked as optional by the JSR 160 specification. Currently,
 the main open-source JMX implementation, MX4J, and the one provided with the JDK
@@ -3932,7 +3932,7 @@ as the following example shows:
 			class="org.springframework.jmx.support.ConnectorServerFactoryBean">
 		<property name="objectName" value="connector:name=rmi"/>
 		<property name="serviceUrl"
-				value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/myconnector"/>
+				value="com.mxk.service:jmx:rmi://localhost/jndi/rmi://localhost:1099/myconnector"/>
 	</bean>
 ----
 
@@ -3948,7 +3948,7 @@ parameters that you can pass to the `ConnectorServerFactoryBean` when creating a
 			class="org.springframework.jmx.support.ConnectorServerFactoryBean">
 		<property name="objectName" value="connector:name=iiop"/>
 		<property name="serviceUrl"
-			value="service:jmx:iiop://localhost/jndi/iiop://localhost:900/myconnector"/>
+			value="com.mxk.service:jmx:iiop://localhost/jndi/iiop://localhost:900/myconnector"/>
 		<property name="threaded" value="true"/>
 		<property name="daemon" value="true"/>
 		<property name="environment">
@@ -3959,7 +3959,7 @@ parameters that you can pass to the `ConnectorServerFactoryBean` when creating a
 	</bean>
 ----
 
-Note that, when you use a RMI-based connector, you need the lookup service (`tnameserv` or
+Note that, when you use a RMI-based connector, you need the lookup com.mxk.service (`tnameserv` or
 `rmiregistry`) to be started in order for the name registration to complete. If you
 use Spring to export remote services for you through RMI, Spring has already
 constructed an RMI registry. If not, you can easily start a registry by using the following
@@ -3984,7 +3984,7 @@ To create an `MBeanServerConnection` to a remote JSR-160-enabled `MBeanServer`, 
 [subs="verbatim,quotes"]
 ----
 	<bean id="clientConnector" class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
-		<property name="serviceUrl" value="service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jmxrmi"/>
+		<property name="serviceUrl" value="com.mxk.service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jmxrmi"/>
 	</bean>
 ----
 
@@ -4004,7 +4004,7 @@ as the following example shows:
 ----
 	<bean id="serverConnector" class="org.springframework.jmx.support.ConnectorServerFactoryBean">
 		<property name="objectName" value="connector:name=burlap"/>
-		<property name="serviceUrl" value="service:jmx:burlap://localhost:9874"/>
+		<property name="serviceUrl" value="com.mxk.service:jmx:burlap://localhost:9874"/>
 	</bean>
 ----
 
@@ -4046,7 +4046,7 @@ you can override this and provide an `MBeanServerConnection` that points to a re
 ----
 	<bean id="clientConnector"
 			class="org.springframework.jmx.support.MBeanServerConnectionFactoryBean">
-		<property name="serviceUrl" value="service:jmx:rmi://remotehost:9875"/>
+		<property name="serviceUrl" value="com.mxk.service:jmx:rmi://remotehost:9875"/>
 	</bean>
 
 	<bean id="proxy" class="org.springframework.jmx.access.MBeanProxyFactoryBean">
@@ -4425,19 +4425,19 @@ support for such connector-specific APIs.
 
 
 
-[[cci-config]]
+[[cci-com.mxk.config]]
 === Configuring CCI
 
 This section covers how to configure a Common Client Interface (CCI). It includes the
 following topics:
 
-* <<cci-config-connector>>
-* <<cci-config-connectionfactory>>
-* <<cci-config-cci-connections>>
-* <<cci-config-single-connection>>
+* <<cci-com.mxk.config-connector>>
+* <<cci-com.mxk.config-connectionfactory>>
+* <<cci-com.mxk.config-cci-connections>>
+* <<cci-com.mxk.config-single-connection>>
 
 
-[[cci-config-connector]]
+[[cci-com.mxk.config-connector]]
 ==== Connector Configuration
 
 The base resource to use JCA CCI is the `ConnectionFactory` interface. The connector
@@ -4467,7 +4467,7 @@ current thread. The resource is not aware of any global Java EE transactions tha
 might be running.
 
 
-[[cci-config-connectionfactory]]
+[[cci-com.mxk.config-connectionfactory]]
 ==== `ConnectionFactory` Configuration in Spring
 
 To make connections to the EIS, you need to obtain a `ConnectionFactory` from
@@ -4508,7 +4508,7 @@ the corresponding implementation of the `ManagedConnectionFactory` interface for
 connector. This interface is part of the JCA SPI specification.
 
 
-[[cci-config-cci-connections]]
+[[cci-com.mxk.config-cci-connections]]
 ==== Configuring CCI Connections
 
 JCA CCI lets you configure the connections to the EIS by using the
@@ -4567,7 +4567,7 @@ The following example shows how to configure a `ConnectionSpecConnectionFactoryA
 ----
 
 
-[[cci-config-single-connection]]
+[[cci-com.mxk.config-single-connection]]
 ==== Using a Single CCI Connection
 
 If you want to use a single CCI connection, Spring provides a further
@@ -5920,7 +5920,7 @@ The variants that Spring provides are as follows:
   If you need to adapt to a different kind of `java.util.concurrent.Executor`, we
   recommend that you use a `ConcurrentTaskExecutor` instead.
 * `WorkManagerTaskExecutor`:
-  This implementation uses a CommonJ `WorkManager` as its backing service provider
+  This implementation uses a CommonJ `WorkManager` as its backing com.mxk.service provider
   and is the central convenience class for setting up CommonJ-based thread pool
   integration on WebLogic or WebSphere within a Spring application context.
 * `DefaultManagedTaskExecutor`:
@@ -6769,7 +6769,7 @@ support of <<cache-jsr-107,JSR-107 annotations>> and more customization options.
 
 The terms, "`buffer`" and "`cache,`" tend to be used interchangeably. Note, however,
 that they represent different things. Traditionally, a buffer is used as an intermediate
-temporary store for data between a fast and a slow entity. As one party would have to wait
+temporary store for data between a fast and a slow com.mxk.entity. As one party would have to wait
 for the other (which affects performance), the buffer alleviates this by allowing entire
 blocks of data to move at once rather than in small chunks. The data is written and read
 only once from the buffer. Furthermore, the buffers are visible to at least one party
@@ -6802,7 +6802,7 @@ The caching abstraction provides other cache-related operations, such as the abi
 to update the content of the cache or to remove one or all entries. These are useful if
 the cache deals with data that can change during the course of the application.
 
-As with other services in the Spring Framework, the caching service is an abstraction
+As with other services in the Spring Framework, the caching com.mxk.service is an abstraction
 (not a cache implementation) and requires the use of actual storage to store the cache data --
 that is, the abstraction frees you from having to write the caching logic but does not
 provide the actual data store. This abstraction is materialized by the
@@ -7093,7 +7093,7 @@ want to cache paperback books, as the following example does:
 
 
 The cache abstraction supports `java.util.Optional`, using its content as the cached value
-only if it is present. `#result` always refers to the business entity and never a
+only if it is present. `#result` always refers to the business com.mxk.entity and never a
 supported wrapper, so the previous example can be rewritten as follows:
 
 [source,java,indent=0]
@@ -7253,7 +7253,7 @@ The following example uses two `@CacheEvict` annotations:
 ----
 
 
-[[cache-annotations-config]]
+[[cache-annotations-com.mxk.config]]
 ==== The `@CacheConfig` annotation
 
 So far, we have seen that caching operations offer many customization options and that
@@ -7635,8 +7635,8 @@ from the previous section can be translated into the following example:
 [source,xml,indent=0]
 [subs="verbatim"]
 ----
-	<!-- the service we want to make cacheable -->
-	<bean id="bookService" class="x.y.service.DefaultBookService"/>
+	<!-- the com.mxk.service we want to make cacheable -->
+	<bean id="bookService" class="x.y.com.mxk.service.DefaultBookService"/>
 
 	<!-- cache definitions -->
 	<cache:advice id="cacheAdvice" cache-manager="cacheManager">
@@ -7647,9 +7647,9 @@ from the previous section can be translated into the following example:
 	</cache:advice>
 
 	<!-- apply the cacheable behavior to all BookService interfaces -->
-	<aop:config>
+	<aop:com.mxk.config>
 		<aop:advisor advice-ref="cacheAdvice" pointcut="execution(* x.y.BookService.*(..))"/>
-	</aop:config>
+	</aop:com.mxk.config>
 
 	<!-- cache manager definition omitted -->
 ----
@@ -7659,7 +7659,7 @@ to apply are encapsulated in the `cache:advice` definition, which causes the `fi
 method to be used for putting data into the cache and the `loadBooks` method for evicting
 data. Both definitions work against the `books` cache.
 
-The `aop:config` definition applies the cache advice to the appropriate points in the
+The `aop:com.mxk.config` definition applies the cache advice to the appropriate points in the
 program by using the AspectJ pointcut expression (more information is available in
 <<core.adoc#aop, Aspect Oriented Programming with Spring>>). In the preceding example,
 all methods from the `BookService` are considered and the cache advice is applied to them.
@@ -7682,7 +7682,7 @@ in the preceding example by defining the target cache through the `cache:definit
 === Configuring the Cache Storage
 
 The cache abstraction provides several storage integration options. To use them, you need
-to declare an appropriate `CacheManager` (an entity that controls and manages `Cache`
+to declare an appropriate `CacheManager` (an com.mxk.entity that controls and manages `Cache`
 instances and that can be used to retrieve these for storage).
 
 
@@ -7734,7 +7734,7 @@ The following example shows how to do so:
 
 	<!-- EhCache library setup -->
 	<bean id="ehcache"
-			class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:config-location="ehcache.xml"/>
+			class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" p:com.mxk.config-location="ehcache.xml"/>
 ----
 
 This setup bootstraps the ehcache library inside the Spring IoC (through the `ehcache`
@@ -7860,7 +7860,7 @@ that provide integration with Spring can fill in this small configuration gap.
 
 
 
-[[cache-specific-config]]
+[[cache-specific-com.mxk.config]]
 === How can I Set the TTL/TTI/Eviction policy/XXX feature?
 
 Directly through your cache provider. The cache abstraction is an abstraction,

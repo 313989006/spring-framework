@@ -72,7 +72,7 @@
 		</xsd:sequence>
 	</xsd:complexType>
 
-	<xsd:complexType name="sockjs-service">
+	<xsd:complexType name="sockjs-com.mxk.service">
 		<xsd:annotation>
 			<xsd:documentation source="org.springframework.web.socket.sockjs.transport.handler.DefaultSockJsService"><![CDATA[
 	Configures a DefaultSockJsService for processing HTTP requests from SockJS clients.
@@ -122,7 +122,7 @@
 		<xsd:attribute name="name" type="xsd:string">
 			<xsd:annotation>
 				<xsd:documentation source="java:org.springframework.web.socket.sockjs.support.AbstractSockJsService"><![CDATA[
-	A unique name for the service, mainly for logging purposes.
+	A unique name for the com.mxk.service, mainly for logging purposes.
                 ]]></xsd:documentation>
 			</xsd:annotation>
 		</xsd:attribute>
@@ -323,7 +323,7 @@
 				<xsd:documentation source="java:org.springframework.messaging.simp.stomp.StompBrokerRelayMessageHandler"><![CDATA[
 	The value of the "host" header to use in STOMP CONNECT frames sent to the STOMP broker.
 	This may be useful for example in a cloud environment where the actual host to which
-	the TCP connection is established is different from the host providing the cloud-based STOMP service.
+	the TCP connection is established is different from the host providing the cloud-based STOMP com.mxk.service.
 	By default this property is not set.
                 ]]></xsd:documentation>
 			</xsd:annotation>
@@ -497,7 +497,7 @@
 	Configures WebSocket support by registering a SimpleUrlHandlerMapping and mapping
 	paths to registered WebSocketHandlers.
 
-	If a sockjs service is configured within this element, then a
+	If a sockjs com.mxk.service is configured within this element, then a
 	SockJsHttpRequestHandler will handle
 	requests mapped to the given path.
 
@@ -513,7 +513,7 @@
 				<xsd:element name="mapping" type="mapping" minOccurs="1" maxOccurs="unbounded"/>
 				<xsd:element name="handshake-handler" type="handshake-handler" minOccurs="0" maxOccurs="1"/>
 				<xsd:element name="handshake-interceptors" type="handshake-interceptors" minOccurs="0" maxOccurs="1"/>
-				<xsd:element name="sockjs" type="sockjs-service" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="sockjs" type="sockjs-com.mxk.service" minOccurs="0" maxOccurs="1"/>
 			</xsd:sequence>
 			<xsd:attribute name="order" type="xsd:token">
 				<xsd:annotation>
@@ -711,7 +711,7 @@
 						<xsd:sequence>
 							<xsd:element name="handshake-handler" type="handshake-handler" minOccurs="0" maxOccurs="1"/>
 							<xsd:element name="handshake-interceptors" type="handshake-interceptors" minOccurs="0" maxOccurs="1"/>
-							<xsd:element name="sockjs" type="sockjs-service" minOccurs="0" maxOccurs="1"/>
+							<xsd:element name="sockjs" type="sockjs-com.mxk.service" minOccurs="0" maxOccurs="1"/>
 						</xsd:sequence>
 						<xsd:attribute name="path" type="xsd:string">
 							<xsd:annotation>
@@ -764,7 +764,7 @@
 				<xsd:element name="argument-resolvers" minOccurs="0">
 					<xsd:annotation>
 						<xsd:documentation><![CDATA[
-	Configures HandlerMethodArgumentResolver types to support custom controller method argument types.
+	Configures HandlerMethodArgumentResolver types to support custom com.mxk.controller method argument types.
 	Using this option does not override the built-in support for resolving handler method arguments.
 	To customize the built-in support for argument resolution configure WebSocketAnnotationMethodMessageHandler directly.
 						]]></xsd:documentation>
@@ -796,7 +796,7 @@
 				<xsd:element name="return-value-handlers" minOccurs="0">
 					<xsd:annotation>
 						<xsd:documentation><![CDATA[
-	Configures HandlerMethodReturnValueHandler types to support custom controller method return value handling.
+	Configures HandlerMethodReturnValueHandler types to support custom com.mxk.controller method return value handling.
 	Using this option does not override the built-in support for handling return values.
 	To customize the built-in support for handling return values configure WebSocketAnnotationMethodMessageHandler directly.
 						]]></xsd:documentation>
@@ -937,7 +937,7 @@
 	Note that the configured PathMatcher is only used for matching the
 	portion of the destination after the configured prefix. For example given
 	application destination prefix "/app" and destination "/app/price.stock.**",
-	the message might be mapped to a controller with "price" and "stock.**"
+	the message might be mapped to a com.mxk.controller with "price" and "stock.**"
 	as its type and method-level mappings respectively.
 
 	When the simple broker is enabled, the PathMatcher configured here is

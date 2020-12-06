@@ -33,16 +33,16 @@ import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 
 /**
- * Entity-specific subtype of {@link ServerResponse} that exposes entity data.
+ * Entity-specific subtype of {@link ServerResponse} that exposes com.mxk.entity data.
  *
  * @author Arjen Poutsma
  * @since 5.2
- * @param <T> the entity type
+ * @param <T> the com.mxk.entity type
  */
 public interface EntityResponse<T> extends ServerResponse {
 
 	/**
-	 * Return the entity that makes up this response.
+	 * Return the com.mxk.entity that makes up this response.
 	 */
 	T entity();
 
@@ -62,7 +62,7 @@ public interface EntityResponse<T> extends ServerResponse {
 	/**
 	 * Create a builder with the given object and type reference.
 	 * @param t the object that represents the body of the response
-	 * @param entityType the type of the entity, used to capture the generic type
+	 * @param entityType the type of the com.mxk.entity, used to capture the generic type
 	 * @param <T> the type of element contained in the publisher
 	 * @return the created builder
 	 */
@@ -73,7 +73,7 @@ public interface EntityResponse<T> extends ServerResponse {
 
 	/**
 	 * Defines a builder for {@code EntityResponse}.
-	 * @param <T> the entity type
+	 * @param <T> the com.mxk.entity type
 	 */
 	interface Builder<T> {
 
@@ -148,8 +148,8 @@ public interface EntityResponse<T> extends ServerResponse {
 		Builder<T> allow(Set<HttpMethod> allowedMethods);
 
 		/**
-		 * Set the entity tag of the body, as specified by the {@code ETag} header.
-		 * @param etag the new entity tag
+		 * Set the com.mxk.entity tag of the body, as specified by the {@code ETag} header.
+		 * @param etag the new com.mxk.entity tag
 		 * @return this builder
 		 * @see HttpHeaders#setETag(String)
 		 */

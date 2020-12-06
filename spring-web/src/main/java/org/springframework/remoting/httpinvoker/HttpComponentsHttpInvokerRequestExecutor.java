@@ -78,7 +78,7 @@ public class HttpComponentsHttpInvokerRequestExecutor extends AbstractHttpInvoke
 
 	/**
 	 * Create a new instance of the HttpComponentsHttpInvokerRequestExecutor with a default
-	 * {@link HttpClient} that uses a default {@code org.apache.http.impl.conn.PoolingClientConnectionManager}.
+	 * {@link HttpClient} that uses a default {@code org.apache.http.com.mxk.service.impl.conn.PoolingClientConnectionManager}.
 	 */
 	public HttpComponentsHttpInvokerRequestExecutor() {
 		this(createDefaultHttpClient(), RequestConfig.custom()
@@ -206,7 +206,7 @@ public class HttpComponentsHttpInvokerRequestExecutor extends AbstractHttpInvoke
 	 * <p>The default implementation creates a standard HttpPost with
 	 * "application/x-java-serialized-object" as "Content-Type" header.
 	 * @param config the HTTP invoker configuration that specifies the
-	 * target service
+	 * target com.mxk.service
 	 * @return the HttpPost instance
 	 * @throws java.io.IOException if thrown by I/O methods
 	 */
@@ -235,12 +235,12 @@ public class HttpComponentsHttpInvokerRequestExecutor extends AbstractHttpInvoke
 
 	/**
 	 * Create a {@link RequestConfig} for the given configuration. Can return {@code null}
-	 * to indicate that no custom request config should be set and the defaults of the
+	 * to indicate that no custom request com.mxk.config should be set and the defaults of the
 	 * {@link HttpClient} should be used.
 	 * <p>The default implementation tries to merge the defaults of the client with the
 	 * local customizations of the instance, if any.
 	 * @param config the HTTP invoker configuration that specifies the
-	 * target service
+	 * target com.mxk.service
 	 * @return the RequestConfig to use
 	 */
 	@Nullable
@@ -279,7 +279,7 @@ public class HttpComponentsHttpInvokerRequestExecutor extends AbstractHttpInvoke
 	 * <p>The default implementation simply sets the serialized invocation as the
 	 * HttpPost's request body. This can be overridden, for example, to write a
 	 * specific encoding and to potentially set appropriate HTTP request headers.
-	 * @param config the HTTP invoker configuration that specifies the target service
+	 * @param config the HTTP invoker configuration that specifies the target com.mxk.service
 	 * @param httpPost the HttpPost to set the request body on
 	 * @param baos the ByteArrayOutputStream that contains the serialized
 	 * RemoteInvocation object
@@ -296,7 +296,7 @@ public class HttpComponentsHttpInvokerRequestExecutor extends AbstractHttpInvoke
 
 	/**
 	 * Execute the given HttpPost instance.
-	 * @param config the HTTP invoker configuration that specifies the target service
+	 * @param config the HTTP invoker configuration that specifies the target com.mxk.service
 	 * @param httpClient the HttpClient to execute on
 	 * @param httpPost the HttpPost to execute
 	 * @return the resulting HttpResponse
@@ -314,7 +314,7 @@ public class HttpComponentsHttpInvokerRequestExecutor extends AbstractHttpInvoke
 	 * throwing an exception if it does not correspond to a successful HTTP response.
 	 * <p>Default implementation rejects any HTTP status code beyond 2xx, to avoid
 	 * parsing the response body and trying to deserialize from a corrupted stream.
-	 * @param config the HTTP invoker configuration that specifies the target service
+	 * @param config the HTTP invoker configuration that specifies the target com.mxk.service
 	 * @param response the resulting HttpResponse to validate
 	 * @throws java.io.IOException if validation failed
 	 */
@@ -334,7 +334,7 @@ public class HttpComponentsHttpInvokerRequestExecutor extends AbstractHttpInvoke
 	 * <p>The default implementation simply fetches the HttpPost's response body stream.
 	 * If the response is recognized as GZIP response, the InputStream will get wrapped
 	 * in a GZIPInputStream.
-	 * @param config the HTTP invoker configuration that specifies the target service
+	 * @param config the HTTP invoker configuration that specifies the target com.mxk.service
 	 * @param httpResponse the resulting HttpResponse to read the response body from
 	 * @return an InputStream for the response body
 	 * @throws java.io.IOException if thrown by I/O methods

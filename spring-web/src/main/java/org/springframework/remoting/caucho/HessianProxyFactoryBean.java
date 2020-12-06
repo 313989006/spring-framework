@@ -21,15 +21,15 @@ import org.springframework.beans.factory.FactoryBean;
 import org.springframework.lang.Nullable;
 
 /**
- * {@link FactoryBean} for Hessian proxies. Exposes the proxied service
- * for use as a bean reference, using the specified service interface.
+ * {@link FactoryBean} for Hessian proxies. Exposes the proxied com.mxk.service
+ * for use as a bean reference, using the specified com.mxk.service interface.
  *
  * <p>Hessian is a slim, binary RPC protocol.
  * For information on Hessian, see the
  * <a href="http://hessian.caucho.com">Hessian website</a>
  * <b>Note: As of Spring 4.0, this proxy factory requires Hessian 4.0 or above.</b>
  *
- * <p>The service URL must be an HTTP URL exposing a Hessian service.
+ * <p>The com.mxk.service URL must be an HTTP URL exposing a Hessian com.mxk.service.
  * For details, see the {@link HessianClientInterceptor} javadoc.
  *
  * @author Juergen Hoeller

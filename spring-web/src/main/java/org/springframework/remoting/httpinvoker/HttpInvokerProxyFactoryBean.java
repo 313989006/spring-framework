@@ -22,10 +22,10 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
- * {@link FactoryBean} for HTTP invoker proxies. Exposes the proxied service
- * for use as a bean reference, using the specified service interface.
+ * {@link FactoryBean} for HTTP invoker proxies. Exposes the proxied com.mxk.service
+ * for use as a bean reference, using the specified com.mxk.service interface.
  *
- * <p>The service URL must be an HTTP URL exposing an HTTP invoker service.
+ * <p>The com.mxk.service URL must be an HTTP URL exposing an HTTP invoker com.mxk.service.
  * Optionally, a codebase URL can be specified for on-demand dynamic code download
  * from a remote location. For details, see HttpInvokerClientInterceptor docs.
  *

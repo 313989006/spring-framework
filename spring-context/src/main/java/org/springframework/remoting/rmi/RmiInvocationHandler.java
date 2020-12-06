@@ -26,7 +26,7 @@ import org.springframework.remoting.support.RemoteInvocation;
 /**
  * Interface for RMI invocation handlers instances on the server,
  * wrapping exported services. A client uses a stub implementing
- * this interface to access such a service.
+ * this interface to access such a com.mxk.service.
  *
  * <p>This is an SPI interface, not to be used directly by applications.
  *

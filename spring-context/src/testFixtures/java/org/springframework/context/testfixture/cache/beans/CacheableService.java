@@ -17,7 +17,7 @@
 package org.springframework.context.testfixture.cache.beans;
 
 /**
- * Basic service interface for caching tests.
+ * Basic com.mxk.service interface for caching tests.
  *
  * @author Costin Leau
  * @author Phillip Webb

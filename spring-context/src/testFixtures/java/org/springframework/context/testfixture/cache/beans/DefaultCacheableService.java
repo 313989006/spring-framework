@@ -25,7 +25,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 
 /**
- * Simple cacheable service.
+ * Simple cacheable com.mxk.service.
  *
  * @author Costin Leau
  * @author Phillip Webb

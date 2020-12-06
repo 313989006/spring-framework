@@ -29,7 +29,7 @@ import org.springframework.util.ConcurrencyThrottleSupport;
  *
  * <p>Can be applied to methods of local services that involve heavy use
  * of system resources, in a scenario where it is more efficient to
- * throttle concurrency for a specific service rather than restricting
+ * throttle concurrency for a specific com.mxk.service rather than restricting
  * the entire thread pool (e.g. the web container's thread pool).
  *
  * <p>The default concurrency limit of this interceptor is 1.

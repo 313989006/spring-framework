@@ -34,8 +34,8 @@ import org.springframework.remoting.support.RemoteInvocationResult;
 
 /**
  * {@link org.aopalliance.intercept.MethodInterceptor} for accessing an
- * HTTP invoker service. The service URL must be an HTTP URL exposing
- * an HTTP invoker service.
+ * HTTP invoker com.mxk.service. The com.mxk.service URL must be an HTTP URL exposing
+ * an HTTP invoker com.mxk.service.
  *
  * <p>Serializes remote invocation objects and deserializes remote invocation
  * result objects. Uses Java serialization just like RMI, but provides the
@@ -87,7 +87,7 @@ public class HttpInvokerClientInterceptor extends RemoteInvocationBasedAccessor
 	 * In contrast to RMI, where the server determines the URL for class download
 	 * (via the "java.rmi.server.codebase" system property), it's the client
 	 * that determines the codebase URL here. The server will usually be the
-	 * same as for the service URL, just pointing to a different path there.
+	 * same as for the com.mxk.service URL, just pointing to a different path there.
 	 * @see #setServiceUrl
 	 * @see org.springframework.remoting.rmi.CodebaseAwareObjectInputStream
 	 * @see java.rmi.server.RMIClassLoader
@@ -144,7 +144,7 @@ public class HttpInvokerClientInterceptor extends RemoteInvocationBasedAccessor
 	@Override
 	public Object invoke(MethodInvocation methodInvocation) throws Throwable {
 		if (AopUtils.isToStringMethod(methodInvocation.getMethod())) {
-			return "HTTP invoker proxy for service URL [" + getServiceUrl() + "]";
+			return "HTTP invoker proxy for com.mxk.service URL [" + getServiceUrl() + "]";
 		}
 
 		RemoteInvocation invocation = createRemoteInvocation(methodInvocation);
@@ -167,7 +167,7 @@ public class HttpInvokerClientInterceptor extends RemoteInvocationBasedAccessor
 			}
 			else {
 				throw new RemoteInvocationFailureException("Invocation of method [" + methodInvocation.getMethod() +
-						"] failed in HTTP invoker remote service at [" + getServiceUrl() + "]", ex);
+						"] failed in HTTP invoker remote com.mxk.service at [" + getServiceUrl() + "]", ex);
 			}
 		}
 	}
@@ -217,18 +217,18 @@ public class HttpInvokerClientInterceptor extends RemoteInvocationBasedAccessor
 	protected RemoteAccessException convertHttpInvokerAccessException(Throwable ex) {
 		if (ex instanceof ConnectException) {
 			return new RemoteConnectFailureException(
-					"Could not connect to HTTP invoker remote service at [" + getServiceUrl() + "]", ex);
+					"Could not connect to HTTP invoker remote com.mxk.service at [" + getServiceUrl() + "]", ex);
 		}
 
 		if (ex instanceof ClassNotFoundException || ex instanceof NoClassDefFoundError ||
 				ex instanceof InvalidClassException) {
 			return new RemoteAccessException(
-					"Could not deserialize result from HTTP invoker remote service [" + getServiceUrl() + "]", ex);
+					"Could not deserialize result from HTTP invoker remote com.mxk.service [" + getServiceUrl() + "]", ex);
 		}
 
 		if (ex instanceof Exception) {
 			return new RemoteAccessException(
-					"Could not access HTTP invoker remote service at [" + getServiceUrl() + "]", ex);
+					"Could not access HTTP invoker remote com.mxk.service at [" + getServiceUrl() + "]", ex);
 		}
 
 		// For any other Throwable, e.g. OutOfMemoryError: let it get propagated as-is.

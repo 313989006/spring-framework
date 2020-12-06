@@ -81,7 +81,7 @@ public class RmiRegistryFactoryBean implements FactoryBean<Registry>, Initializi
 
 
 	/**
-	 * Set the host of the registry for the exported RMI service,
+	 * Set the host of the registry for the exported RMI com.mxk.service,
 	 * i.e. {@code rmi://HOST:port/name}
 	 * <p>Default is localhost.
 	 */
@@ -90,14 +90,14 @@ public class RmiRegistryFactoryBean implements FactoryBean<Registry>, Initializi
 	}
 
 	/**
-	 * Return the host of the registry for the exported RMI service.
+	 * Return the host of the registry for the exported RMI com.mxk.service.
 	 */
 	public String getHost() {
 		return this.host;
 	}
 
 	/**
-	 * Set the port of the registry for the exported RMI service,
+	 * Set the port of the registry for the exported RMI com.mxk.service,
 	 * i.e. {@code rmi://host:PORT/name}
 	 * <p>Default is {@code Registry.REGISTRY_PORT} (1099).
 	 */
@@ -106,7 +106,7 @@ public class RmiRegistryFactoryBean implements FactoryBean<Registry>, Initializi
 	}
 
 	/**
-	 * Return the port of the registry for the exported RMI service.
+	 * Return the port of the registry for the exported RMI com.mxk.service.
 	 */
 	public int getPort() {
 		return this.port;

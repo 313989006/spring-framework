@@ -5,7 +5,7 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-	<mvc:annotation-driven conversion-service="conversionService" />
+	<mvc:annotation-driven conversion-com.mxk.service="conversionService" />
 
 	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean" />
 

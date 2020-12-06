@@ -19,16 +19,16 @@ package org.springframework.remoting.support;
 import org.springframework.util.Assert;
 
 /**
- * Abstract base class for classes that access a remote service.
+ * Abstract base class for classes that access a remote com.mxk.service.
  * Provides a "serviceInterface" bean property.
  *
- * <p>Note that the service interface being used will show some signs of
+ * <p>Note that the com.mxk.service interface being used will show some signs of
  * remotability, like the granularity of method calls that it offers.
  * Furthermore, it has to have serializable arguments etc.
  *
  * <p>Accessors are supposed to throw Spring's generic
  * {@link org.springframework.remoting.RemoteAccessException} in case
- * of remote invocation failure, provided that the service interface
+ * of remote invocation failure, provided that the com.mxk.service interface
  * does not declare {@code java.rmi.RemoteException}.
  *
  * @author Juergen Hoeller
@@ -42,9 +42,9 @@ public abstract class RemoteAccessor extends RemotingSupport {
 
 
 	/**
-	 * Set the interface of the service to access.
-	 * The interface must be suitable for the particular service and remoting strategy.
-	 * <p>Typically required to be able to create a suitable service proxy,
+	 * Set the interface of the com.mxk.service to access.
+	 * The interface must be suitable for the particular com.mxk.service and remoting strategy.
+	 * <p>Typically required to be able to create a suitable com.mxk.service proxy,
 	 * but can also be optional if the lookup returns a typed proxy.
 	 */
 	public void setServiceInterface(Class<?> serviceInterface) {
@@ -54,7 +54,7 @@ public abstract class RemoteAccessor extends RemotingSupport {
 	}
 
 	/**
-	 * Return the interface of the service to access.
+	 * Return the interface of the com.mxk.service to access.
 	 */
 	public Class<?> getServiceInterface() {
 		return this.serviceInterface;

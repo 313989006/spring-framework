@@ -47,7 +47,7 @@ class ConnectorServerFactoryBeanTests extends AbstractMBeanServerTests {
 
 	private static final String OBJECT_NAME = "spring:type=connector,name=test";
 
-	private final String serviceUrl = "service:jmx:jmxmp://localhost:" + SocketUtils.findAvailableTcpPort();
+	private final String serviceUrl = "com.mxk.service:jmx:jmxmp://localhost:" + SocketUtils.findAvailableTcpPort();
 
 
 	@Test

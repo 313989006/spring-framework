@@ -19,7 +19,7 @@ package org.springframework.remoting.support;
 import org.aopalliance.intercept.MethodInvocation;
 
 /**
- * Abstract base class for remote service accessors that are based
+ * Abstract base class for remote com.mxk.service accessors that are based
  * on serialization of {@link RemoteInvocation} objects.
  *
  * Provides a "remoteInvocationFactory" property, with a

@@ -47,7 +47,7 @@ import org.springframework.validation.annotation.Validated;
  * <p>E.g.: {@code public @NotNull Object myValidMethod(@NotNull String arg1, @Max(10) int arg2)}
  *
  * <p>Validation groups can be specified through Spring's {@link Validated} annotation
- * at the type level of the containing target class, applying to all public service methods
+ * at the type level of the containing target class, applying to all public com.mxk.service methods
  * of that class. By default, JSR-303 will validate against its default group only.
  *
  * <p>As of Spring 5.0, this functionality requires a Bean Validation 1.1+ provider.
@@ -105,7 +105,7 @@ public class MethodValidationInterceptor implements MethodInterceptor {
 					invocation.getThis(), methodToValidate, invocation.getArguments(), groups);
 		}
 		catch (IllegalArgumentException ex) {
-			// Probably a generic type mismatch between interface and impl as reported in SPR-12237 / HV-1011
+			// Probably a generic type mismatch between interface and com.mxk.service.impl as reported in SPR-12237 / HV-1011
 			// Let's try to find the bridged method on the implementation class...
 			methodToValidate = BridgeMethodResolver.findBridgedMethod(
 					ClassUtils.getMostSpecificMethod(invocation.getMethod(), invocation.getThis().getClass()));

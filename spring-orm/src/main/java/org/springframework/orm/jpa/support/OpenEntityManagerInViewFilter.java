@@ -46,7 +46,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * original transactions already being completed.
  *
  * <p>This filter makes JPA EntityManagers available via the current thread,
- * which will be autodetected by transaction managers. It is suitable for service
+ * which will be autodetected by transaction managers. It is suitable for com.mxk.service
  * layer transactions via {@link org.springframework.orm.jpa.JpaTransactionManager}
  * or {@link org.springframework.transaction.jta.JtaTransactionManager} as well
  * as for non-transactional read-only execution.

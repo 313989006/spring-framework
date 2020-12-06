@@ -62,7 +62,7 @@ import org.springframework.util.StringUtils;
  * If not explicitly specified, the context implementation is supposed to use a
  * default location (with XmlWebApplicationContext: "/WEB-INF/applicationContext.xml").
  *
- * <p>Note: In case of multiple config locations, later bean definitions will
+ * <p>Note: In case of multiple com.mxk.config locations, later bean definitions will
  * override ones defined in previously loaded files, at least when using one of
  * Spring's default ApplicationContext implementations. This can be leveraged
  * to deliberately override certain bean definitions via an extra XML file.
@@ -94,7 +94,7 @@ public class ContextLoader {
 
 	/**
 	 * Name of servlet context parameter (i.e., {@value}) that can specify the
-	 * config location for the root context, falling back to the implementation's
+	 * com.mxk.config location for the root context, falling back to the implementation's
 	 * default otherwise.
 	 * @see org.springframework.web.context.support.XmlWebApplicationContext#DEFAULT_CONFIG_LOCATION
 	 */
@@ -259,6 +259,7 @@ public class ContextLoader {
 	 * @see #CONFIG_LOCATION_PARAM
 	 */
 	public WebApplicationContext initWebApplicationContext(ServletContext servletContext) {
+		// 从 ServletContext 中查找，是否存在以 WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE 为 key 的值
 		if (servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {
 			throw new IllegalStateException(
 					"Cannot initialize context because there is already a root application context present - " +
@@ -275,11 +276,13 @@ public class ContextLoader {
 		try {
 			// Store context in local instance variable, to guarantee that
 			// it is available on ServletContext shutdown.
+			// 创建 web 上下文，默认是 XmlWebApplicationContext
 			if (this.context == null) {
 				this.context = createWebApplicationContext(servletContext);
 			}
 			if (this.context instanceof ConfigurableWebApplicationContext) {
 				ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) this.context;
+				// 如果该容器还没有刷新过
 				if (!cwac.isActive()) {
 					// The context has not yet been refreshed -> provide services such as
 					// setting the parent context, setting the application context id, etc
@@ -289,9 +292,12 @@ public class ContextLoader {
 						ApplicationContext parent = loadParentContext(servletContext);
 						cwac.setParent(parent);
 					}
+					// 配置并刷新容器
 					configureAndRefreshWebApplicationContext(cwac, servletContext);
 				}
 			}
+			// 将 ApplicationContext 放入 ServletContext 中
+			// 其 key 为WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE
 			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
 
 			ClassLoader ccl = Thread.currentThread().getContextClassLoader();
@@ -299,6 +305,8 @@ public class ContextLoader {
 				currentContext = this.context;
 			}
 			else if (ccl != null) {
+				// 将 ApplicationContext 放入 ContextLoader 的全局变量 Map 中
+				// 其中 key 为 Thread.currentThread().getContextClassLoader(),即当前线程类加载器
 				currentContextPerThread.put(ccl, this.context);
 			}
 
@@ -403,7 +411,7 @@ public class ContextLoader {
 
 	/**
 	 * Customize the {@link ConfigurableWebApplicationContext} created by this
-	 * ContextLoader after config locations have been supplied to the context
+	 * ContextLoader after com.mxk.config locations have been supplied to the context
 	 * but before the context is <em>refreshed</em>.
 	 * <p>The default implementation {@linkplain #determineContextInitializerClasses(ServletContext)
 	 * determines} what (if any) context initializer classes have been specified through

@@ -112,7 +112,7 @@ import org.springframework.web.util.WebUtils;
  * If not explicitly specified, the context implementation is supposed to build a
  * default location from the namespace of the servlet.
  *
- * <p>Note: In case of multiple config locations, later bean definitions will
+ * <p>Note: In case of multiple com.mxk.config locations, later bean definitions will
  * override ones defined in earlier loaded files, at least when using Spring's
  * default ApplicationContext implementation. This can be leveraged to
  * deliberately override certain bean definitions via an extra XML file.
@@ -183,7 +183,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 	@Nullable
 	private String namespace;
 
-	/** Explicit context config location. */
+	/** Explicit context com.mxk.config location. */
 	@Nullable
 	private String contextConfigLocation;
 
@@ -347,7 +347,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 
 	/**
 	 * Set a custom namespace for this servlet,
-	 * to be used for building a default context config location.
+	 * to be used for building a default context com.mxk.config location.
 	 */
 	public void setNamespace(String namespace) {
 		this.namespace = namespace;
@@ -362,7 +362,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 	}
 
 	/**
-	 * Set the context config location explicitly, instead of relying on the default
+	 * Set the context com.mxk.config location explicitly, instead of relying on the default
 	 * location built from the namespace. This location string can consist of
 	 * multiple locations separated by any number of commas and spaces.
 	 */
@@ -371,7 +371,7 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 	}
 
 	/**
-	 * Return the explicit context config location, if any.
+	 * Return the explicit context com.mxk.config location, if any.
 	 */
 	@Nullable
 	public String getContextConfigLocation() {

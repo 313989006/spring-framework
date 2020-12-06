@@ -40,7 +40,7 @@ import org.springframework.web.servlet.FrameworkServlet;
  * Base class for {@link org.springframework.web.WebApplicationInitializer}
  * implementations that register a {@link DispatcherServlet} in the servlet context.
  *
- * <p>Most applications should consider extending the Spring Java config subclass
+ * <p>Most applications should consider extending the Spring Java com.mxk.config subclass
  * {@link AbstractAnnotationConfigDispatcherServletInitializer}.
  *
  * @author Arjen Poutsma
@@ -79,9 +79,11 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 		String servletName = getServletName();
 		Assert.hasLength(servletName, "getServletName() must not return null or empty");
 
+		// 创建 Spring  web ioc 容器
 		WebApplicationContext servletAppContext = createServletApplicationContext();
 		Assert.notNull(servletAppContext, "createServletApplicationContext() must not return null");
 
+		// 创建 dispatcherServlet 实例
 		FrameworkServlet dispatcherServlet = createDispatcherServlet(servletAppContext);
 		Assert.notNull(dispatcherServlet, "createDispatcherServlet(WebApplicationContext) must not return null");
 		dispatcherServlet.setContextInitializers(getServletApplicationContextInitializers());
@@ -93,6 +95,7 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 		}
 
 		registration.setLoadOnStartup(1);
+		// 路径映射
 		registration.addMapping(getServletMappings());
 		registration.setAsyncSupported(isAsyncSupported());
 

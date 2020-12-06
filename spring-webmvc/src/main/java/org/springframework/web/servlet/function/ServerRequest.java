@@ -246,7 +246,7 @@ public interface ServerRequest {
 	 * <p><strong>Note:</strong> you can use either
 	 * this {@code #checkNotModified(Instant)} method; or
 	 * {@link #checkNotModified(String)}. If you want enforce both
-	 * a strong entity tag and a Last-Modified value,
+	 * a strong com.mxk.entity tag and a Last-Modified value,
 	 * as recommended by the HTTP specification,
 	 * then you should use {@link #checkNotModified(Instant, String)}.
 	 * @param lastModified the last-modified timestamp that the
@@ -262,7 +262,7 @@ public interface ServerRequest {
 
 	/**
 	 * Check whether the requested resource has been modified given the
-	 * supplied {@code ETag} (entity tag), as determined by the application.
+	 * supplied {@code ETag} (com.mxk.entity tag), as determined by the application.
 	 * If not modified, this method returns a response with corresponding
 	 * status code and headers, otherwise an empty result.
 	 * <p>Typical usage:
@@ -280,10 +280,10 @@ public interface ServerRequest {
 	 * <p><strong>Note:</strong> you can use either
 	 * this {@link #checkNotModified(Instant)} method; or
 	 * {@code #checkNotModified(String)}. If you want enforce both
-	 * a strong entity tag and a Last-Modified value,
+	 * a strong com.mxk.entity tag and a Last-Modified value,
 	 * as recommended by the HTTP specification,
 	 * then you should use {@link #checkNotModified(Instant, String)}.
-	 * @param etag the entity tag that the application determined
+	 * @param etag the com.mxk.entity tag that the application determined
 	 * for the underlying resource. This parameter will be padded
 	 * with quotes (") if necessary.
 	 * @return a corresponding response if the request qualifies as not
@@ -297,7 +297,7 @@ public interface ServerRequest {
 
 	/**
 	 * Check whether the requested resource has been modified given the
-	 * supplied {@code ETag} (entity tag) and last-modified timestamp,
+	 * supplied {@code ETag} (com.mxk.entity tag) and last-modified timestamp,
 	 * as determined by the application.
 	 * If not modified, this method returns a response with corresponding
 	 * status code and headers, otherwise an empty result.
@@ -316,7 +316,7 @@ public interface ServerRequest {
 	 * also with conditional POST/PUT/DELETE requests.
 	 * @param lastModified the last-modified timestamp that the
 	 * application determined for the underlying resource
-	 * @param etag the entity tag that the application determined
+	 * @param etag the com.mxk.entity tag that the application determined
 	 * for the underlying resource. This parameter will be padded
 	 * with quotes (") if necessary.
 	 * @return a corresponding response if the request qualifies as not

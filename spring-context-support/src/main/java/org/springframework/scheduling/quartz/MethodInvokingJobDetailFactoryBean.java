@@ -45,7 +45,7 @@ import org.springframework.util.MethodInvoker;
  * {@link org.springframework.beans.factory.FactoryBean} that exposes a
  * {@link org.quartz.JobDetail} object which delegates job execution to a
  * specified (static or non-static) method. Avoids the need for implementing
- * a one-line Quartz Job that just invokes an existing service method on a
+ * a one-line Quartz Job that just invokes an existing com.mxk.service method on a
  * Spring-managed target bean.
  *
  * <p>Inherits common configuration properties from the {@link MethodInvoker}
@@ -63,7 +63,7 @@ import org.springframework.util.MethodInvoker;
  * <p><b>NOTE: JobDetails created via this FactoryBean are <i>not</i>
  * serializable and thus not suitable for persistent job stores.</b>
  * You need to implement your own Quartz Job as a thin wrapper for each case
- * where you want a persistent job to delegate to a specific service method.
+ * where you want a persistent job to delegate to a specific com.mxk.service method.
  *
  * <p>Compatible with Quartz 2.1.4 and higher, as of Spring 4.1.
  *

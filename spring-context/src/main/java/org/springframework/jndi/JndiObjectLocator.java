@@ -24,7 +24,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * Convenient superclass for JNDI-based service locators,
+ * Convenient superclass for JNDI-based com.mxk.service locators,
  * providing configurable lookup of a specific JNDI resource.
  *
  * <p>Exposes a {@link #setJndiName "jndiName"} property. This may or may not

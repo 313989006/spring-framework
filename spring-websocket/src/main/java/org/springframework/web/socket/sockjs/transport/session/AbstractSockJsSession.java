@@ -120,7 +120,7 @@ public abstract class AbstractSockJsSession implements SockJsSession {
 	/**
 	 * Create a new instance.
 	 * @param id the session ID
-	 * @param config the SockJS service configuration options
+	 * @param config the SockJS com.mxk.service configuration options
 	 * @param handler the recipient of SockJS messages
 	 * @param attributes the attributes from the HTTP handshake to associate with the WebSocket
 	 * session; the provided attributes are copied, the original map is not used.

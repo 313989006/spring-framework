@@ -495,7 +495,7 @@ public class GenericConversionService implements ConfigurableConversionService {
 
 
 	/**
-	 * Manages all converters registered with the service.
+	 * Manages all converters registered with the com.mxk.service.
 	 */
 	private static class Converters {
 

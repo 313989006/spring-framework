@@ -63,11 +63,11 @@ import org.springframework.util.ReflectionUtils;
  * or handling Session lifecycle exceptions. For typical single step actions,
  * there are various convenience methods (find, load, saveOrUpdate, delete).
  *
- * <p>Can be used within a service implementation via direct instantiation
+ * <p>Can be used within a com.mxk.service implementation via direct instantiation
  * with a SessionFactory reference, or get prepared in an application context
  * and given to services as bean reference. Note: The SessionFactory should
  * always be configured as bean in the application context, in the first case
- * given to the service directly, in the second case to the prepared template.
+ * given to the com.mxk.service directly, in the second case to the prepared template.
  *
  * <p><b>NOTE: Hibernate access code can also be coded against the native Hibernate
  * {@link Session}. Hence, for newly started projects, consider adopting the standard
@@ -874,7 +874,7 @@ public class HibernateTemplate implements HibernateOperations, InitializingBean 
 			@Nullable final String entityName, final T exampleEntity, final int firstResult, final int maxResults)
 			throws DataAccessException {
 
-		Assert.notNull(exampleEntity, "Example entity must not be null");
+		Assert.notNull(exampleEntity, "Example com.mxk.entity must not be null");
 		return nonNull(executeWithNativeSession((HibernateCallback<List<T>>) session -> {
 			Criteria executableCriteria = (entityName != null ?
 					session.createCriteria(entityName) : session.createCriteria(exampleEntity.getClass()));

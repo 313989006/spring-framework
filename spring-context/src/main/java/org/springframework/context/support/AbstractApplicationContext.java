@@ -944,7 +944,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * initializing all remaining singleton beans.
 	 */
 	protected void finishBeanFactoryInitialization(ConfigurableListableBeanFactory beanFactory) {
-		// Initialize conversion service for this context.
+		// Initialize conversion com.mxk.service for this context.
 		// 初始化此容器的转换器
 		// 转换器的职责是处理通过配置给 Bean 实例成员变量赋值的时候的 类型转换工作
 		if (beanFactory.containsBean(CONVERSION_SERVICE_BEAN_NAME) &&

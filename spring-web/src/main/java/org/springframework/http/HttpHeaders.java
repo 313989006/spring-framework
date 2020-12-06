@@ -1007,7 +1007,7 @@ public class HttpHeaders implements MultiValueMap<String, String>, Serializable 
 	}
 
 	/**
-	 * Set the (new) entity tag of the body, as specified by the {@code ETag} header.
+	 * Set the (new) com.mxk.entity tag of the body, as specified by the {@code ETag} header.
 	 */
 	public void setETag(@Nullable String etag) {
 		if (etag != null) {
@@ -1022,7 +1022,7 @@ public class HttpHeaders implements MultiValueMap<String, String>, Serializable 
 	}
 
 	/**
-	 * Return the entity tag of the body, as specified by the {@code ETag} header.
+	 * Return the com.mxk.entity tag of the body, as specified by the {@code ETag} header.
 	 */
 	@Nullable
 	public String getETag() {

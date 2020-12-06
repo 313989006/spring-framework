@@ -425,7 +425,7 @@ public class HttpInvokerTests {
 		pfb.afterPropertiesSet();
 		ITestBean proxy = (ITestBean) pfb.getObject();
 
-		// shouldn't go through to remote service
+		// shouldn't go through to remote com.mxk.service
 		assertThat(proxy.toString().contains("HTTP invoker")).isTrue();
 		assertThat(proxy.toString().contains(serviceUrl)).isTrue();
 		assertThat(proxy.hashCode()).isEqualTo(proxy.hashCode());

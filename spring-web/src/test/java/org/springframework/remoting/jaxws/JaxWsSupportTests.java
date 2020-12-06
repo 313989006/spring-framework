@@ -119,7 +119,7 @@ public class JaxWsSupportTests {
 		}
 		catch (BeanCreationException ex) {
 			if ("exporter".equals(ex.getBeanName()) && ex.getRootCause() instanceof ClassNotFoundException) {
-				// ignore - probably running on JDK without the JAX-WS impl present
+				// ignore - probably running on JDK without the JAX-WS com.mxk.service.impl present
 			}
 			else {
 				throw ex;

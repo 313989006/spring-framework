@@ -92,7 +92,7 @@ public abstract class AbstractAnnotationConfigDispatcherServletInitializer
 	 * Specify {@code @Configuration} and/or {@code @Component} classes for the
 	 * {@linkplain #createServletApplicationContext() Servlet application context}.
 	 * @return the configuration for the Servlet application context, or
-	 * {@code null} if all configuration is specified through root config classes.
+	 * {@code null} if all configuration is specified through root com.mxk.config classes.
 	 */
 	@Nullable
 	protected abstract Class<?>[] getServletConfigClasses();

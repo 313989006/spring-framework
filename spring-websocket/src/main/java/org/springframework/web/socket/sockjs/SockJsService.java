@@ -26,7 +26,7 @@ import org.springframework.web.socket.handler.ExceptionWebSocketHandlerDecorator
  * The main entry point for processing HTTP requests from SockJS clients.
  *
  * <p>In a Servlet 3+ container, {@link org.springframework.web.socket.sockjs.support.SockJsHttpRequestHandler}
- * can be used to invoke this service. The processing servlet, as well as all filters involved,
+ * can be used to invoke this com.mxk.service. The processing servlet, as well as all filters involved,
  * must have asynchronous support enabled through the ServletContext API or by adding an
  * <code>&lt;async-support&gt;true&lt;/async-support&gt;</code> element to servlet and filter declarations
  * in web.xml.
@@ -44,7 +44,7 @@ public interface SockJsService {
 	 * protocol</a> for details on the types of URLs expected.
 	 * @param request the current request
 	 * @param response the current response
-	 * @param sockJsPath the remainder of the path within the SockJS service prefix
+	 * @param sockJsPath the remainder of the path within the SockJS com.mxk.service prefix
 	 * @param handler the handler that will exchange messages with the SockJS client
 	 * @throws SockJsException raised when request processing fails; generally, failed
 	 * attempts to send messages to clients automatically close the SockJS session

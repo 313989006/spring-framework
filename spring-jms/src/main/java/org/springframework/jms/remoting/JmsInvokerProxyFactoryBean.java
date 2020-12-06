@@ -24,8 +24,8 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 /**
- * FactoryBean for JMS invoker proxies. Exposes the proxied service for use
- * as a bean reference, using the specified service interface.
+ * FactoryBean for JMS invoker proxies. Exposes the proxied com.mxk.service for use
+ * as a bean reference, using the specified com.mxk.service interface.
  *
  * <p>Serializes remote invocation objects and deserializes remote invocation
  * result objects. Uses Java serialization just like RMI, but with the JMS

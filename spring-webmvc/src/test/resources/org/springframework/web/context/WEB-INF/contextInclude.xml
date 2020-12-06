@@ -1,4 +1,4 @@
-<!-- Include snippet to be loaded via entity reference in applicationContext.xml -->
+<!-- Include snippet to be loaded via com.mxk.entity reference in applicationContext.xml -->
 
 	<bean id="father" class="org.springframework.beans.testfixture.beans.TestBean">
 		<property name="name"><value>yetanotherdummy</value></property>

@@ -68,7 +68,7 @@ public abstract class AbstractNamedValueMethodArgumentResolver implements Handle
 
 	/**
 	 * Constructor with a {@link ConversionService} and a {@link BeanFactory}.
-	 * @param conversionService conversion service for converting String values
+	 * @param conversionService conversion com.mxk.service for converting String values
 	 * to the target method parameter type
 	 * @param beanFactory a bean factory for resolving {@code ${...}}
 	 * placeholders and {@code #{...}} SpEL expressions in default values

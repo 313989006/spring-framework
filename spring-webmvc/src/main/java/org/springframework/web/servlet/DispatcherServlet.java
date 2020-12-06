@@ -67,7 +67,7 @@ import org.springframework.web.util.WebUtils;
 
 /**
  * Central dispatcher for HTTP request handlers/controllers, e.g. for web UI controllers
- * or HTTP-based remote service exporters. Dispatches to registered handlers for processing
+ * or HTTP-based remote com.mxk.service exporters. Dispatches to registered handlers for processing
  * a web request, providing convenient mapping and exception handling facilities.
  *
  * <p>This servlet is very flexible: It can be used with just about any workflow, with the
@@ -458,7 +458,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	/**
 	 * Set whether to throw a NoHandlerFoundException when no Handler was found for this request.
 	 * This exception can then be caught with a HandlerExceptionResolver or an
-	 * {@code @ExceptionHandler} controller method.
+	 * {@code @ExceptionHandler} com.mxk.controller method.
 	 * <p>Note that if {@link org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler}
 	 * is used, then requests will always be forwarded to the default servlet and a
 	 * NoHandlerFoundException would never be thrown in that case.
@@ -477,10 +477,10 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * request attributes will be reset, but not model attributes for JSPs or special attributes
 	 * set by views (for example, JSTL's).
 	 * <p>Default is "true", which is strongly recommended. Views should not rely on request attributes
-	 * having been set by (dynamic) includes. This allows JSP views rendered by an included controller
+	 * having been set by (dynamic) includes. This allows JSP views rendered by an included com.mxk.controller
 	 * to use any model attributes, even with the same names as in the main JSP, without causing side
 	 * effects. Only turn this off for special needs, for example to deliberately allow main JSPs to
-	 * access attributes from JSP views rendered by an included controller.
+	 * access attributes from JSP views rendered by an included com.mxk.controller.
 	 */
 	public void setCleanupAfterInclude(boolean cleanupAfterInclude) {
 		this.cleanupAfterInclude = cleanupAfterInclude;

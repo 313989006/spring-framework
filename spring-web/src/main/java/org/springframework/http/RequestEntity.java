@@ -308,7 +308,7 @@ public class RequestEntity<T> extends HttpEntity<T> {
 
 
 	/**
-	 * Defines a builder that adds headers to the request entity.
+	 * Defines a builder that adds headers to the request com.mxk.entity.
 	 * @param <B> the builder subclass
 	 */
 	public interface HeadersBuilder<B extends HeadersBuilder<B>> {
@@ -323,7 +323,7 @@ public class RequestEntity<T> extends HttpEntity<T> {
 		B header(String headerName, String... headerValues);
 
 		/**
-		 * Copy the given headers into the entity's headers map.
+		 * Copy the given headers into the com.mxk.entity's headers map.
 		 * @param headers the existing HttpHeaders to copy from
 		 * @return this builder
 		 * @since 5.2
@@ -332,7 +332,7 @@ public class RequestEntity<T> extends HttpEntity<T> {
 		B headers(@Nullable HttpHeaders headers);
 
 		/**
-		 * Manipulate this entity's headers with the given consumer. The
+		 * Manipulate this com.mxk.entity's headers with the given consumer. The
 		 * headers provided to the consumer are "live", so that the consumer can be used to
 		 * {@linkplain HttpHeaders#set(String, String) overwrite} existing header values,
 		 * {@linkplain HttpHeaders#remove(Object) remove} values, or use any of the other
@@ -386,8 +386,8 @@ public class RequestEntity<T> extends HttpEntity<T> {
 		B ifNoneMatch(String... ifNoneMatches);
 
 		/**
-		 * Builds the request entity with no body.
-		 * @return the request entity
+		 * Builds the request com.mxk.entity with no body.
+		 * @return the request com.mxk.entity
 		 * @see BodyBuilder#body(Object)
 		 */
 		RequestEntity<Void> build();
@@ -395,7 +395,7 @@ public class RequestEntity<T> extends HttpEntity<T> {
 
 
 	/**
-	 * Defines a builder that adds a body to the response entity.
+	 * Defines a builder that adds a body to the response com.mxk.entity.
 	 */
 	public interface BodyBuilder extends HeadersBuilder<BodyBuilder> {
 
@@ -418,19 +418,19 @@ public class RequestEntity<T> extends HttpEntity<T> {
 		BodyBuilder contentType(MediaType contentType);
 
 		/**
-		 * Set the body of the request entity and build the RequestEntity.
+		 * Set the body of the request com.mxk.entity and build the RequestEntity.
 		 * @param <T> the type of the body
-		 * @param body the body of the request entity
-		 * @return the built request entity
+		 * @param body the body of the request com.mxk.entity
+		 * @return the built request com.mxk.entity
 		 */
 		<T> RequestEntity<T> body(T body);
 
 		/**
-		 * Set the body and type of the request entity and build the RequestEntity.
+		 * Set the body and type of the request com.mxk.entity and build the RequestEntity.
 		 * @param <T> the type of the body
-		 * @param body the body of the request entity
+		 * @param body the body of the request com.mxk.entity
 		 * @param type the type of the body, useful for generic type resolution
-		 * @return the built request entity
+		 * @return the built request com.mxk.entity
 		 * @since 4.3
 		 */
 		<T> RequestEntity<T> body(T body, Type type);

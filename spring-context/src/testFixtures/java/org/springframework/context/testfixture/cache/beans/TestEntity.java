@@ -19,7 +19,7 @@ package org.springframework.context.testfixture.cache.beans;
 import org.springframework.util.ObjectUtils;
 
 /**
- * Simple test entity for use with caching tests.
+ * Simple test com.mxk.entity for use with caching tests.
  *
  * @author Michael Plod
  */

@@ -271,8 +271,8 @@ public class MethodInvocationTests extends AbstractExpressionTests {
 		final BytesService service = new BytesService();
 		byte[] bytes = new byte[100];
 		StandardEvaluationContext context = new StandardEvaluationContext(bytes);
-		context.setBeanResolver((context1, beanName) -> ("service".equals(beanName) ? service : null));
-		Expression expression = parser.parseExpression("@service.handleBytes(#root)");
+		context.setBeanResolver((context1, beanName) -> ("com.mxk.service".equals(beanName) ? service : null));
+		Expression expression = parser.parseExpression("@com.mxk.service.handleBytes(#root)");
 		byte[] outBytes = expression.getValue(context, byte[].class);
 		assertThat(outBytes).isSameAs(bytes);
 	}

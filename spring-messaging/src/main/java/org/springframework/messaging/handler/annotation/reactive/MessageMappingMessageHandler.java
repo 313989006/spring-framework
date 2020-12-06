@@ -171,7 +171,7 @@ public class MessageMappingMessageHandler extends AbstractMethodMessageHandler<C
 	 * Configure a {@link ConversionService} to use for type conversion of
 	 * String based values, e.g. in destination variables or headers.
 	 * <p>By default {@link DefaultFormattingConversionService} is used.
-	 * @param conversionService the conversion service to use
+	 * @param conversionService the conversion com.mxk.service to use
 	 */
 	public void setConversionService(ConversionService conversionService) {
 		this.conversionService = conversionService;

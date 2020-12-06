@@ -216,11 +216,11 @@ public class DefaultPersistenceUnitManager
 	}
 
 	/**
-	 * Set whether to use Spring-based scanning for entity classes in the classpath
+	 * Set whether to use Spring-based scanning for com.mxk.entity classes in the classpath
 	 * instead of using JPA's standard scanning of jar files with {@code persistence.xml}
 	 * markers in them. In case of Spring-based scanning, no {@code persistence.xml}
 	 * is necessary; all you need to do is to specify base packages to search here.
-	 * <p>Default is none. Specify packages to search for autodetection of your entity
+	 * <p>Default is none. Specify packages to search for autodetection of your com.mxk.entity
 	 * classes in the classpath. This is analogous to Spring's component-scan feature
 	 * ({@link org.springframework.context.annotation.ClassPathBeanDefinitionScanner}).
 	 * <p>Such package scanning defines a "default persistence unit" in Spring, which
@@ -248,7 +248,7 @@ public class DefaultPersistenceUnitManager
 	/**
 	 * Specify one or more mapping resources (equivalent to {@code <mapping-file>}
 	 * entries in {@code persistence.xml}) for the default persistence unit.
-	 * Can be used on its own or in combination with entity scanning in the classpath,
+	 * Can be used on its own or in combination with com.mxk.entity scanning in the classpath,
 	 * in both cases avoiding {@code persistence.xml}.
 	 * <p>Note that mapping resources must be relative to the classpath root,
 	 * e.g. "META-INF/mappings.xml" or "com/mycompany/repository/mappings.xml",
@@ -381,7 +381,7 @@ public class DefaultPersistenceUnitManager
 	/**
 	 * Set the PersistenceUnitPostProcessors to be applied to each
 	 * PersistenceUnitInfo that has been parsed by this manager.
-	 * <p>Such post-processors can, for example, register further entity classes and
+	 * <p>Such post-processors can, for example, register further com.mxk.entity classes and
 	 * jar files, in addition to the metadata read from {@code persistence.xml}.
 	 */
 	public void setPersistenceUnitPostProcessors(@Nullable PersistenceUnitPostProcessor... postProcessors) {
@@ -527,7 +527,7 @@ public class DefaultPersistenceUnitManager
 	}
 
 	/**
-	 * Perform Spring-based scanning for entity classes.
+	 * Perform Spring-based scanning for com.mxk.entity classes.
 	 * @see #setPackagesToScan
 	 */
 	private SpringPersistenceUnitInfo buildDefaultPersistenceUnitInfo() {
@@ -605,12 +605,12 @@ public class DefaultPersistenceUnitManager
 			}
 		}
 		catch (IOException ex) {
-			throw new PersistenceException("Failed to scan classpath for unlisted entity classes", ex);
+			throw new PersistenceException("Failed to scan classpath for unlisted com.mxk.entity classes", ex);
 		}
 	}
 
 	/**
-	 * Check whether any of the configured entity type filters matches
+	 * Check whether any of the configured com.mxk.entity type filters matches
 	 * the current class descriptor contained in the metadata reader.
 	 */
 	private boolean matchesFilter(MetadataReader reader, MetadataReaderFactory readerFactory) throws IOException {
@@ -686,7 +686,7 @@ public class DefaultPersistenceUnitManager
 	/**
 	 * Hook method allowing subclasses to customize each PersistenceUnitInfo.
 	 * <p>The default implementation delegates to all registered PersistenceUnitPostProcessors.
-	 * It is usually preferable to register further entity classes, jar files etc there
+	 * It is usually preferable to register further com.mxk.entity classes, jar files etc there
 	 * rather than in a subclass of this manager, to be able to reuse the post-processors.
 	 * @param pui the chosen PersistenceUnitInfo, as read from {@code persistence.xml}.
 	 * Passed in as MutablePersistenceUnitInfo.

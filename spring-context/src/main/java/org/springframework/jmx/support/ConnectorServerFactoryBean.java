@@ -57,8 +57,8 @@ import org.springframework.util.CollectionUtils;
 public class ConnectorServerFactoryBean extends MBeanRegistrationSupport
 		implements FactoryBean<JMXConnectorServer>, InitializingBean, DisposableBean {
 
-	/** The default service URL. */
-	public static final String DEFAULT_SERVICE_URL = "service:jmx:jmxmp://localhost:9875";
+	/** The default com.mxk.service URL. */
+	public static final String DEFAULT_SERVICE_URL = "com.mxk.service:jmx:jmxmp://localhost:9875";
 
 
 	private String serviceUrl = DEFAULT_SERVICE_URL;
@@ -80,7 +80,7 @@ public class ConnectorServerFactoryBean extends MBeanRegistrationSupport
 
 
 	/**
-	 * Set the service URL for the {@code JMXConnectorServer}.
+	 * Set the com.mxk.service URL for the {@code JMXConnectorServer}.
 	 */
 	public void setServiceUrl(String serviceUrl) {
 		this.serviceUrl = serviceUrl;
@@ -152,7 +152,7 @@ public class ConnectorServerFactoryBean extends MBeanRegistrationSupport
 			this.server = JmxUtils.locateMBeanServer();
 		}
 
-		// Create the JMX service URL.
+		// Create the JMX com.mxk.service URL.
 		JMXServiceURL url = new JMXServiceURL(this.serviceUrl);
 
 		// Create the connector server now.

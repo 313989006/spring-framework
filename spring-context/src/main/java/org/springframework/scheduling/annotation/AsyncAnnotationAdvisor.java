@@ -40,7 +40,7 @@ import org.springframework.util.function.SingletonSupplier;
 /**
  * Advisor that activates asynchronous method execution through the {@link Async}
  * annotation. This annotation can be used at the method and type level in
- * implementation classes as well as in service interfaces.
+ * implementation classes as well as in com.mxk.service interfaces.
  *
  * <p>This advisor detects the EJB 3.1 {@code javax.ejb.Asynchronous}
  * annotation as well, treating it exactly like Spring's own {@code Async}.

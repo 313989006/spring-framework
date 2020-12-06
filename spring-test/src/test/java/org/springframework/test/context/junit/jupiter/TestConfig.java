@@ -24,7 +24,7 @@ import org.springframework.test.context.junit.jupiter.comics.Dog;
 import org.springframework.test.context.junit.jupiter.comics.Person;
 
 /**
- * Demo config for tests.
+ * Demo com.mxk.config for tests.
  *
  * @author Sam Brannen
  * @since 5.0

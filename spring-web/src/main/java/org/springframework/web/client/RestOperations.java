@@ -77,13 +77,13 @@ public interface RestOperations {
 	<T> T getForObject(URI url, Class<T> responseType) throws RestClientException;
 
 	/**
-	 * Retrieve an entity by doing a GET on the specified URL.
+	 * Retrieve an com.mxk.entity by doing a GET on the specified URL.
 	 * The response is converted and stored in an {@link ResponseEntity}.
 	 * <p>URI Template variables are expanded using the given URI variables, if any.
 	 * @param url the URL
 	 * @param responseType the type of the return value
 	 * @param uriVariables the variables to expand the template
-	 * @return the entity
+	 * @return the com.mxk.entity
 	 * @since 3.0.2
 	 */
 	<T> ResponseEntity<T> getForEntity(String url, Class<T> responseType, Object... uriVariables)
@@ -149,7 +149,7 @@ public interface RestOperations {
 	 * <p>URI Template variables are expanded using the given URI variables, if any.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request.
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -169,7 +169,7 @@ public interface RestOperations {
 	 * <p>URI Template variables are expanded using the given map.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -189,7 +189,7 @@ public interface RestOperations {
 	 * {@code Location} header. This header typically indicates where the new resource is stored.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request.
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -208,7 +208,7 @@ public interface RestOperations {
 	 * <p>URI Template variables are expanded using the given URI variables, if any.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request.
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -230,7 +230,7 @@ public interface RestOperations {
 	 * <p>URI Template variables are expanded using the given map.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request.
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -251,7 +251,7 @@ public interface RestOperations {
 	 * and returns the representation found in the response.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request.
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -271,7 +271,7 @@ public interface RestOperations {
 	 * <p>URI Template variables are expanded using the given URI variables, if any.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request.
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -292,7 +292,7 @@ public interface RestOperations {
 	 * <p>URI Template variables are expanded using the given map.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request.
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -312,7 +312,7 @@ public interface RestOperations {
 	 * and returns the response as {@link ResponseEntity}.
 	 * <p>The {@code request} parameter can be a {@link HttpEntity} in order to
 	 * add additional HTTP headers to the request.
-	 * <p>The body of the entity, or {@code request} itself, can be a
+	 * <p>The body of the com.mxk.entity, or {@code request} itself, can be a
 	 * {@link org.springframework.util.MultiValueMap MultiValueMap} to create a multipart request.
 	 * The values in the {@code MultiValueMap} can be any Object representing the body of the part,
 	 * or an {@link org.springframework.http.HttpEntity HttpEntity} representing a part with body
@@ -492,46 +492,46 @@ public interface RestOperations {
 	// exchange
 
 	/**
-	 * Execute the HTTP method to the given URI template, writing the given request entity to the request, and
+	 * Execute the HTTP method to the given URI template, writing the given request com.mxk.entity to the request, and
 	 * returns the response as {@link ResponseEntity}.
 	 * <p>URI Template variables are expanded using the given URI variables, if any.
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
-	 * @param requestEntity the entity (headers and/or body) to write to the request
+	 * @param requestEntity the com.mxk.entity (headers and/or body) to write to the request
 	 * may be {@code null})
 	 * @param responseType the type of the return value
 	 * @param uriVariables the variables to expand in the template
-	 * @return the response as entity
+	 * @return the response as com.mxk.entity
 	 * @since 3.0.2
 	 */
 	<T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity,
 			Class<T> responseType, Object... uriVariables) throws RestClientException;
 
 	/**
-	 * Execute the HTTP method to the given URI template, writing the given request entity to the request, and
+	 * Execute the HTTP method to the given URI template, writing the given request com.mxk.entity to the request, and
 	 * returns the response as {@link ResponseEntity}.
 	 * <p>URI Template variables are expanded using the given URI variables, if any.
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
-	 * @param requestEntity the entity (headers and/or body) to write to the request
+	 * @param requestEntity the com.mxk.entity (headers and/or body) to write to the request
 	 * (may be {@code null})
 	 * @param responseType the type of the return value
 	 * @param uriVariables the variables to expand in the template
-	 * @return the response as entity
+	 * @return the response as com.mxk.entity
 	 * @since 3.0.2
 	 */
 	<T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity,
 			Class<T> responseType, Map<String, ?> uriVariables) throws RestClientException;
 
 	/**
-	 * Execute the HTTP method to the given URI template, writing the given request entity to the request, and
+	 * Execute the HTTP method to the given URI template, writing the given request com.mxk.entity to the request, and
 	 * returns the response as {@link ResponseEntity}.
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
-	 * @param requestEntity the entity (headers and/or body) to write to the request
+	 * @param requestEntity the com.mxk.entity (headers and/or body) to write to the request
 	 * (may be {@code null})
 	 * @param responseType the type of the return value
-	 * @return the response as entity
+	 * @return the response as com.mxk.entity
 	 * @since 3.0.2
 	 */
 	<T> ResponseEntity<T> exchange(URI url, HttpMethod method, @Nullable HttpEntity<?> requestEntity,
@@ -539,7 +539,7 @@ public interface RestOperations {
 
 	/**
 	 * Execute the HTTP method to the given URI template, writing the given
-	 * request entity to the request, and returns the response as {@link ResponseEntity}.
+	 * request com.mxk.entity to the request, and returns the response as {@link ResponseEntity}.
 	 * The given {@link ParameterizedTypeReference} is used to pass generic type information:
 	 * <pre class="code">
 	 * ParameterizedTypeReference&lt;List&lt;MyBean&gt;&gt; myBean =
@@ -550,11 +550,11 @@ public interface RestOperations {
 	 * </pre>
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
-	 * @param requestEntity the entity (headers and/or body) to write to the
+	 * @param requestEntity the com.mxk.entity (headers and/or body) to write to the
 	 * request (may be {@code null})
 	 * @param responseType the type of the return value
 	 * @param uriVariables the variables to expand in the template
-	 * @return the response as entity
+	 * @return the response as com.mxk.entity
 	 * @since 3.2
 	 */
 	<T> ResponseEntity<T> exchange(String url,HttpMethod method, @Nullable HttpEntity<?> requestEntity,
@@ -562,7 +562,7 @@ public interface RestOperations {
 
 	/**
 	 * Execute the HTTP method to the given URI template, writing the given
-	 * request entity to the request, and returns the response as {@link ResponseEntity}.
+	 * request com.mxk.entity to the request, and returns the response as {@link ResponseEntity}.
 	 * The given {@link ParameterizedTypeReference} is used to pass generic type information:
 	 * <pre class="code">
 	 * ParameterizedTypeReference&lt;List&lt;MyBean&gt;&gt; myBean =
@@ -573,11 +573,11 @@ public interface RestOperations {
 	 * </pre>
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
-	 * @param requestEntity the entity (headers and/or body) to write to the request
+	 * @param requestEntity the com.mxk.entity (headers and/or body) to write to the request
 	 * (may be {@code null})
 	 * @param responseType the type of the return value
 	 * @param uriVariables the variables to expand in the template
-	 * @return the response as entity
+	 * @return the response as com.mxk.entity
 	 * @since 3.2
 	 */
 	<T> ResponseEntity<T> exchange(String url, HttpMethod method, @Nullable HttpEntity<?> requestEntity,
@@ -585,7 +585,7 @@ public interface RestOperations {
 
 	/**
 	 * Execute the HTTP method to the given URI template, writing the given
-	 * request entity to the request, and returns the response as {@link ResponseEntity}.
+	 * request com.mxk.entity to the request, and returns the response as {@link ResponseEntity}.
 	 * The given {@link ParameterizedTypeReference} is used to pass generic type information:
 	 * <pre class="code">
 	 * ParameterizedTypeReference&lt;List&lt;MyBean&gt;&gt; myBean =
@@ -596,10 +596,10 @@ public interface RestOperations {
 	 * </pre>
 	 * @param url the URL
 	 * @param method the HTTP method (GET, POST, etc)
-	 * @param requestEntity the entity (headers and/or body) to write to the request
+	 * @param requestEntity the com.mxk.entity (headers and/or body) to write to the request
 	 * (may be {@code null})
 	 * @param responseType the type of the return value
-	 * @return the response as entity
+	 * @return the response as com.mxk.entity
 	 * @since 3.2
 	 */
 	<T> ResponseEntity<T> exchange(URI url, HttpMethod method, @Nullable HttpEntity<?> requestEntity,
@@ -617,9 +617,9 @@ public interface RestOperations {
 	 *     .body(body);
 	 * ResponseEntity&lt;MyResponse&gt; response = template.exchange(request, MyResponse.class);
 	 * </pre>
-	 * @param requestEntity the entity to write to the request
+	 * @param requestEntity the com.mxk.entity to write to the request
 	 * @param responseType the type of the return value
-	 * @return the response as entity
+	 * @return the response as com.mxk.entity
 	 * @since 4.1
 	 */
 	<T> ResponseEntity<T> exchange(RequestEntity<?> requestEntity, Class<T> responseType)
@@ -639,9 +639,9 @@ public interface RestOperations {
 	 *     new ParameterizedTypeReference&lt;List&lt;MyResponse&gt;&gt;() {};
 	 * ResponseEntity&lt;List&lt;MyResponse&gt;&gt; response = template.exchange(request, myBean);
 	 * </pre>
-	 * @param requestEntity the entity to write to the request
+	 * @param requestEntity the com.mxk.entity to write to the request
 	 * @param responseType the type of the return value
-	 * @return the response as entity
+	 * @return the response as com.mxk.entity
 	 * @since 4.1
 	 */
 	<T> ResponseEntity<T> exchange(RequestEntity<?> requestEntity, ParameterizedTypeReference<T> responseType)

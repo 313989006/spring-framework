@@ -64,7 +64,7 @@ public class ConvertingComparator<S, T> implements Comparator<S> {
 	/**
 	 * Create a new {@code ConvertingComparator} instance.
 	 * @param comparator the underlying comparator
-	 * @param conversionService the conversion service
+	 * @param conversionService the conversion com.mxk.service
 	 * @param targetType the target type
 	 */
 	public ConvertingComparator(

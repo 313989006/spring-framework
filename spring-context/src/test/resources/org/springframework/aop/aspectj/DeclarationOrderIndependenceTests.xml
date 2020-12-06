@@ -9,14 +9,14 @@
  
   <bean id="topsyTurvyTarget" class="org.springframework.aop.aspectj.TopsyTurvyTargetImpl"/>
 
-  <aop:config>
+  <aop:com.mxk.config>
     <aop:aspect id="myAspect" ref="topsyTurvyAspect">
       <aop:before pointcut-ref="pc1"
                   method="before"/>
       <aop:declare-parents
         types-matching="*..TopsyTurvyTarget+"
         implement-interface="java.io.Serializable"
-        default-impl="org.springframework.aop.aspectj.DeclarationOrderIndependenceTests$SerializableMixin"/>
+        default-com.mxk.service.impl="org.springframework.aop.aspectj.DeclarationOrderIndependenceTests$SerializableMixin"/>
       <aop:after-returning pointcut-ref="pc2" method="afterReturning"/>
       <aop:pointcut id="pc1" expression="execution(* *..do*(..))"/>
       <aop:around pointcut-ref="pc2"
@@ -25,8 +25,8 @@
       <aop:declare-parents
         types-matching="*..TopsyTurvyTarget+"
         implement-interface="org.springframework.beans.factory.BeanNameAware"
-        default-impl="org.springframework.aop.aspectj.DeclarationOrderIndependenceTests$BeanNameAwareMixin"/>         
+        default-com.mxk.service.impl="org.springframework.aop.aspectj.DeclarationOrderIndependenceTests$BeanNameAwareMixin"/>
     </aop:aspect>
-  </aop:config>
+  </aop:com.mxk.config>
  
 </beans>

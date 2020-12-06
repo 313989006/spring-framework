@@ -63,7 +63,7 @@ public class SockJsHttpRequestHandler
 
 	/**
 	 * Create a new SockJsHttpRequestHandler.
-	 * @param sockJsService the SockJS service
+	 * @param sockJsService the SockJS com.mxk.service
 	 * @param webSocketHandler the websocket handler
 	 */
 	public SockJsHttpRequestHandler(SockJsService sockJsService, WebSocketHandler webSocketHandler) {

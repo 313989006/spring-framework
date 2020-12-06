@@ -98,10 +98,10 @@ public class ConfigurationClassPostProcessorTests {
 	 */
 	@Test
 	public void enhancementIsPresentBecauseSingletonSemanticsAreRespected() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(SingletonBeanConfig.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(SingletonBeanConfig.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
-		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("config")).hasBeanClass()).isTrue();
+		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("com.mxk.config")).hasBeanClass()).isTrue();
 		Foo foo = beanFactory.getBean("foo", Foo.class);
 		Bar bar = beanFactory.getBean("bar", Bar.class);
 		assertThat(bar.foo).isSameAs(foo);
@@ -110,10 +110,10 @@ public class ConfigurationClassPostProcessorTests {
 
 	@Test
 	public void enhancementIsPresentBecauseSingletonSemanticsAreRespectedUsingAsm() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(SingletonBeanConfig.class.getName()));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(SingletonBeanConfig.class.getName()));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
-		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("config")).hasBeanClass()).isTrue();
+		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("com.mxk.config")).hasBeanClass()).isTrue();
 		Foo foo = beanFactory.getBean("foo", Foo.class);
 		Bar bar = beanFactory.getBean("bar", Bar.class);
 		assertThat(bar.foo).isSameAs(foo);
@@ -122,10 +122,10 @@ public class ConfigurationClassPostProcessorTests {
 
 	@Test
 	public void enhancementIsNotPresentForProxyBeanMethodsFlagSetToFalse() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(NonEnhancedSingletonBeanConfig.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(NonEnhancedSingletonBeanConfig.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
-		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("config")).hasBeanClass()).isTrue();
+		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("com.mxk.config")).hasBeanClass()).isTrue();
 		Foo foo = beanFactory.getBean("foo", Foo.class);
 		Bar bar = beanFactory.getBean("bar", Bar.class);
 		assertThat(bar.foo).isNotSameAs(foo);
@@ -133,10 +133,10 @@ public class ConfigurationClassPostProcessorTests {
 
 	@Test
 	public void enhancementIsNotPresentForProxyBeanMethodsFlagSetToFalseUsingAsm() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(NonEnhancedSingletonBeanConfig.class.getName()));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(NonEnhancedSingletonBeanConfig.class.getName()));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
-		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("config")).hasBeanClass()).isTrue();
+		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("com.mxk.config")).hasBeanClass()).isTrue();
 		Foo foo = beanFactory.getBean("foo", Foo.class);
 		Bar bar = beanFactory.getBean("bar", Bar.class);
 		assertThat(bar.foo).isNotSameAs(foo);
@@ -144,10 +144,10 @@ public class ConfigurationClassPostProcessorTests {
 
 	@Test
 	public void enhancementIsNotPresentForStaticMethods() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(StaticSingletonBeanConfig.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(StaticSingletonBeanConfig.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
-		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("config")).hasBeanClass()).isTrue();
+		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("com.mxk.config")).hasBeanClass()).isTrue();
 		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("foo")).hasBeanClass()).isTrue();
 		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("bar")).hasBeanClass()).isTrue();
 		Foo foo = beanFactory.getBean("foo", Foo.class);
@@ -157,10 +157,10 @@ public class ConfigurationClassPostProcessorTests {
 
 	@Test
 	public void enhancementIsNotPresentForStaticMethodsUsingAsm() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(StaticSingletonBeanConfig.class.getName()));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(StaticSingletonBeanConfig.class.getName()));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
-		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("config")).hasBeanClass()).isTrue();
+		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("com.mxk.config")).hasBeanClass()).isTrue();
 		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("foo")).hasBeanClass()).isTrue();
 		assertThat(((RootBeanDefinition) beanFactory.getBeanDefinition("bar")).hasBeanClass()).isTrue();
 		Foo foo = beanFactory.getBean("foo", Foo.class);
@@ -170,7 +170,7 @@ public class ConfigurationClassPostProcessorTests {
 
 	@Test
 	public void configurationIntrospectionOfInnerClassesWorksWithDotNameSyntax() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(getClass().getName() + ".SingletonBeanConfig"));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(getClass().getName() + ".SingletonBeanConfig"));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
 		Foo foo = beanFactory.getBean("foo", Foo.class);
@@ -197,7 +197,7 @@ public class ConfigurationClassPostProcessorTests {
 	 */
 	@Test
 	public void postProcessorIntrospectsInheritedDefinitionsCorrectly() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(SingletonBeanConfig.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(SingletonBeanConfig.class));
 		beanFactory.registerBeanDefinition("parent", new RootBeanDefinition(TestBean.class));
 		beanFactory.registerBeanDefinition("child", new ChildBeanDefinition("parent"));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
@@ -304,7 +304,7 @@ public class ConfigurationClassPostProcessorTests {
 	}
 
 	private void assertSupportForComposedAnnotation(RootBeanDefinition beanDefinition) {
-		beanFactory.registerBeanDefinition("config", beanDefinition);
+		beanFactory.registerBeanDefinition("com.mxk.config", beanDefinition);
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.setEnvironment(new StandardEnvironment());
 		pp.postProcessBeanFactory(beanFactory);
@@ -313,7 +313,7 @@ public class ConfigurationClassPostProcessorTests {
 	}
 
 	private void assertSupportForComposedAnnotationWithExclude(RootBeanDefinition beanDefinition) {
-		beanFactory.registerBeanDefinition("config", beanDefinition);
+		beanFactory.registerBeanDefinition("com.mxk.config", beanDefinition);
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.setEnvironment(new StandardEnvironment());
 		pp.postProcessBeanFactory(beanFactory);
@@ -326,7 +326,7 @@ public class ConfigurationClassPostProcessorTests {
 		RootBeanDefinition rbd = new RootBeanDefinition(TestBean.class);
 		rbd.setRole(RootBeanDefinition.ROLE_SUPPORT);
 		beanFactory.registerBeanDefinition("bar", rbd);
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(SingletonBeanConfig.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(SingletonBeanConfig.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
 		Foo foo = beanFactory.getBean("foo", Foo.class);
@@ -339,7 +339,7 @@ public class ConfigurationClassPostProcessorTests {
 		RootBeanDefinition rbd = new RootBeanDefinition(TestBean.class);
 		rbd.setResource(new DescriptiveResource("XML or something"));
 		beanFactory.registerBeanDefinition("bar", rbd);
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(SingletonBeanConfig.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(SingletonBeanConfig.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
 		beanFactory.getBean("foo", Foo.class);
@@ -353,7 +353,7 @@ public class ConfigurationClassPostProcessorTests {
 		BeanDefinitionHolder proxied = ScopedProxyUtils.createScopedProxy(
 				new BeanDefinitionHolder(rbd, "bar"), beanFactory, true);
 		beanFactory.registerBeanDefinition("bar", proxied.getBeanDefinition());
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(SingletonBeanConfig.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(SingletonBeanConfig.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
 		beanFactory.getBean("foo", Foo.class);
@@ -365,7 +365,7 @@ public class ConfigurationClassPostProcessorTests {
 		RootBeanDefinition rbd = new RootBeanDefinition(TestBean.class);
 		rbd.setResource(new DescriptiveResource("XML or something"));
 		beanFactory.registerBeanDefinition("bar", rbd);
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(SingletonBeanConfig.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(SingletonBeanConfig.class));
 		beanFactory.setAllowBeanDefinitionOverriding(false);
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		assertThatExceptionOfType(BeanDefinitionStoreException.class).isThrownBy(() ->
@@ -422,7 +422,7 @@ public class ConfigurationClassPostProcessorTests {
 
 	@Test  // SPR-15384
 	public void nestedConfigurationClassesProcessedInCorrectOrder() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(ConfigWithOrderedNestedClasses.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(ConfigWithOrderedNestedClasses.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
 
@@ -435,7 +435,7 @@ public class ConfigurationClassPostProcessorTests {
 
 	@Test  // SPR-16734
 	public void innerConfigurationClassesProcessedInCorrectOrder() {
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(ConfigWithOrderedInnerClasses.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(ConfigWithOrderedInnerClasses.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);
 		beanFactory.addBeanPostProcessor(new AutowiredAnnotationBeanPostProcessor());
@@ -452,7 +452,7 @@ public class ConfigurationClassPostProcessorTests {
 		AutowiredAnnotationBeanPostProcessor bpp = new AutowiredAnnotationBeanPostProcessor();
 		bpp.setBeanFactory(beanFactory);
 		beanFactory.addBeanPostProcessor(bpp);
-		beanFactory.registerBeanDefinition("config", new RootBeanDefinition(ScopedProxyConfigurationClass.class));
+		beanFactory.registerBeanDefinition("com.mxk.config", new RootBeanDefinition(ScopedProxyConfigurationClass.class));
 		beanFactory.registerBeanDefinition("consumer", new RootBeanDefinition(ScopedProxyConsumer.class));
 		ConfigurationClassPostProcessor pp = new ConfigurationClassPostProcessor();
 		pp.postProcessBeanFactory(beanFactory);

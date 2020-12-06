@@ -197,7 +197,7 @@ public abstract class CacheAspectSupport extends AbstractCacheInvoker
 
 	/**
 	 * Set the containing {@link BeanFactory} for {@link CacheManager} and other
-	 * service lookups.
+	 * com.mxk.service lookups.
 	 * @since 4.3
 	 */
 	@Override

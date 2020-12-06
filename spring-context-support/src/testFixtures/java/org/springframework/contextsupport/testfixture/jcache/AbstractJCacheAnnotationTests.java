@@ -133,12 +133,12 @@ public abstract class AbstractJCacheAnnotationTests {
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(() ->
 				service.cacheWithException(this.keyItem, true))
 			.satisfies(first -> {
-				// Sanity check, this particular call has called the service
+				// Sanity check, this particular call has called the com.mxk.service
 				// First call should not have been cached
 				assertThat(service.exceptionInvocations()).isEqualTo(ref + 1);
 
 				UnsupportedOperationException second = methodInCallStack(this.keyItem);
-				// Sanity check, this particular call has *not* called the service
+				// Sanity check, this particular call has *not* called the com.mxk.service
 				// Second call should have been cached
 				assertThat(service.exceptionInvocations()).isEqualTo(ref + 1);
 
@@ -161,7 +161,7 @@ public abstract class AbstractJCacheAnnotationTests {
 	public void cacheWithPartialKey() {
 		Object first = service.cacheWithPartialKey(this.keyItem, true);
 		Object second = service.cacheWithPartialKey(this.keyItem, false);
-		// second argument not used, see config
+		// second argument not used, see com.mxk.config
 		assertThat(second).isSameAs(first);
 	}
 
@@ -450,7 +450,7 @@ public abstract class AbstractJCacheAnnotationTests {
 
 	/**
 	 * The only purpose of this method is to invoke a particular method on the
-	 * service so that the call stack is different.
+	 * com.mxk.service so that the call stack is different.
 	 */
 	private UnsupportedOperationException methodInCallStack(String keyItem) {
 		try {

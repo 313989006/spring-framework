@@ -48,7 +48,7 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 
 	@Override
 	public AopProxy createAopProxy(AdvisedSupport config) throws AopConfigException {
-		// hasNoUserSuppliedProxyInterfaces(config) 判断被代理的对象有实现的接口
+		// hasNoUserSuppliedProxyInterfaces(com.mxk.config) 判断被代理的对象有实现的接口
 		if (config.isOptimize() || config.isProxyTargetClass() || hasNoUserSuppliedProxyInterfaces(config)) {
 			Class<?> targetClass = config.getTargetClass();
 			if (targetClass == null) {

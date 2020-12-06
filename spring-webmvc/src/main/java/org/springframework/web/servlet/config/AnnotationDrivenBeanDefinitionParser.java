@@ -92,19 +92,19 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
  * <p>This class registers the following {@link HandlerMapping HandlerMappings}:</p>
  * <ul>
  * <li>{@link RequestMappingHandlerMapping}
- * ordered at 0 for mapping requests to annotated controller methods.
+ * ordered at 0 for mapping requests to annotated com.mxk.controller methods.
  * <li>{@link BeanNameUrlHandlerMapping}
- * ordered at 2 to map URL paths to controller bean names.
+ * ordered at 2 to map URL paths to com.mxk.controller bean names.
  * </ul>
  *
  * <p><strong>Note:</strong> Additional HandlerMappings may be registered
- * as a result of using the {@code <view-controller>} or the
+ * as a result of using the {@code <view-com.mxk.controller>} or the
  * {@code <resources>} MVC namespace elements.
  *
  * <p>This class registers the following {@link HandlerAdapter HandlerAdapters}:
  * <ul>
  * <li>{@link RequestMappingHandlerAdapter}
- * for processing requests with annotated controller methods.
+ * for processing requests with annotated com.mxk.controller methods.
  * <li>{@link HttpRequestHandlerAdapter}
  * for processing requests with {@link HttpRequestHandler HttpRequestHandlers}.
  * <li>{@link SimpleControllerHandlerAdapter}
@@ -344,8 +344,8 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 
 	private RuntimeBeanReference getConversionService(Element element, @Nullable Object source, ParserContext context) {
 		RuntimeBeanReference conversionServiceRef;
-		if (element.hasAttribute("conversion-service")) {
-			conversionServiceRef = new RuntimeBeanReference(element.getAttribute("conversion-service"));
+		if (element.hasAttribute("conversion-com.mxk.service")) {
+			conversionServiceRef = new RuntimeBeanReference(element.getAttribute("conversion-com.mxk.service"));
 		}
 		else {
 			RootBeanDefinition conversionDef = new RootBeanDefinition(FormattingConversionServiceFactoryBean.class);

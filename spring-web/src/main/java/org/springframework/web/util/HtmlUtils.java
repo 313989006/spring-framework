@@ -22,7 +22,7 @@ import org.springframework.util.Assert;
  * Utility class for HTML escaping.
  *
  * <p>Escapes and unescapes based on the W3C HTML 4.01 recommendation, handling
- * character entity references.
+ * character com.mxk.entity references.
  *
  * <p>Reference:
  * <a href="https://www.w3.org/TR/html4/charset.html">https://www.w3.org/TR/html4/charset.html</a>
@@ -41,7 +41,7 @@ import org.springframework.util.Assert;
 public abstract class HtmlUtils {
 
 	/**
-	 * Shared instance of pre-parsed HTML character entity references.
+	 * Shared instance of pre-parsed HTML character com.mxk.entity references.
 	 */
 	private static final HtmlCharacterEntityReferences characterEntityReferences =
 			new HtmlCharacterEntityReferences();
@@ -51,7 +51,7 @@ public abstract class HtmlUtils {
 	 * Turn special characters into HTML character references.
 	 * <p>Handles complete character set defined in HTML 4.01 recommendation.
 	 * <p>Escapes all special characters to their corresponding
-	 * entity reference (e.g. {@code &lt;}).
+	 * com.mxk.entity reference (e.g. {@code &lt;}).
 	 * <p>Reference:
 	 * <a href="https://www.w3.org/TR/html4/sgml/entities.html">
 	 * https://www.w3.org/TR/html4/sgml/entities.html
@@ -67,7 +67,7 @@ public abstract class HtmlUtils {
 	 * Turn special characters into HTML character references.
 	 * <p>Handles complete character set defined in HTML 4.01 recommendation.
 	 * <p>Escapes all special characters to their corresponding
-	 * entity reference (e.g. {@code &lt;}) at least as required by the
+	 * com.mxk.entity reference (e.g. {@code &lt;}) at least as required by the
 	 * specified encoding. In other words, if a special character does
 	 * not have to be escaped for the given encoding, it may not be.
 	 * <p>Reference:
@@ -199,7 +199,7 @@ public abstract class HtmlUtils {
 	/**
 	 * Turn HTML character references into their plain text UNICODE equivalent.
 	 * <p>Handles complete character set defined in HTML 4.01 recommendation
-	 * and all reference types (decimal, hex, and entity).
+	 * and all reference types (decimal, hex, and com.mxk.entity).
 	 * <p>Correctly converts the following formats:
 	 * <blockquote>
 	 * &amp;#<i>Entity</i>; - <i>(Example: &amp;amp;) case sensitive</i>

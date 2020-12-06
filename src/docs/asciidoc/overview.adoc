@@ -154,7 +154,7 @@ as possible.
 
 You can use https://start.spring.io/[start.spring.io] to generate a basic project or follow
 one of the https://spring.io/guides["Getting Started" guides], such as
-https://spring.io/guides/gs/rest-service/[Getting Started Building a RESTful Web Service].
+https://spring.io/guides/gs/rest-com.mxk.service/[Getting Started Building a RESTful Web Service].
 As well as being easier to digest, these guides are very task focused, and most of them
 are based on Spring Boot. They also cover other projects from the Spring portfolio that
 you might want to consider when solving a particular problem.

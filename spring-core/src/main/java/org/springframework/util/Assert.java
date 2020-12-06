@@ -83,8 +83,8 @@ public abstract class Assert {
 	 * <p>Call {@link #isTrue} if you wish to throw an {@code IllegalArgumentException}
 	 * on an assertion failure.
 	 * <pre class="code">
-	 * Assert.state(entity.getId() == null,
-	 *     () -&gt; "ID for entity " + entity.getName() + " must not already be initialized");
+	 * Assert.state(com.mxk.entity.getId() == null,
+	 *     () -&gt; "ID for com.mxk.entity " + com.mxk.entity.getName() + " must not already be initialized");
 	 * </pre>
 	 * @param expression a boolean expression
 	 * @param messageSupplier a supplier for the exception message to use if the
@@ -205,8 +205,8 @@ public abstract class Assert {
 	/**
 	 * Assert that an object is not {@code null}.
 	 * <pre class="code">
-	 * Assert.notNull(entity.getId(),
-	 *     () -&gt; "ID for entity " + entity.getName() + " must not be null");
+	 * Assert.notNull(com.mxk.entity.getId(),
+	 *     () -&gt; "ID for com.mxk.entity " + com.mxk.entity.getName() + " must not be null");
 	 * </pre>
 	 * @param object the object to check
 	 * @param messageSupplier a supplier for the exception message to use if the

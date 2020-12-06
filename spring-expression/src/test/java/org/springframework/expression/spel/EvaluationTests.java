@@ -1229,7 +1229,7 @@ public class EvaluationTests extends AbstractExpressionTests {
 		expectFailNotDecrementable(parser, ctx, "--({1,2,3}.?[#isEven(#this)])");
 		expectFailNotAssignable(parser, ctx, "({1,2,3}.?[#isEven(#this)])=({1,2,3}.?[#isEven(#this)])");
 
-		// slightly diff here because return value isn't a list, it is a single entity
+		// slightly diff here because return value isn't a list, it is a single com.mxk.entity
 		expectFailNotAssignable(parser, ctx, "({1,2,3}.^[#isEven(#this)])++");
 		expectFailNotAssignable(parser, ctx, "--({1,2,3}.^[#isEven(#this)])");
 		expectFailNotAssignable(parser, ctx, "({1,2,3}.^[#isEven(#this)])=({1,2,3}.^[#isEven(#this)])");

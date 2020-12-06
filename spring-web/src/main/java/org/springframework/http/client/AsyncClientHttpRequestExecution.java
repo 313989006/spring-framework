@@ -39,7 +39,7 @@ public interface AsyncClientHttpRequestExecution {
 
 	/**
 	 * Resume the request execution by invoking the next interceptor in the chain
-	 * or executing the request to the remote service.
+	 * or executing the request to the remote com.mxk.service.
 	 * @param request the HTTP request, containing the HTTP method and headers
 	 * @param body the body of the request
 	 * @return a corresponding future handle

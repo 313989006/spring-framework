@@ -34,8 +34,8 @@ import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.util.NestedServletException;
 
 /**
- * Servlet-API-based HTTP request handler that exports the specified service bean
- * as HTTP invoker service endpoint, accessible via an HTTP invoker proxy.
+ * Servlet-API-based HTTP request handler that exports the specified com.mxk.service bean
+ * as HTTP invoker com.mxk.service endpoint, accessible via an HTTP invoker proxy.
  *
  * <p>Deserializes remote invocation objects and serializes remote invocation
  * result objects. Uses Java serialization just like RMI, but provides the

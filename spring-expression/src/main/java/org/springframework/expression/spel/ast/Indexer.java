@@ -180,7 +180,7 @@ public class Indexer extends SpelNodeImpl {
 		}
 
 		// Try and treat the index value as a property of the context object
-		// TODO: could call the conversion service to convert the value to a String
+		// TODO: could call the conversion com.mxk.service to convert the value to a String
 		TypeDescriptor valueType = indexValue.getTypeDescriptor();
 		if (valueType != null && String.class == valueType.getType()) {
 			this.indexedType = IndexedType.OBJECT;

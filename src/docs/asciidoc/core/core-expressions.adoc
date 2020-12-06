@@ -276,8 +276,8 @@ one or some combination of the following:
 [[expressions-type-conversion]]
 ==== Type Conversion
 
-By default, SpEL uses the conversion service available in Spring core
-(`org.springframework.core.convert.ConversionService`). This conversion service comes
+By default, SpEL uses the conversion com.mxk.service available in Spring core
+(`org.springframework.core.convert.ConversionService`). This conversion com.mxk.service comes
 with many built-in converters for common conversions but is also fully extensible so that
 you can add custom conversions between types. Additionally, it is
 generics-aware. This means that, when you work with generic types in
@@ -301,7 +301,7 @@ being placed in it. The following example shows how to do so:
 
 	EvaluationContext context = SimpleEvaluationContext.forReadOnlyDataBinding().build();
 
-	// "false" is passed in here as a String. SpEL and the conversion service
+	// "false" is passed in here as a String. SpEL and the conversion com.mxk.service
 	// will recognize that it needs to be a Boolean and convert it accordingly.
 	parser.parseExpression("booleanList[0]").setValue(context, simple, "false");
 
@@ -320,7 +320,7 @@ being placed in it. The following example shows how to do so:
 
 	val context = SimpleEvaluationContext.forReadOnlyDataBinding().build()
 
-	// "false" is passed in here as a String. SpEL and the conversion service
+	// "false" is passed in here as a String. SpEL and the conversion com.mxk.service
 	// will recognize that it needs to be a Boolean and convert it accordingly.
 	parser.parseExpression("booleanList[0]").setValue(context, simple, "false")
 
@@ -352,9 +352,9 @@ example demonstrates how to automatically grow the list:
 	// Turn on:
 	// - auto null reference initialization
 	// - auto collection growing
-	SpelParserConfiguration config = new SpelParserConfiguration(true,true);
+	SpelParserConfiguration com.mxk.config = new SpelParserConfiguration(true,true);
 
-	ExpressionParser parser = new SpelExpressionParser(config);
+	ExpressionParser parser = new SpelExpressionParser(com.mxk.config);
 
 	Expression expression = parser.parseExpression("list[3]");
 
@@ -375,9 +375,9 @@ example demonstrates how to automatically grow the list:
 	// Turn on:
 	// - auto null reference initialization
 	// - auto collection growing
-	val config = SpelParserConfiguration(true, true)
+	val com.mxk.config = SpelParserConfiguration(true, true)
 
-	val parser = SpelExpressionParser(config)
+	val parser = SpelExpressionParser(com.mxk.config)
 
 	val expression = parser.parseExpression("list[3]")
 
@@ -459,10 +459,10 @@ following example shows how to do so:
 [source,java,indent=0,subs="verbatim,quotes",role="primary"]
 .Java
 ----
-	SpelParserConfiguration config = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
+	SpelParserConfiguration com.mxk.config = new SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
 		this.getClass().getClassLoader());
 
-	SpelExpressionParser parser = new SpelExpressionParser(config);
+	SpelExpressionParser parser = new SpelExpressionParser(com.mxk.config);
 
 	Expression expr = parser.parseExpression("payload");
 
@@ -473,10 +473,10 @@ following example shows how to do so:
 [source,kotlin,indent=0,subs="verbatim,quotes",role="secondary"]
 .Kotlin
 ----
-	val config = SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
+	val com.mxk.config = SpelParserConfiguration(SpelCompilerMode.IMMEDIATE,
 			this.javaClass.classLoader)
 
-	val parser = SpelExpressionParser(config)
+	val parser = SpelExpressionParser(com.mxk.config)
 
 	val expr = parser.parseExpression("payload")
 
@@ -506,7 +506,7 @@ common expressions that are likely to be used in performance-critical contexts. 
 kinds of expression cannot be compiled at the moment:
 
 * Expressions involving assignment
-* Expressions relying on the conversion service
+* Expressions relying on the conversion com.mxk.service
 * Expressions using custom resolvers or accessors
 * Expressions using selection or projection
 

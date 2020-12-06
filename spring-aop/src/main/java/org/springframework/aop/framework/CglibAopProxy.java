@@ -120,7 +120,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 	/**
 	 * Create a new CglibAopProxy for the given AOP configuration.
 	 * @param config the AOP configuration as AdvisedSupport object
-	 * @throws AopConfigException if the config is invalid. We try to throw an informative
+	 * @throws AopConfigException if the com.mxk.config is invalid. We try to throw an informative
 	 * exception in this case, rather than let a mysterious failure happen later.
 	 */
 	public CglibAopProxy(AdvisedSupport config) throws AopConfigException {

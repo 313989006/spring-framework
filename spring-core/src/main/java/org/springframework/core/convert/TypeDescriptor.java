@@ -132,7 +132,7 @@ public class TypeDescriptor implements Serializable {
 	/**
 	 * Variation of {@link #getType()} that accounts for a primitive type by
 	 * returning its object wrapper type.
-	 * <p>This is useful for conversion service implementations that wish to
+	 * <p>This is useful for conversion com.mxk.service implementations that wish to
 	 * normalize to object-based types and not work with primitive types directly.
 	 */
 	public Class<?> getObjectType() {

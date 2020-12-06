@@ -209,7 +209,7 @@ public abstract class ConvertingEncoderDecoderSupport<T, M> {
 
 	/**
 	 * A binary {@link javax.websocket.Encoder.Binary javax.websocket.Encoder} that delegates
-	 * to Spring's conversion service. See {@link ConvertingEncoderDecoderSupport} for details.
+	 * to Spring's conversion com.mxk.service. See {@link ConvertingEncoderDecoderSupport} for details.
 	 * @param <T> the type that this Encoder can convert to
 	 */
 	public abstract static class BinaryEncoder<T> extends ConvertingEncoderDecoderSupport<T, ByteBuffer>
@@ -219,7 +219,7 @@ public abstract class ConvertingEncoderDecoderSupport<T, M> {
 
 	/**
 	 * A binary {@link javax.websocket.Encoder.Binary javax.websocket.Encoder} that delegates
-	 * to Spring's conversion service. See {@link ConvertingEncoderDecoderSupport} for details.
+	 * to Spring's conversion com.mxk.service. See {@link ConvertingEncoderDecoderSupport} for details.
 	 * @param <T> the type that this Decoder can convert from
 	 */
 	public abstract static class BinaryDecoder<T> extends ConvertingEncoderDecoderSupport<T, ByteBuffer>
@@ -229,7 +229,7 @@ public abstract class ConvertingEncoderDecoderSupport<T, M> {
 
 	/**
 	 * A text {@link javax.websocket.Encoder.Text javax.websocket.Encoder} that delegates
-	 * to Spring's conversion service. See {@link ConvertingEncoderDecoderSupport} for
+	 * to Spring's conversion com.mxk.service. See {@link ConvertingEncoderDecoderSupport} for
 	 * details.
 	 * @param <T> the type that this Encoder can convert to
 	 */
@@ -240,7 +240,7 @@ public abstract class ConvertingEncoderDecoderSupport<T, M> {
 
 	/**
 	 * A Text {@link javax.websocket.Encoder.Text javax.websocket.Encoder} that delegates
-	 * to Spring's conversion service. See {@link ConvertingEncoderDecoderSupport} for details.
+	 * to Spring's conversion com.mxk.service. See {@link ConvertingEncoderDecoderSupport} for details.
 	 * @param <T> the type that this Decoder can convert from
 	 */
 	public abstract static class TextDecoder<T> extends ConvertingEncoderDecoderSupport<T, String>

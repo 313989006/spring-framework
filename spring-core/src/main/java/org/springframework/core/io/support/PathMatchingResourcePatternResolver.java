@@ -126,7 +126,7 @@ import org.springframework.util.StringUtils;
  * the same name, via the "{@code classpath*:}" prefix. For example,
  * "{@code classpath*:META-INF/beans.xml}" will find all "beans.xml"
  * files in the class path, be it in "classes" directories or in JAR files.
- * This is particularly useful for autodetecting config files of the same name
+ * This is particularly useful for autodetecting com.mxk.config files of the same name
  * at the same location within each jar file. Internally, this happens via a
  * {@code ClassLoader.getResources()} call, and is completely portable.
  *
@@ -156,11 +156,11 @@ import org.springframework.util.StringUtils;
  * guaranteed to find matching resources if the root package to search is available
  * in multiple class path locations. This is because a resource such as
  * <pre class="code">
- *     com/mycompany/package1/service-context.xml
+ *     com/mycompany/package1/com.mxk.service-context.xml
  * </pre>
  * may be in only one location, but when a path such as
  * <pre class="code">
- *     classpath:com/mycompany/**&#47;service-context.xml
+ *     classpath:com/mycompany/**&#47;com.mxk.service-context.xml
  * </pre>
  * is used to try to resolve it, the resolver will work off the (first) URL
  * returned by {@code getResource("com/mycompany");}. If this base package node

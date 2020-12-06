@@ -35,7 +35,7 @@ package org.springframework.core.env;
  * originate from a variety of sources: properties files, JVM system properties, system
  * environment variables, JNDI, servlet context parameters, ad-hoc Properties objects,
  * Maps, and so on. The role of the environment object with relation to properties is to
- * provide the user with a convenient service interface for configuring property sources
+ * provide the user with a convenient com.mxk.service interface for configuring property sources
  * and resolving properties from them.
  *
  * <p>Beans managed within an {@code ApplicationContext} may register to be {@link

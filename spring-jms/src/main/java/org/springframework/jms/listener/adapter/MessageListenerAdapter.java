@@ -199,7 +199,7 @@ public class MessageListenerAdapter extends AbstractAdaptableMessageListener imp
 	@Override
 	@SuppressWarnings("unchecked")
 	public void onMessage(Message message, @Nullable Session session) throws JMSException {
-		// Check whether the delegate is a MessageListener impl itself.
+		// Check whether the delegate is a MessageListener com.mxk.service.impl itself.
 		// In that case, the adapter will simply act as a pass-through.
 		Object delegate = getDelegate();
 		if (delegate != this) {

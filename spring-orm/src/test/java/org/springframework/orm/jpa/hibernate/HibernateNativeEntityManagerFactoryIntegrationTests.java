@@ -57,7 +57,7 @@ public class HibernateNativeEntityManagerFactoryIntegrationTests extends Abstrac
 	@Test
 	public void testEntityManagerFactoryImplementsEntityManagerFactoryInfo() {
 		boolean condition = entityManagerFactory instanceof EntityManagerFactoryInfo;
-		assertThat(condition).as("Must not have introduced config interface").isFalse();
+		assertThat(condition).as("Must not have introduced com.mxk.config interface").isFalse();
 	}
 
 	@Test

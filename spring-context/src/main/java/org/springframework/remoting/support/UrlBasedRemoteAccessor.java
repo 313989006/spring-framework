@@ -31,7 +31,7 @@ public abstract class UrlBasedRemoteAccessor extends RemoteAccessor implements I
 
 
 	/**
-	 * Set the URL of this remote accessor's target service.
+	 * Set the URL of this remote accessor's target com.mxk.service.
 	 * The URL must be compatible with the rules of the particular remoting provider.
 	 */
 	public void setServiceUrl(String serviceUrl) {
@@ -39,7 +39,7 @@ public abstract class UrlBasedRemoteAccessor extends RemoteAccessor implements I
 	}
 
 	/**
-	 * Return the URL of this remote accessor's target service.
+	 * Return the URL of this remote accessor's target com.mxk.service.
 	 */
 	public String getServiceUrl() {
 		return this.serviceUrl;

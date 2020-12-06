@@ -39,7 +39,7 @@ class RemoteMBeanClientInterceptorTests extends MBeanClientInterceptorTests {
 
 	private final int servicePort = SocketUtils.findAvailableTcpPort();
 
-	private final String serviceUrl = "service:jmx:jmxmp://localhost:" + servicePort;
+	private final String serviceUrl = "com.mxk.service:jmx:jmxmp://localhost:" + servicePort;
 
 
 	private JMXConnectorServer connectorServer;

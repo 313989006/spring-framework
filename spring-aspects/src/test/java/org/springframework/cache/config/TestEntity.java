@@ -23,7 +23,7 @@ import org.springframework.util.ObjectUtils;
  * due to issues with Gradle test fixtures and AspectJ configuration
  * in the Gradle build.
  *
- * <p>Simple test entity for use with caching tests.
+ * <p>Simple test com.mxk.entity for use with caching tests.
  *
  * @author Michael Plod
  */

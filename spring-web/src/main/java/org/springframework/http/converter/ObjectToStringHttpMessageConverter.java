@@ -60,7 +60,7 @@ public class ObjectToStringHttpMessageConverter extends AbstractHttpMessageConve
 	 * A constructor accepting a {@code ConversionService} to use to convert the
 	 * (String) message body to/from the target class type. This constructor uses
 	 * {@link StringHttpMessageConverter#DEFAULT_CHARSET} as the default charset.
-	 * @param conversionService the conversion service
+	 * @param conversionService the conversion com.mxk.service
 	 */
 	public ObjectToStringHttpMessageConverter(ConversionService conversionService) {
 		this(conversionService, StringHttpMessageConverter.DEFAULT_CHARSET);
@@ -68,7 +68,7 @@ public class ObjectToStringHttpMessageConverter extends AbstractHttpMessageConve
 
 	/**
 	 * A constructor accepting a {@code ConversionService} as well as a default charset.
-	 * @param conversionService the conversion service
+	 * @param conversionService the conversion com.mxk.service
 	 * @param defaultCharset the default charset
 	 */
 	public ObjectToStringHttpMessageConverter(ConversionService conversionService, Charset defaultCharset) {

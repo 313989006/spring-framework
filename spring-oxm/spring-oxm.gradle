@@ -10,7 +10,7 @@ dependencies {
 	jibx "org.apache.bcel:bcel:6.0"
 	xjc "javax.xml.bind:jaxb-api:2.3.1"
 	xjc "com.sun.xml.bind:jaxb-core:2.3.0.1"
-	xjc "com.sun.xml.bind:jaxb-impl:2.3.0.1"
+	xjc "com.sun.xml.bind:jaxb-com.mxk.service.impl:2.3.0.1"
 	xjc "com.sun.xml.bind:jaxb-xjc:2.3.1"
 	xjc "com.sun.activation:javax.activation:1.2.0"
 }
@@ -71,7 +71,7 @@ dependencies {
 	testCompile("org.xmlunit:xmlunit-assertj")
 	testCompile("org.xmlunit:xmlunit-matchers")
 	testRuntime("com.sun.xml.bind:jaxb-core")
-	testRuntime("com.sun.xml.bind:jaxb-impl")
+	testRuntime("com.sun.xml.bind:jaxb-com.mxk.service.impl")
 }
 
 // JiBX compiler is currently not compatible with JDK 9+.

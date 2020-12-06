@@ -47,8 +47,8 @@ class ConnectorDelegate {
 
 	/**
 	 * Connects to the remote {@code MBeanServer} using the configured {@code JMXServiceURL}:
-	 * to the specified JMX service, or to a local MBeanServer if no service URL specified.
-	 * @param serviceUrl the JMX service URL to connect to (may be {@code null})
+	 * to the specified JMX com.mxk.service, or to a local MBeanServer if no com.mxk.service URL specified.
+	 * @param serviceUrl the JMX com.mxk.service URL to connect to (may be {@code null})
 	 * @param environment the JMX environment for the connector (may be {@code null})
 	 * @param agentId the local JMX MBeanServer's agent id (may be {@code null})
 	 */

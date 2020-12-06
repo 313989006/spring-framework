@@ -20,7 +20,7 @@ public class Entrance {
 	public static void main1(String[] args) {
 		System.out.println("Hello World");
 
-		String configPath = "G:\\myGitHubProject\\spring-framework\\springDemo\\src\\main\\resources\\spring\\spring-config.xml";
+		String configPath = "G:\\myGitHubProject\\spring-framework\\springDemo\\src\\main\\resources\\spring\\spring-com.mxk.config.xml";
 
 		FileSystemXmlApplicationContext context = new FileSystemXmlApplicationContext(configPath);
 		WelcomService welcomService = (WelcomService) context.getBean("welcomService");
@@ -35,7 +35,7 @@ public class Entrance {
 		ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Entrance.class);
 
 		// 配置文件的方式
-//		String path = "G:\\myGitHubProject\\spring-framework\\springDemo\\src\\main\\resources\\spring\\spring-config.xml";
+//		String path = "G:\\myGitHubProject\\spring-framework\\springDemo\\src\\main\\resources\\spring\\spring-com.mxk.config.xml";
 //		ApplicationContext applicationContext = new FileSystemXmlApplicationContext(path);
 //				String[] beanDefinitionNames = applicationContext.getBeanDefinitionNames();
 //		for (String beanDefinitionName : beanDefinitionNames){

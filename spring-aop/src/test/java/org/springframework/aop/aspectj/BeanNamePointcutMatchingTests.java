@@ -41,9 +41,9 @@ public class BeanNamePointcutMatchingTests {
 		assertMatch("someName/foo/bar/someOtherName", "bean(someName/*/someOtherName)");
 		assertMatch("someName/*/**", "bean(someName/*)");
 		// JMX-kind
-		assertMatch("service:name=traceService", "bean(service:name=traceService)");
-		assertMatch("service:name=traceService", "bean(service:name=*)");
-		assertMatch("service:name=traceService", "bean(*:name=traceService)");
+		assertMatch("com.mxk.service:name=traceService", "bean(com.mxk.service:name=traceService)");
+		assertMatch("com.mxk.service:name=traceService", "bean(com.mxk.service:name=*)");
+		assertMatch("com.mxk.service:name=traceService", "bean(*:name=traceService)");
 
 		// Wildcards
 		assertMatch("someName", "bean(*someName)");

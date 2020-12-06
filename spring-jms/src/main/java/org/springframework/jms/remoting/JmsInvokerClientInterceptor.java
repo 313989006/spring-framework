@@ -50,7 +50,7 @@ import org.springframework.util.Assert;
 
 /**
  * {@link org.aopalliance.intercept.MethodInterceptor} for accessing a
- * JMS-based remote service.
+ * JMS-based remote com.mxk.service.
  *
  * <p>Serializes remote invocation objects and deserializes remote invocation
  * result objects. Uses Java serialization just like RMI, but with the JMS
@@ -215,7 +215,7 @@ public class JmsInvokerClientInterceptor implements MethodInterceptor, Initializ
 			}
 			else {
 				throw new RemoteInvocationFailureException("Invocation of method [" + methodInvocation.getMethod() +
-						"] failed in JMS invoker remote service at queue [" + this.queue + "]", ex);
+						"] failed in JMS invoker remote com.mxk.service at queue [" + this.queue + "]", ex);
 			}
 		}
 	}

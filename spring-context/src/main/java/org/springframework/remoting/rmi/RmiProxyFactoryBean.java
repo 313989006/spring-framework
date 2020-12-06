@@ -23,20 +23,20 @@ import org.springframework.util.Assert;
 
 /**
  * {@link FactoryBean} for RMI proxies, supporting both conventional RMI services
- * and RMI invokers. Exposes the proxied service for use as a bean reference,
- * using the specified service interface. Proxies will throw Spring's unchecked
+ * and RMI invokers. Exposes the proxied com.mxk.service for use as a bean reference,
+ * using the specified com.mxk.service interface. Proxies will throw Spring's unchecked
  * RemoteAccessException on remote invocation failure instead of RMI's RemoteException.
  *
- * <p>The service URL must be a valid RMI URL like "rmi://localhost:1099/myservice".
+ * <p>The com.mxk.service URL must be a valid RMI URL like "rmi://localhost:1099/myservice".
  * RMI invokers work at the RmiInvocationHandler level, using the same invoker stub
- * for any service. Service interfaces do not have to extend {@code java.rmi.Remote}
+ * for any com.mxk.service. Service interfaces do not have to extend {@code java.rmi.Remote}
  * or throw {@code java.rmi.RemoteException}. Of course, in and out parameters
  * have to be serializable.
  *
  * <p>With conventional RMI services, this proxy factory is typically used with the
- * RMI service interface. Alternatively, this factory can also proxy a remote RMI
- * service with a matching non-RMI business interface, i.e. an interface that mirrors
- * the RMI service methods but does not declare RemoteExceptions. In the latter case,
+ * RMI com.mxk.service interface. Alternatively, this factory can also proxy a remote RMI
+ * com.mxk.service with a matching non-RMI business interface, i.e. an interface that mirrors
+ * the RMI com.mxk.service methods but does not declare RemoteExceptions. In the latter case,
  * RemoteExceptions thrown by the RMI stub will automatically get converted to
  * Spring's unchecked RemoteAccessException.
  *

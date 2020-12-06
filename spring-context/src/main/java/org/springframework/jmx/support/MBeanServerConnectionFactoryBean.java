@@ -76,7 +76,7 @@ public class MBeanServerConnectionFactoryBean
 
 
 	/**
-	 * Set the service URL of the remote {@code MBeanServer}.
+	 * Set the com.mxk.service URL of the remote {@code MBeanServer}.
 	 */
 	public void setServiceUrl(String url) throws MalformedURLException {
 		this.serviceUrl = new JMXServiceURL(url);
@@ -135,7 +135,7 @@ public class MBeanServerConnectionFactoryBean
 	}
 
 	/**
-	 * Connects to the remote {@code MBeanServer} using the configured service URL and
+	 * Connects to the remote {@code MBeanServer} using the configured com.mxk.service URL and
 	 * environment properties.
 	 */
 	private void connect() throws IOException {
@@ -188,7 +188,7 @@ public class MBeanServerConnectionFactoryBean
 
 
 	/**
-	 * Lazily creates a {@code JMXConnector} using the configured service URL
+	 * Lazily creates a {@code JMXConnector} using the configured com.mxk.service URL
 	 * and environment properties.
 	 * @see MBeanServerConnectionFactoryBean#setServiceUrl(String)
 	 * @see MBeanServerConnectionFactoryBean#setEnvironment(java.util.Properties)

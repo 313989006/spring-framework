@@ -43,19 +43,19 @@ import org.springframework.remoting.support.RemoteInvocationUtils;
 
 /**
  * {@link org.aopalliance.intercept.MethodInterceptor} for accessing conventional
- * RMI services or RMI invokers. The service URL must be a valid RMI URL
+ * RMI services or RMI invokers. The com.mxk.service URL must be a valid RMI URL
  * (e.g. "rmi://localhost:1099/myservice").
  *
  * <p>RMI invokers work at the RmiInvocationHandler level, needing only one stub for
- * any service. Service interfaces do not have to extend {@code java.rmi.Remote}
+ * any com.mxk.service. Service interfaces do not have to extend {@code java.rmi.Remote}
  * or throw {@code java.rmi.RemoteException}. Spring's unchecked
  * RemoteAccessException will be thrown on remote invocation failure.
  * Of course, in and out parameters have to be serializable.
  *
  * <p>With conventional RMI services, this invoker is typically used with the RMI
- * service interface. Alternatively, this invoker can also proxy a remote RMI service
+ * com.mxk.service interface. Alternatively, this invoker can also proxy a remote RMI com.mxk.service
  * with a matching non-RMI business interface, i.e. an interface that mirrors the RMI
- * service methods but does not declare RemoteExceptions. In the latter case,
+ * com.mxk.service methods but does not declare RemoteExceptions. In the latter case,
  * RemoteExceptions thrown by the RMI stub will automatically get converted to
  * Spring's unchecked RemoteAccessException.
  *
@@ -152,7 +152,7 @@ public class RmiClientInterceptor extends RemoteInvocationBasedAccessor
 				}
 				else if (getServiceInterface() != null) {
 					boolean isImpl = getServiceInterface().isInstance(remoteObj);
-					logger.debug("Using service interface [" + getServiceInterface().getName() +
+					logger.debug("Using com.mxk.service interface [" + getServiceInterface().getName() +
 						"] for RMI stub [" + getServiceUrl() + "] - " +
 						(!isImpl ? "not " : "") + "directly implemented");
 				}
@@ -167,7 +167,7 @@ public class RmiClientInterceptor extends RemoteInvocationBasedAccessor
 	 * Create the RMI stub, typically by looking it up.
 	 * <p>Called on interceptor initialization if "cacheStub" is "true";
 	 * else called for each invocation by {@link #getStub()}.
-	 * <p>The default implementation looks up the service URL via
+	 * <p>The default implementation looks up the com.mxk.service URL via
 	 * {@code java.rmi.Naming}. This can be overridden in subclasses.
 	 * @return the RMI stub to store in this interceptor
 	 * @throws RemoteLookupFailureException if RMI stub creation failed
@@ -210,7 +210,7 @@ public class RmiClientInterceptor extends RemoteInvocationBasedAccessor
 		}
 		catch (NotBoundException ex) {
 			throw new RemoteLookupFailureException(
-					"Could not find RMI service [" + getServiceUrl() + "] in RMI registry", ex);
+					"Could not find RMI com.mxk.service [" + getServiceUrl() + "] in RMI registry", ex);
 		}
 		catch (RemoteException ex) {
 			throw new RemoteLookupFailureException("Lookup of RMI stub failed", ex);
@@ -299,7 +299,7 @@ public class RmiClientInterceptor extends RemoteInvocationBasedAccessor
 	@Nullable
 	private Object handleRemoteConnectFailure(MethodInvocation invocation, Exception ex) throws Throwable {
 		if (this.refreshStubOnConnectFailure) {
-			String msg = "Could not connect to RMI service [" + getServiceUrl() + "] - retrying";
+			String msg = "Could not connect to RMI com.mxk.service [" + getServiceUrl() + "] - retrying";
 			if (logger.isDebugEnabled()) {
 				logger.warn(msg, ex);
 			}
@@ -359,7 +359,7 @@ public class RmiClientInterceptor extends RemoteInvocationBasedAccessor
 			}
 			catch (Throwable ex) {
 				throw new RemoteInvocationFailureException("Invocation of method [" + invocation.getMethod() +
-						"] failed in RMI service [" + getServiceUrl() + "]", ex);
+						"] failed in RMI com.mxk.service [" + getServiceUrl() + "]", ex);
 			}
 		}
 		else {
@@ -398,7 +398,7 @@ public class RmiClientInterceptor extends RemoteInvocationBasedAccessor
 		throws RemoteException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
 		if (AopUtils.isToStringMethod(methodInvocation.getMethod())) {
-			return "RMI invoker proxy for service URL [" + getServiceUrl() + "]";
+			return "RMI invoker proxy for com.mxk.service URL [" + getServiceUrl() + "]";
 		}
 
 		return invocationHandler.invoke(createRemoteInvocation(methodInvocation));

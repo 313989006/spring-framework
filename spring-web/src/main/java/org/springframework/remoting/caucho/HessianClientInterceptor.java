@@ -39,9 +39,9 @@ import org.springframework.remoting.support.UrlBasedRemoteAccessor;
 import org.springframework.util.Assert;
 
 /**
- * {@link org.aopalliance.intercept.MethodInterceptor} for accessing a Hessian service.
+ * {@link org.aopalliance.intercept.MethodInterceptor} for accessing a Hessian com.mxk.service.
  * Supports authentication via username and password.
- * The service URL must be an HTTP URL exposing a Hessian service.
+ * The com.mxk.service URL must be an HTTP URL exposing a Hessian com.mxk.service.
  *
  * <p>Hessian is a slim, binary RPC protocol.
  * For information on Hessian, see the
@@ -118,7 +118,7 @@ public class HessianClientInterceptor extends UrlBasedRemoteAccessor implements 
 	}
 
 	/**
-	 * Set the username that this factory should use to access the remote service.
+	 * Set the username that this factory should use to access the remote com.mxk.service.
 	 * Default is none.
 	 * <p>The username will be sent by Hessian via HTTP Basic Authentication.
 	 * @see com.caucho.hessian.client.HessianProxyFactory#setUser
@@ -128,7 +128,7 @@ public class HessianClientInterceptor extends UrlBasedRemoteAccessor implements 
 	}
 
 	/**
-	 * Set the password that this factory should use to access the remote service.
+	 * Set the password that this factory should use to access the remote com.mxk.service.
 	 * Default is none.
 	 * <p>The password will be sent by Hessian via HTTP Basic Authentication.
 	 * @see com.caucho.hessian.client.HessianProxyFactory#setPassword
@@ -170,7 +170,7 @@ public class HessianClientInterceptor extends UrlBasedRemoteAccessor implements 
 	}
 
 	/**
-	 * Set the timeout to use when waiting for a reply from the Hessian service.
+	 * Set the timeout to use when waiting for a reply from the Hessian com.mxk.service.
 	 * @see com.caucho.hessian.client.HessianProxyFactory#setReadTimeout
 	 */
 	public void setReadTimeout(long timeout) {
@@ -214,7 +214,7 @@ public class HessianClientInterceptor extends UrlBasedRemoteAccessor implements 
 
 	/**
 	 * Initialize the Hessian proxy for this interceptor.
-	 * @throws RemoteLookupFailureException if the service URL is invalid
+	 * @throws RemoteLookupFailureException if the com.mxk.service URL is invalid
 	 */
 	public void prepare() throws RemoteLookupFailureException {
 		try {
@@ -273,7 +273,7 @@ public class HessianClientInterceptor extends UrlBasedRemoteAccessor implements 
 		}
 		catch (Throwable ex) {
 			throw new RemoteProxyFailureException(
-					"Failed to invoke Hessian proxy for remote service [" + getServiceUrl() + "]", ex);
+					"Failed to invoke Hessian proxy for remote com.mxk.service [" + getServiceUrl() + "]", ex);
 		}
 		finally {
 			resetThreadContextClassLoader(originalClassLoader);
@@ -289,11 +289,11 @@ public class HessianClientInterceptor extends UrlBasedRemoteAccessor implements 
 	protected RemoteAccessException convertHessianAccessException(Throwable ex) {
 		if (ex instanceof HessianConnectionException || ex instanceof ConnectException) {
 			return new RemoteConnectFailureException(
-					"Cannot connect to Hessian remote service at [" + getServiceUrl() + "]", ex);
+					"Cannot connect to Hessian remote com.mxk.service at [" + getServiceUrl() + "]", ex);
 		}
 		else {
 			return new RemoteAccessException(
-				"Cannot access Hessian remote service at [" + getServiceUrl() + "]", ex);
+				"Cannot access Hessian remote com.mxk.service at [" + getServiceUrl() + "]", ex);
 		}
 	}
 

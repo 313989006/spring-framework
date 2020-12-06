@@ -10,7 +10,7 @@ public class AliasTestDemo {
 
 	public static void main(String[] args) {
 		User user = new User();
-		String configPath = "G:\\myGitHubProject\\spring-framework\\springDemo\\src\\main\\resources\\spring\\spring-config.xml";
+		String configPath = "G:\\myGitHubProject\\spring-framework\\springDemo\\src\\main\\resources\\spring\\spring-com.mxk.config.xml";
 
 		ApplicationContext context = new FileSystemXmlApplicationContext(configPath);
 

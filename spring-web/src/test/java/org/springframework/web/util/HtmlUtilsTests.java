@@ -93,7 +93,7 @@ public class HtmlUtilsTests {
 
 		assertThat(HtmlUtils.htmlUnescape("&;")).as("An empty reference '&;' should be survive the decoding").isEqualTo("&;");
 
-		assertThat(HtmlUtils.htmlUnescape("&thetasym;")).as("The longest character entity reference '&thetasym;' should be processable").isEqualTo(("" + (char) 977));
+		assertThat(HtmlUtils.htmlUnescape("&thetasym;")).as("The longest character com.mxk.entity reference '&thetasym;' should be processable").isEqualTo(("" + (char) 977));
 
 		assertThat(HtmlUtils.htmlUnescape("&#notADecimalNumber;")).as("A malformed decimal reference should survive the decoding").isEqualTo("&#notADecimalNumber;");
 		assertThat(HtmlUtils.htmlUnescape("&#XnotAHexNumber;")).as("A malformed hex reference should survive the decoding").isEqualTo("&#XnotAHexNumber;");

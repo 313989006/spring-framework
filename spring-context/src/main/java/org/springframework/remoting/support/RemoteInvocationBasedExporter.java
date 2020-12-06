@@ -19,7 +19,7 @@ package org.springframework.remoting.support;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Abstract base class for remote service exporters that are based
+ * Abstract base class for remote com.mxk.service exporters that are based
  * on deserialization of {@link RemoteInvocation} objects.
  *
  * <p>Provides a "remoteInvocationExecutor" property, with a

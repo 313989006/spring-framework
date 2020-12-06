@@ -8,10 +8,10 @@
 	<resourceadapter-version>1.0</resourceadapter-version>
 	<resourceadapter>
 		<resourceadapter-class>org.springframework.jca.context.SpringContextResourceAdapter</resourceadapter-class>
-		<config-property>
-			<config-property-name>ContextConfigLocation</config-property-name>
-			<config-property-type>java.lang.String</config-property-type>
-			<config-property-value>META-INF/applicationContext.xml</config-property-value>
-		</config-property>
+		<com.mxk.config-property>
+			<com.mxk.config-property-name>ContextConfigLocation</com.mxk.config-property-name>
+			<com.mxk.config-property-type>java.lang.String</com.mxk.config-property-type>
+			<com.mxk.config-property-value>META-INF/applicationContext.xml</com.mxk.config-property-value>
+		</com.mxk.config-property>
 	</resourceadapter>
 </connector>

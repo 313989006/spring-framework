@@ -69,11 +69,11 @@ import org.springframework.util.StringUtils;
  * values from a ResultSet. See also {@link PreparedStatementSetter} and
  * {@link RowMapper} for two popular alternative callback interfaces.
  *
- * <p>Can be used within a service implementation via direct instantiation
+ * <p>Can be used within a com.mxk.service implementation via direct instantiation
  * with a DataSource reference, or get prepared in an application context
  * and given to services as bean reference. Note: The DataSource should
  * always be configured as a bean in the application context, in the first case
- * given to the service directly, in the second case to the prepared template.
+ * given to the com.mxk.service directly, in the second case to the prepared template.
  *
  * <p>Because this class is parameterizable by the callback interfaces and
  * the {@link org.springframework.jdbc.support.SQLExceptionTranslator}

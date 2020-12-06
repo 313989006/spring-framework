@@ -50,7 +50,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.util.xml.DomUtils;
 
 /**
- * {@link BeanDefinitionParser} for the {@code <aop:config>} tag.
+ * {@link BeanDefinitionParser} for the {@code <aop:com.mxk.config>} tag.
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -73,7 +73,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 	private static final String BEFORE = "before";
 	private static final String DECLARE_PARENTS = "declare-parents";
 	private static final String TYPE_PATTERN = "types-matching";
-	private static final String DEFAULT_IMPL = "default-impl";
+	private static final String DEFAULT_IMPL = "default-com.mxk.service.impl";
 	private static final String DELEGATE_REF = "delegate-ref";
 	private static final String IMPLEMENT_INTERFACE = "implement-interface";
 	private static final String AFTER = "after";
@@ -125,7 +125,7 @@ class ConfigBeanDefinitionParser implements BeanDefinitionParser {
 
 	/**
 	 * Configures the auto proxy creator needed to support the {@link BeanDefinition BeanDefinitions}
-	 * created by the '{@code <aop:config/>}' tag. Will force class proxying if the
+	 * created by the '{@code <aop:com.mxk.config/>}' tag. Will force class proxying if the
 	 * '{@code proxy-target-class}' attribute is set to '{@code true}'.
 	 * @see AopNamespaceUtils
 	 */

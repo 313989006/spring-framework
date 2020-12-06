@@ -41,7 +41,7 @@ public class ImportVersusDirectRegistrationTests {
 	@Test
 	public void thingIsNotAvailableWhenOuterConfigurationIsRegisteredWithClassName() {
 		try (AnnotationConfigApplicationContext directRegistration = new AnnotationConfigApplicationContext()) {
-			directRegistration.registerBeanDefinition("config",
+			directRegistration.registerBeanDefinition("com.mxk.config",
 					new RootBeanDefinition(AccidentalLiteConfiguration.class.getName()));
 			directRegistration.refresh();
 			assertThatExceptionOfType(NoSuchBeanDefinitionException.class).isThrownBy(() ->

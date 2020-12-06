@@ -411,7 +411,7 @@ public final class MockServerHttpRequest extends AbstractServerHttpRequest {
 		/**
 		 * Set the body of the request and build it.
 		 * @param body the body
-		 * @return the built request entity
+		 * @return the built request com.mxk.entity
 		 */
 		MockServerHttpRequest body(Publisher<? extends DataBuffer> body);
 
@@ -420,7 +420,7 @@ public final class MockServerHttpRequest extends AbstractServerHttpRequest {
 		 * <p>The String is assumed to be UTF-8 encoded unless the request has a
 		 * "content-type" header with a charset attribute.
 		 * @param body the body as text
-		 * @return the built request entity
+		 * @return the built request com.mxk.entity
 		 */
 		MockServerHttpRequest body(String body);
 	}

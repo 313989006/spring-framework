@@ -96,8 +96,8 @@ import org.springframework.util.StringValueResolver;
  *
  * <p>The JAX-WS {@link javax.xml.ws.WebServiceRef} annotation is supported too,
  * analogous to {@link javax.annotation.Resource} but with the capability of creating
- * specific JAX-WS service endpoints. This may either point to an explicitly defined
- * resource by name or operate on a locally specified JAX-WS service class. Finally,
+ * specific JAX-WS com.mxk.service endpoints. This may either point to an explicitly defined
+ * resource by name or operate on a locally specified JAX-WS com.mxk.service class. Finally,
  * this post-processor also supports the EJB 3 {@link javax.ejb.EJB} annotation,
  * analogous to {@link javax.annotation.Resource} as well, with the capability to
  * specify both a local bean name and a global JNDI name for fallback retrieval.
@@ -127,7 +127,7 @@ import org.springframework.util.StringValueResolver;
  * default names (inferred from the field name / property name).
  *
  * <p><b>NOTE:</b> A default CommonAnnotationBeanPostProcessor will be registered
- * by the "context:annotation-config" and "context:component-scan" XML tags.
+ * by the "context:annotation-com.mxk.config" and "context:component-scan" XML tags.
  * Remove or turn off the default annotation configuration there if you intend
  * to specify a custom CommonAnnotationBeanPostProcessor bean definition!
  * <p><b>NOTE:</b> Annotation injection will be performed <i>before</i> XML injection; thus

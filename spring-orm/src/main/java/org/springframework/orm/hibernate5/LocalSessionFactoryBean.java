@@ -170,7 +170,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	}
 
 	/**
-	 * Set the location of a single Hibernate XML config file, for example as
+	 * Set the location of a single Hibernate XML com.mxk.config file, for example as
 	 * classpath resource "classpath:hibernate.cfg.xml".
 	 * <p>Note: Can be omitted when all necessary properties and mapping
 	 * resources are specified locally via this bean.
@@ -181,7 +181,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	}
 
 	/**
-	 * Set the locations of multiple Hibernate XML config files, for example as
+	 * Set the locations of multiple Hibernate XML com.mxk.config files, for example as
 	 * classpath resources "classpath:hibernate.cfg.xml,classpath:extension.cfg.xml".
 	 * <p>Note: Can be omitted when all necessary properties and mapping
 	 * resources are specified locally via this bean.
@@ -194,9 +194,9 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	/**
 	 * Set Hibernate mapping resources to be found in the class path,
 	 * like "example.hbm.xml" or "mypackage/example.hbm.xml".
-	 * Analogous to mapping entries in a Hibernate XML config file.
+	 * Analogous to mapping entries in a Hibernate XML com.mxk.config file.
 	 * Alternative to the more generic setMappingLocations method.
-	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * <p>Can be used to add to mappings from a Hibernate XML com.mxk.config file,
 	 * or to specify all mappings locally.
 	 * @see #setMappingLocations
 	 * @see Configuration#addResource
@@ -210,7 +210,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	 * resource "classpath:example.hbm.xml". Supports any resource location
 	 * via Spring's resource abstraction, for example relative paths like
 	 * "WEB-INF/mappings/example.hbm.xml" when running in an application context.
-	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * <p>Can be used to add to mappings from a Hibernate XML com.mxk.config file,
 	 * or to specify all mappings locally.
 	 * @see Configuration#addInputStream
 	 */
@@ -223,7 +223,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	 * resource "/WEB-INF/mapping/example.hbm.xml". Supports any resource location
 	 * via Spring's resource abstraction, as long as the resource can be resolved
 	 * in the file system.
-	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * <p>Can be used to add to mappings from a Hibernate XML com.mxk.config file,
 	 * or to specify all mappings locally.
 	 * @see Configuration#addCacheableFile(File)
 	 */
@@ -234,7 +234,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	/**
 	 * Set locations of jar files that contain Hibernate mapping resources,
 	 * like "WEB-INF/lib/example.hbm.jar".
-	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * <p>Can be used to add to mappings from a Hibernate XML com.mxk.config file,
 	 * or to specify all mappings locally.
 	 * @see Configuration#addJar(File)
 	 */
@@ -245,7 +245,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	/**
 	 * Set locations of directories that contain Hibernate mapping resources,
 	 * like "WEB-INF/mappings".
-	 * <p>Can be used to add to mappings from a Hibernate XML config file,
+	 * <p>Can be used to add to mappings from a Hibernate XML com.mxk.config file,
 	 * or to specify all mappings locally.
 	 * @see Configuration#addDirectory(File)
 	 */
@@ -254,7 +254,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	}
 
 	/**
-	 * Set a Hibernate entity interceptor that allows to inspect and change
+	 * Set a Hibernate com.mxk.entity interceptor that allows to inspect and change
 	 * property values before writing to and reading from the database.
 	 * Will get applied to any new Session created by this factory.
 	 * @see Configuration#setInterceptor
@@ -341,7 +341,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	}
 
 	/**
-	 * Specify custom type filters for Spring-based scanning for entity classes.
+	 * Specify custom type filters for Spring-based scanning for com.mxk.entity classes.
 	 * <p>Default is to search all specified packages for classes annotated with
 	 * {@code @javax.persistence.Entity}, {@code @javax.persistence.Embeddable}
 	 * or {@code @javax.persistence.MappedSuperclass}.
@@ -352,7 +352,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	}
 
 	/**
-	 * Specify annotated entity classes to register with this Hibernate SessionFactory.
+	 * Specify annotated com.mxk.entity classes to register with this Hibernate SessionFactory.
 	 * @see Configuration#addAnnotatedClass(Class)
 	 */
 	public void setAnnotatedClasses(Class<?>... annotatedClasses) {
@@ -369,7 +369,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	}
 
 	/**
-	 * Specify packages to search for autodetection of your entity classes in the
+	 * Specify packages to search for autodetection of your com.mxk.entity classes in the
 	 * classpath. This is analogous to Spring's component-scan feature
 	 * ({@link org.springframework.context.annotation.ClassPathBeanDefinitionScanner}).
 	 */
@@ -408,7 +408,7 @@ public class LocalSessionFactoryBean extends HibernateExceptionTranslator
 	}
 
 	/**
-	 * Specify a Hibernate {@link MetadataSources} service to use (e.g. reusing an
+	 * Specify a Hibernate {@link MetadataSources} com.mxk.service to use (e.g. reusing an
 	 * existing one), potentially populated with a custom Hibernate bootstrap
 	 * {@link org.hibernate.service.ServiceRegistry} as well.
 	 * @since 4.3

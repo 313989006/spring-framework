@@ -27,8 +27,8 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.util.NestedServletException;
 
 /**
- * Servlet-API-based HTTP request handler that exports the specified service bean
- * as Hessian service endpoint, accessible via a Hessian proxy.
+ * Servlet-API-based HTTP request handler that exports the specified com.mxk.service bean
+ * as Hessian com.mxk.service endpoint, accessible via a Hessian proxy.
  *
  * <p>Hessian is a slim, binary RPC protocol.
  * For information on Hessian, see the

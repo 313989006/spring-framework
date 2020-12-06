@@ -1,4 +1,4 @@
-//package com.mxk.service.impl;
+//package com.mxk.com.mxk.service.com.mxk.service.impl;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.context.annotation.Scope;

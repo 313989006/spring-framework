@@ -49,7 +49,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * {@link org.aopalliance.intercept.MethodInterceptor} for accessing a
- * specific port of a JAX-WS service.
+ * specific port of a JAX-WS com.mxk.service.
  *
  * <p>Uses either {@link LocalJaxWsServiceFactory}'s facilities underneath,
  * or takes an explicit reference to an existing JAX-WS Service instance
@@ -288,7 +288,7 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 	}
 
 	/**
-	 * Set the interface of the service that this factory should create a proxy for.
+	 * Set the interface of the com.mxk.service that this factory should create a proxy for.
 	 */
 	public void setServiceInterface(@Nullable Class<?> serviceInterface) {
 		if (serviceInterface != null) {
@@ -298,7 +298,7 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 	}
 
 	/**
-	 * Return the interface of the service that this factory should create a proxy for.
+	 * Return the interface of the com.mxk.service that this factory should create a proxy for.
 	 */
 	@Nullable
 	public Class<?> getServiceInterface() {
@@ -306,9 +306,9 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 	}
 
 	/**
-	 * Set whether to look up the JAX-WS service on startup.
+	 * Set whether to look up the JAX-WS com.mxk.service on startup.
 	 * <p>Default is "true". Turn this flag off to allow for late start
-	 * of the target server. In this case, the JAX-WS service will be
+	 * of the target server. In this case, the JAX-WS com.mxk.service will be
 	 * lazily fetched on first access.
 	 */
 	public void setLookupServiceOnStartup(boolean lookupServiceOnStartup) {
@@ -367,8 +367,8 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 	 * Initialize this client interceptor's properties from the given WebService annotation,
 	 * if necessary and possible (i.e. if "wsdlDocumentUrl", "namespaceUri", "serviceName"
 	 * and "portName" haven't been set but corresponding values are declared at the
-	 * annotation level of the specified service interface).
-	 * @param ann the WebService annotation found on the specified service interface
+	 * annotation level of the specified com.mxk.service interface).
+	 * @param ann the WebService annotation found on the specified com.mxk.service interface
 	 */
 	protected void applyDefaultsFromAnnotation(WebService ann) {
 		if (getWsdlDocumentUrl() == null) {
@@ -405,7 +405,7 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 
 	/**
 	 * Return whether this client interceptor has already been prepared,
-	 * i.e. has already looked up the JAX-WS service and port.
+	 * i.e. has already looked up the JAX-WS com.mxk.service and port.
 	 */
 	protected boolean isPrepared() {
 		synchronized (this.preparationMonitor) {
@@ -499,9 +499,9 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 	@Nullable
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		if (AopUtils.isToStringMethod(invocation.getMethod())) {
-			return "JAX-WS proxy for port [" + getPortName() + "] of service [" + getServiceName() + "]";
+			return "JAX-WS proxy for port [" + getPortName() + "] of com.mxk.service [" + getServiceName() + "]";
 		}
-		// Lazily prepare service and stub if necessary.
+		// Lazily prepare com.mxk.service and stub if necessary.
 		synchronized (this.preparationMonitor) {
 			if (!isPrepared()) {
 				prepare();
@@ -511,7 +511,7 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 	}
 
 	/**
-	 * Perform a JAX-WS service invocation based on the given method invocation.
+	 * Perform a JAX-WS com.mxk.service invocation based on the given method invocation.
 	 * @param invocation the AOP method invocation
 	 * @return the invocation result, if any
 	 * @throws Throwable in case of invocation failure
@@ -528,16 +528,16 @@ public class JaxWsPortClientInterceptor extends LocalJaxWsServiceFactory
 		}
 		catch (ProtocolException ex) {
 			throw new RemoteConnectFailureException(
-					"Could not connect to remote service [" + getEndpointAddress() + "]", ex);
+					"Could not connect to remote com.mxk.service [" + getEndpointAddress() + "]", ex);
 		}
 		catch (WebServiceException ex) {
 			throw new RemoteAccessException(
-					"Could not access remote service at [" + getEndpointAddress() + "]", ex);
+					"Could not access remote com.mxk.service at [" + getEndpointAddress() + "]", ex);
 		}
 	}
 
 	/**
-	 * Perform a JAX-WS service invocation on the given port stub.
+	 * Perform a JAX-WS com.mxk.service invocation on the given port stub.
 	 * @param invocation the AOP method invocation
 	 * @param portStub the RMI port stub to invoke
 	 * @return the invocation result, if any

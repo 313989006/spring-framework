@@ -47,7 +47,7 @@ public interface HttpInvokerRequestExecutor {
 	/**
 	 * Execute a request to send the given remote invocation.
 	 * @param config the HTTP invoker configuration that specifies the
-	 * target service
+	 * target com.mxk.service
 	 * @param invocation the RemoteInvocation to execute
 	 * @return the RemoteInvocationResult object
 	 * @throws IOException if thrown by I/O operations

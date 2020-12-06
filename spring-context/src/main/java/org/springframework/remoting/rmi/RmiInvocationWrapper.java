@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
 /**
  * Server-side implementation of {@link RmiInvocationHandler}. An instance
  * of this class exists for each remote object. Automatically created
- * by {@link RmiServiceExporter} for non-RMI service implementations.
+ * by {@link RmiServiceExporter} for non-RMI com.mxk.service implementations.
  *
  * <p>This is an SPI class, not to be used directly by applications.
  *
@@ -55,7 +55,7 @@ class RmiInvocationWrapper implements RmiInvocationHandler {
 
 
 	/**
-	 * Exposes the exporter's service interface, if any, as target interface.
+	 * Exposes the exporter's com.mxk.service interface, if any, as target interface.
 	 * @see RmiBasedExporter#getServiceInterface()
 	 */
 	@Override

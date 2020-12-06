@@ -186,7 +186,7 @@ public class MutablePersistenceUnitInfo implements SmartPersistenceUnitInfo {
 	/**
 	 * Add a managed package to the persistence provider's metadata.
 	 * <p>Note: This refers to annotated {@code package-info.java} files. It does
-	 * <i>not</i> trigger entity scanning in the specified package; this is
+	 * <i>not</i> trigger com.mxk.entity scanning in the specified package; this is
 	 * rather the job of {@link DefaultPersistenceUnitManager#setPackagesToScan}.
 	 * @since 4.1
 	 * @see SmartPersistenceUnitInfo#getManagedPackages()

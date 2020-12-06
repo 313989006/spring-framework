@@ -66,7 +66,7 @@ public class ExpressionWithConversionTests extends AbstractExpressionTests {
 
 
 	/**
-	 * Test the service can convert what we are about to use in the expression evaluation tests.
+	 * Test the com.mxk.service can convert what we are about to use in the expression evaluation tests.
 	 */
 	@Test
 	public void testConversionsAvailable() throws Exception {
@@ -168,7 +168,7 @@ public class ExpressionWithConversionTests extends AbstractExpressionTests {
 
 
 	/**
-	 * Type converter that uses the core conversion service.
+	 * Type converter that uses the core conversion com.mxk.service.
 	 */
 	private static class TypeConvertorUsingConversionService implements TypeConverter {
 

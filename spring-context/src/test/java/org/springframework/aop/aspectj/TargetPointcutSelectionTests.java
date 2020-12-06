@@ -64,7 +64,7 @@ public class TargetPointcutSelectionTests {
 	@Test
 	public void targetSelectionForMatchedType() {
 		testImpl1.interfaceMethod();
-		assertThat(testAspectForTestImpl1.count).as("Should have been advised by POJO advice for impl").isEqualTo(1);
+		assertThat(testAspectForTestImpl1.count).as("Should have been advised by POJO advice for com.mxk.service.impl").isEqualTo(1);
 		assertThat(testAspectForAbstractTestImpl.count).as("Should have been advised by POJO advice for base type").isEqualTo(1);
 		assertThat(testInterceptor.count).as("Should have been advised by advisor").isEqualTo(1);
 	}
@@ -72,7 +72,7 @@ public class TargetPointcutSelectionTests {
 	@Test
 	public void targetNonSelectionForMismatchedType() {
 		testImpl2.interfaceMethod();
-		assertThat(testAspectForTestImpl1.count).as("Shouldn't have been advised by POJO advice for impl").isEqualTo(0);
+		assertThat(testAspectForTestImpl1.count).as("Shouldn't have been advised by POJO advice for com.mxk.service.impl").isEqualTo(0);
 		assertThat(testAspectForAbstractTestImpl.count).as("Should have been advised by POJO advice for base type").isEqualTo(1);
 		assertThat(testInterceptor.count).as("Shouldn't have been advised by advisor").isEqualTo(0);
 	}

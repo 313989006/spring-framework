@@ -208,7 +208,7 @@ public class RequestMappingMessageConversionIntegrationTests extends AbstractReq
 		startServer(httpServer);
 
 		Person expected = new Person("Robert");
-		ResponseEntity<Person> entity = performGet("/person-response/mono-response-entity", JSON, Person.class);
+		ResponseEntity<Person> entity = performGet("/person-response/mono-response-com.mxk.entity", JSON, Person.class);
 		assertThat(entity.getHeaders().getContentLength()).isEqualTo(17);
 		assertThat(entity.getBody()).isEqualTo(expected);
 	}
@@ -218,7 +218,7 @@ public class RequestMappingMessageConversionIntegrationTests extends AbstractReq
 		startServer(httpServer);
 
 
-		String url = "/person-response/mono-response-entity-xml";
+		String url = "/person-response/mono-response-com.mxk.entity-xml";
 		ResponseEntity<String> entity = performGet(url, new HttpHeaders(), String.class);
 		String actual = entity.getBody();
 

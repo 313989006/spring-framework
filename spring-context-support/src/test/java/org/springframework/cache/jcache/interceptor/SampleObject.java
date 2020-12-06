@@ -80,7 +80,7 @@ class SampleObject {
 		return null;
 	}
 
-	// Full config
+	// Full com.mxk.config
 
 	@CacheResult(cacheName = "simpleCache", skipGet = true,
 			cachedExceptions = Exception.class, nonCachedExceptions = RuntimeException.class)

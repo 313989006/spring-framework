@@ -149,7 +149,7 @@ public class MBeanClientInterceptor
 	}
 
 	/**
-	 * Set the service URL of the remote {@code MBeanServer}.
+	 * Set the com.mxk.service URL of the remote {@code MBeanServer}.
 	 */
 	public void setServiceUrl(String url) throws MalformedURLException {
 		this.serviceUrl = new JMXServiceURL(url);

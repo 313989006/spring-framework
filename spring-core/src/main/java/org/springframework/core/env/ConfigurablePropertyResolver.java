@@ -33,7 +33,7 @@ public interface ConfigurablePropertyResolver extends PropertyResolver {
 	/**
 	 * Return the {@link ConfigurableConversionService} used when performing type
 	 * conversions on properties.
-	 * <p>The configurable nature of the returned conversion service allows for
+	 * <p>The configurable nature of the returned conversion com.mxk.service allows for
 	 * the convenient addition and removal of individual {@code Converter} instances:
 	 * <pre class="code">
 	 * ConfigurableConversionService cs = env.getConversionService();

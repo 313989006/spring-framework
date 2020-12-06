@@ -326,7 +326,7 @@ public class StompBrokerRelayMessageHandler extends AbstractBrokerMessageHandler
 	 * property is configured, a "host" header will be added to every STOMP frame sent to
 	 * the STOMP broker. This may be useful for example in a cloud environment where the
 	 * actual host to which the TCP connection is established is different from the host
-	 * providing the cloud-based STOMP service.
+	 * providing the cloud-based STOMP com.mxk.service.
 	 * <p>By default this property is not set.
 	 */
 	public void setVirtualHost(@Nullable String virtualHost) {

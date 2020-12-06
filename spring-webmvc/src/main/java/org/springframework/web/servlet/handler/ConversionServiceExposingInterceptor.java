@@ -43,7 +43,7 @@ public class ConversionServiceExposingInterceptor extends HandlerInterceptorAdap
 
 	/**
 	 * Creates a new {@link ConversionServiceExposingInterceptor}.
-	 * @param conversionService the conversion service to export to request scope when this interceptor is invoked
+	 * @param conversionService the conversion com.mxk.service to export to request scope when this interceptor is invoked
 	 */
 	public ConversionServiceExposingInterceptor(ConversionService conversionService) {
 		Assert.notNull(conversionService, "The ConversionService may not be null");

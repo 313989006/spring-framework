@@ -29,7 +29,7 @@ import org.springframework.lang.Nullable;
 public interface HttpInvokerClientConfiguration {
 
 	/**
-	 * Return the HTTP URL of the target service.
+	 * Return the HTTP URL of the target com.mxk.service.
 	 */
 	String getServiceUrl();
 

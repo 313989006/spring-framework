@@ -53,10 +53,10 @@ import org.springframework.core.annotation.AliasFor;
  * {@link PutMapping @PutMapping}, {@link DeleteMapping @DeleteMapping}, or
  * {@link PatchMapping @PatchMapping}.</p>
  *
- * <p><b>NOTE:</b> When using controller interfaces (e.g. for AOP proxying),
+ * <p><b>NOTE:</b> When using com.mxk.controller interfaces (e.g. for AOP proxying),
  * make sure to consistently put <i>all</i> your mapping annotations - such as
  * {@code @RequestMapping} and {@code @SessionAttributes} - on
- * the controller <i>interface</i> rather than on the implementation class.
+ * the com.mxk.controller <i>interface</i> rather than on the implementation class.
  *
  * @author Juergen Hoeller
  * @author Arjen Poutsma

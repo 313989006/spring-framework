@@ -173,15 +173,15 @@ public interface ServerWebExchange {
 
 	/**
 	 * An overloaded variant of {@link #checkNotModified(String, Instant)} with
-	 * an {@code ETag} (entity tag) value only.
-	 * @param etag the entity tag for the underlying resource.
+	 * an {@code ETag} (com.mxk.entity tag) value only.
+	 * @param etag the com.mxk.entity tag for the underlying resource.
 	 * @return true if the request does not require further processing.
 	 */
 	boolean checkNotModified(String etag);
 
 	/**
 	 * Check whether the requested resource has been modified given the supplied
-	 * {@code ETag} (entity tag) and last-modified timestamp as determined by
+	 * {@code ETag} (com.mxk.entity tag) and last-modified timestamp as determined by
 	 * the application. Also transparently prepares the response, setting HTTP
 	 * status, and adding "ETag" and "Last-Modified" headers when applicable.
 	 * This method works with conditional GET/HEAD requests as well as with
@@ -190,7 +190,7 @@ public interface ServerWebExchange {
 	 * ETag and Last-Modified values, but you can also use
 	 * {@code #checkNotModified(String)} or
 	 * {@link #checkNotModified(Instant)}.
-	 * @param etag the entity tag that the application determined for the
+	 * @param etag the com.mxk.entity tag that the application determined for the
 	 * underlying resource. This parameter will be padded with quotes (")
 	 * if necessary.
 	 * @param lastModified the last-modified timestamp that the application

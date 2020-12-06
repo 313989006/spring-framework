@@ -76,7 +76,7 @@ public class SockJsServiceTests extends AbstractHttpRequestTests {
 		resetResponseAndHandleRequest("GET", "/echo//", HttpStatus.NOT_FOUND);
 		resetResponseAndHandleRequest("GET", "/echo///", HttpStatus.NOT_FOUND);
 		resetResponseAndHandleRequest("GET", "/echo/other", HttpStatus.NOT_FOUND);
-		resetResponseAndHandleRequest("GET", "/echo//service/websocket", HttpStatus.NOT_FOUND);
+		resetResponseAndHandleRequest("GET", "/echo//com.mxk.service/websocket", HttpStatus.NOT_FOUND);
 		resetResponseAndHandleRequest("GET", "/echo/server//websocket", HttpStatus.NOT_FOUND);
 		resetResponseAndHandleRequest("GET", "/echo/server/session/", HttpStatus.NOT_FOUND);
 		resetResponseAndHandleRequest("GET", "/echo/s.erver/session/websocket", HttpStatus.NOT_FOUND);

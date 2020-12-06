@@ -25,7 +25,7 @@ import org.springframework.util.Assert;
 
 /**
  * {@link org.springframework.beans.factory.FactoryBean} for a specific port of a
- * JAX-WS service. Exposes a proxy for the port, to be used for bean references.
+ * JAX-WS com.mxk.service. Exposes a proxy for the port, to be used for bean references.
  * Inherits configuration properties from {@link JaxWsPortClientInterceptor}.
  *
  * @author Juergen Hoeller

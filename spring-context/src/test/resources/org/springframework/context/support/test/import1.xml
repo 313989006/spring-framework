@@ -4,7 +4,7 @@
 <beans>
 
 	<bean name="assemblerOne" class="org.springframework.context.support.Assembler">
-		<property name="service"><ref bean="service"/></property>
+		<property name="com.mxk.service"><ref bean="com.mxk.service"/></property>
 		<property name="logic"><ref bean="logicOne"/></property>
 	</bean>
 

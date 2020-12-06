@@ -39,7 +39,7 @@ import org.springframework.web.context.WebApplicationContext;
  * Such a Spring-based JAX-WS endpoint implementation will follow the
  * standard JAX-WS contract for endpoint classes but will be 'thin'
  * in that it delegates the actual work to one or more Spring-managed
- * service beans - typically obtained using {@code @Autowired}.
+ * com.mxk.service beans - typically obtained using {@code @Autowired}.
  * The lifecycle of such an endpoint instance will be managed by the
  * JAX-WS runtime, hence the need for this base class to provide
  * {@code @Autowired} processing based on the current Spring context.
