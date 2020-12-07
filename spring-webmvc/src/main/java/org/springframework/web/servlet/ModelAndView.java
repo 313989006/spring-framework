@@ -47,10 +47,12 @@ import org.springframework.util.CollectionUtils;
 public class ModelAndView {
 
 	/** View instance or view name String. */
+	// 请求视图路径
 	@Nullable
 	private Object view;
 
 	/** Model Map. */
+	// 请求结果集
 	@Nullable
 	private ModelMap model;
 
