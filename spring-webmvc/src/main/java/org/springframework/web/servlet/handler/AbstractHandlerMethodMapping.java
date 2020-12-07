@@ -374,11 +374,14 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 */
 	@Override
 	protected HandlerMethod getHandlerInternal(HttpServletRequest request) throws Exception {
+		// 获取 request 中的 url，用来匹配 handler
 		String lookupPath = getUrlPathHelper().getLookupPathForRequest(request);
 		request.setAttribute(LOOKUP_PATH, lookupPath);
 		this.mappingRegistry.acquireReadLock();
 		try {
+			// 根据路径查找 handler，并封装成 HandlerMethod
 			HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
+			// 根据 HandlerMethod 中的 bean 来实例化 Handler，并添加进 HandlerMethod
 			return (handlerMethod != null ? handlerMethod.createWithResolvedBean() : null);
 		}
 		finally {
@@ -398,21 +401,26 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	@Nullable
 	protected HandlerMethod lookupHandlerMethod(String lookupPath, HttpServletRequest request) throws Exception {
 		List<Match> matches = new ArrayList<>();
+		// 通过 lookupPath 属性中查找，如果找到了，就返回对应的 RequestMappingInfo
 		List<T> directPathMatches = this.mappingRegistry.getMappingsByUrl(lookupPath);
 		if (directPathMatches != null) {
+			// 如果匹配到了，检查其他属性是否符合要求，如请求方法，参数，header 等
 			addMatchingMappings(directPathMatches, matches, request);
 		}
 		if (matches.isEmpty()) {
 			// No choice but to go through all mappings...
+			// 没有直接匹配到，则遍历所有的处理方法进行通配符匹配
 			addMatchingMappings(this.mappingRegistry.getMappings().keySet(), matches, request);
 		}
 
 		if (!matches.isEmpty()) {
 			Match bestMatch = matches.get(0);
 			if (matches.size() > 1) {
+				// 如果方法有多个匹配，不同的通配符等，则排序选择出最合适的一个
 				Comparator<Match> comparator = new MatchComparator(getMappingComparator(request));
 				matches.sort(comparator);
 				bestMatch = matches.get(0);
+				// 如果有多个匹配的，会找到第二个最合适的进行比较
 				if (logger.isTraceEnabled()) {
 					logger.trace(matches.size() + " matching mappings: " + matches);
 				}
@@ -429,10 +437,13 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 				}
 			}
 			request.setAttribute(BEST_MATCHING_HANDLER_ATTRIBUTE, bestMatch.handlerMethod);
+			// 设置 request 参数，RequestMappingHandlerMapping 对其进行了覆写
 			handleMatch(bestMatch.mapping, lookupPath, request);
+			// 返回匹配的 url 的处理的方法
 			return bestMatch.handlerMethod;
 		}
 		else {
+			// 调用 RequestMappingHandlerMapping 类的 handleNoMatch 方法再匹配一次
 			return handleNoMatch(this.mappingRegistry.getMappings().keySet(), lookupPath, request);
 		}
 	}

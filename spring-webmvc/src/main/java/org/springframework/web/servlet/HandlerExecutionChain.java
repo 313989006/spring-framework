@@ -41,8 +41,10 @@ public class HandlerExecutionChain {
 
 	private static final Log logger = LogFactory.getLog(HandlerExecutionChain.class);
 
+	// handler 实例
 	private final Object handler;
 
+	// 一组拦截器实例
 	@Nullable
 	private HandlerInterceptor[] interceptors;
 
