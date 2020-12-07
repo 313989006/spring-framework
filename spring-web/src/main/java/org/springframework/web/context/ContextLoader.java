@@ -280,6 +280,7 @@ public class ContextLoader {
 			if (this.context == null) {
 				this.context = createWebApplicationContext(servletContext);
 			}
+			// 以注解的方式，启动 Tomcat 时，这里this.context 为 AnnotationConfigWebApplicationContext
 			if (this.context instanceof ConfigurableWebApplicationContext) {
 				ConfigurableWebApplicationContext cwac = (ConfigurableWebApplicationContext) this.context;
 				// 如果该容器还没有刷新过
@@ -406,6 +407,7 @@ public class ContextLoader {
 		}
 
 		customizeContext(sc, wac);
+		// 调用  Root 容器的 refresh 方法，刷新容器
 		wac.refresh();
 	}
 

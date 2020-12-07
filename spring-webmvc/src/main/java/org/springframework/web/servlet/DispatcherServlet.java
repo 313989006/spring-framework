@@ -500,14 +500,26 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * <p>May be overridden in subclasses in order to initialize further strategy objects.
 	 */
 	protected void initStrategies(ApplicationContext context) {
+		// 初始化文件上传处理器
 		initMultipartResolver(context);
+		// 初始化国际化配置
 		initLocaleResolver(context);
+		// 初始化主题处理器
 		initThemeResolver(context);
+		// 初始化 HandlerMapping
 		initHandlerMappings(context);
+		// 初始化 HandlerAdapter
+		// HandlerAdapter 用来调用具体的方法对用户发来的请求进行处理
 		initHandlerAdapters(context);
+		// 初始化异常处理器
+		// HandlerExceptionResolver 用来对请求处理过程中产生的异常进行处理
 		initHandlerExceptionResolvers(context);
+		// RequestToViewNameTranslator 用于视图路径为空的时候，自动解析请求，去获取 viewName
 		initRequestToViewNameTranslator(context);
+		// 初始化视图处理器
+		// ViewResolver 将逻辑视图转换为 view 对象
 		initViewResolvers(context);
+		// FlashMapManager 用于存储、获取以及管理 FlashMap 实例
 		initFlashMapManager(context);
 	}
 
@@ -593,13 +605,20 @@ public class DispatcherServlet extends FrameworkServlet {
 	private void initHandlerMappings(ApplicationContext context) {
 		this.handlerMappings = null;
 
+		// 是否检查所有的 HandlerMappings 实现类并载入，默认为 true
+		// <init-param>
+		// 	<param-name>detectAllHandlerMappings</param-name>
+		//  <param-value>false</param-value>
+		// </init-param>
 		if (this.detectAllHandlerMappings) {
 			// Find all HandlerMappings in the ApplicationContext, including ancestor contexts.
+			// 寻找 IOC 容器中 HandlerMapping 类型的 Bean
 			Map<String, HandlerMapping> matchingBeans =
 					BeanFactoryUtils.beansOfTypeIncludingAncestors(context, HandlerMapping.class, true, false);
 			if (!matchingBeans.isEmpty()) {
 				this.handlerMappings = new ArrayList<>(matchingBeans.values());
 				// We keep HandlerMappings in sorted order.
+				// 对找到的 HandlerMapping 类型的 Bean 列表进行排序
 				AnnotationAwareOrderComparator.sort(this.handlerMappings);
 			}
 		}

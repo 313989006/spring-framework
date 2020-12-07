@@ -75,6 +75,8 @@ public abstract class AbstractDispatcherServletInitializer extends AbstractConte
 	 * {@link #createDispatcherServlet(WebApplicationContext)}.
 	 * @param servletContext the context to register the servlet against
 	 */
+	// 读入相关的配置，基于注解的初始化，先于 web.xml 的初始化
+	// 因为启动 Tomcat 先调用这里的 registerDispatcherServlet()，再调用 ContextLoaderListener 的 contextInitialized()
 	protected void registerDispatcherServlet(ServletContext servletContext) {
 		String servletName = getServletName();
 		Assert.hasLength(servletName, "getServletName() must not return null or empty");

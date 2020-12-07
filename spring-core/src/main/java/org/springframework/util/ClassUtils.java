@@ -894,6 +894,7 @@ public abstract class ClassUtils {
 	 * @return the user-defined class
 	 */
 	public static Class<?> getUserClass(Class<?> clazz) {
+		// 如果是CgLib 创建的代理类，则尝试获取被代理的类
 		if (clazz.getName().contains(CGLIB_CLASS_SEPARATOR)) {
 			Class<?> superclass = clazz.getSuperclass();
 			if (superclass != null && superclass != Object.class) {

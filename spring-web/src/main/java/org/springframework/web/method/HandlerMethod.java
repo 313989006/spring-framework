@@ -69,12 +69,15 @@ public class HandlerMethod {
 	@Nullable
 	private final BeanFactory beanFactory;
 
+	// Controller Class
 	private final Class<?> beanType;
 
+	// 方法实例
 	private final Method method;
 
 	private final Method bridgedMethod;
 
+	// 方法参数集合
 	private final MethodParameter[] parameters;
 
 	@Nullable

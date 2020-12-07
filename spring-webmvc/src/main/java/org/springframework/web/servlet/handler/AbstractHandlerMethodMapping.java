@@ -200,6 +200,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 * Detects handler methods at initialization.
 	 * @see #initHandlerMethods
 	 */
+	/**
+	 * 初始化处理方法实例
+	 */
 	@Override
 	public void afterPropertiesSet() {
 		initHandlerMethods();
@@ -212,7 +215,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 * @see #handlerMethodsInitialized
 	 */
 	protected void initHandlerMethods() {
+		// 遍历容器里所有的 Bean
 		for (String beanName : getCandidateBeanNames()) {
+			// 忽略掉 scopedTarget. 开头的 Bean （session、application、request 之类的作用域内的代理类）
 			if (!beanName.startsWith(SCOPED_TARGET_NAME_PREFIX)) {
 				processCandidateBean(beanName);
 			}
@@ -227,6 +232,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 * @see BeanFactoryUtils#beanNamesForTypeIncludingAncestors
 	 */
 	protected String[] getCandidateBeanNames() {
+		// 从 ROOT 容器以及子容器里，或者仅从子容器里获取所有的 Bean
 		return (this.detectHandlerMethodsInAncestorContexts ?
 				BeanFactoryUtils.beanNamesForTypeIncludingAncestors(obtainApplicationContext(), Object.class) :
 				obtainApplicationContext().getBeanNamesForType(Object.class));
@@ -246,6 +252,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	protected void processCandidateBean(String beanName) {
 		Class<?> beanType = null;
 		try {
+			// 获取Bean 的 Class 类型
 			beanType = obtainApplicationContext().getType(beanName);
 		}
 		catch (Throwable ex) {
@@ -254,7 +261,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 				logger.trace("Could not resolve type for bean '" + beanName + "'", ex);
 			}
 		}
+		// 判断 Class 上是否有 Controller 注解 或者 RequestMapping 注解
 		if (beanType != null && isHandler(beanType)) {
+			// 提取其 url 与 controller 的映射关系
 			detectHandlerMethods(beanName);
 		}
 	}
@@ -265,11 +274,14 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 * @see #getMappingForMethod
 	 */
 	protected void detectHandlerMethods(Object handler) {
+		// 如果 handler 是字符串，证明是一个 beanName，则从 IOC 容器中获取其 Class 对象，否则直接获取 Class 对象
 		Class<?> handlerType = (handler instanceof String ?
 				obtainApplicationContext().getType((String) handler) : handler.getClass());
 
 		if (handlerType != null) {
+			// 为了确保获取到的类是被代理的类
 			Class<?> userType = ClassUtils.getUserClass(handlerType);
+			// 寻找方法上有 @RequestMapping 注解的 Method 实例
 			Map<Method, T> methods = MethodIntrospector.selectMethods(userType,
 					(MethodIntrospector.MetadataLookup<T>) method -> {
 						try {
@@ -283,7 +295,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			if (logger.isTraceEnabled()) {
 				logger.trace(formatMappings(userType, methods));
 			}
+			// 将获取到的 Method 对象依次注册到 HandlerMapping 中去
 			methods.forEach((method, mapping) -> {
+				// 获取被 AOP 代理包装后的方法实例
 				Method invocableMethod = AopUtils.selectInvocableMethod(method, userType);
 				registerHandlerMethod(handler, invocableMethod, mapping);
 			});
@@ -600,9 +614,12 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			this.readWriteLock.writeLock().lock();
 			try {
 				HandlerMethod handlerMethod = createHandlerMethod(handler, method);
+				// 验证方法的唯一性，即先前是否已经注册过同样的映射
 				validateMethodMapping(handlerMethod, mapping);
+				// 注册 RequestMappingInfo 和 HandlerMethod
 				this.mappingLookup.put(mapping, handlerMethod);
 
+				// 注册请求路径与对应的 RequestMappingInfo
 				List<String> directUrls = getDirectUrls(mapping);
 				for (String url : directUrls) {
 					this.urlLookup.add(url, mapping);
@@ -610,15 +627,18 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 				String name = null;
 				if (getNamingStrategy() != null) {
+					// 注册请求路径与 HandlerMethod
 					name = getNamingStrategy().getName(handlerMethod, mapping);
 					addMappingName(name, handlerMethod);
 				}
 
 				CorsConfiguration corsConfig = initCorsConfiguration(handler, method, mapping);
 				if (corsConfig != null) {
+					// 注册 HandlerMethod 与跨域信息
 					this.corsLookup.put(handlerMethod, corsConfig);
 				}
 
+				// 创建及注册 MappingRegistration 信息
 				this.registry.put(mapping, new MappingRegistration<>(mapping, handlerMethod, directUrls, name));
 			}
 			finally {

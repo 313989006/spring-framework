@@ -128,6 +128,7 @@ public abstract class AopUtils {
 	 * @since 4.3
 	 * @see MethodIntrospector#selectInvocableMethod(Method, Class)
 	 */
+	// 获取被 AOP 代理包装后的方法实例
 	public static Method selectInvocableMethod(Method method, @Nullable Class<?> targetType) {
 		if (targetType == null) {
 			return method;
