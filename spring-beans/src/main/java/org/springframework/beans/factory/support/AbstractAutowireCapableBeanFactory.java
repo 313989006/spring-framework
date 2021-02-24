@@ -315,6 +315,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		bd.allowCaching = ClassUtils.isCacheSafe(bd.getBeanClass(), getBeanClassLoader());
 		BeanWrapper bw = new BeanWrapperImpl(existingBean);
 		initBeanWrapper(bw);
+		/**
+		* @Autowired 注入相关的
+		*/
 		populateBean(bd.getBeanClass().getName(), bd, bw);
 	}
 

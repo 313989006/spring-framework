@@ -1295,6 +1295,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 
 			// 如果表示 @Autowired 注解的属性是非复合类型，从这个方法获取 @Autowired 里的值
+			// 根据条件去找自动装配的属性
 			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, type, descriptor);
 			if (matchingBeans.isEmpty()) {
 				// 没有找到，检验 @Autowired 的 require 是否为true
@@ -1526,7 +1527,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 		// 遍历候选数组
 		for (String candidate : candidateNames) {
-			// 候选 Bean 不是自引用(即要注入的类不能是累本省，会触发无限递归注入)
+			// 候选 Bean 不是自引用(即要注入的类不能是类本身，会触发无限递归注入)
 			if (!isSelfReference(beanName, candidate) && isAutowireCandidate(candidate, descriptor)) {
 				addCandidateEntry(result, candidate, descriptor, requiredType);
 			}

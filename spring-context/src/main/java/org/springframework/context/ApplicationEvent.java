@@ -19,6 +19,10 @@ package org.springframework.context;
 import java.util.EventObject;
 
 /**
+* 在 Spring 中定义和应用程序上下文相关的事件需要继承 ApplicationEvent 类
+*/
+
+/**
  * Class to be extended by all application events. Abstract as it
  * doesn't make sense for generic events to be published directly.
  *
