@@ -42,4 +42,8 @@ rootProject.children.each {project ->
 }
 include 'springDemo'
 include 'springmvcdemo'
+include 'mxk-mvc'
+include 'proxy'
+include 'MxkkIoc'
+include 'MxkIoc'
 

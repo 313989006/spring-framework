@@ -551,6 +551,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		synchronized (this.startupShutdownMonitor) {
 			// 调用容器准备刷新的方法，获取容器的当时时间，同时给容器设置同步标识，具体方法
 			// Prepare this context for refreshing.
+			// 准备工作，包括启动时间，是否激活标识位，初始化属性源（property source） 等配置
 			prepareRefresh();
 
 			// 告诉子类启动 refreshBeanFactory()方法，Bean定义资源文件的载入从
@@ -719,6 +720,8 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// 为 beanFactory 增加一个默认的 属性编辑器-propertyEditor
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
+
+		// *********Spring 最最核心的代码***********
 		// Configure the bean factory with context callbacks.
 		// 添加该处理器的作用：当应用程序定义的 Bean 实现 ApplicationContextAware 接口时注入 ApplicationContext对象
 		beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));

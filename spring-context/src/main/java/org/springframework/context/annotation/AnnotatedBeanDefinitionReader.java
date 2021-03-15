@@ -251,8 +251,18 @@ public class AnnotatedBeanDefinitionReader {
 			@Nullable BeanDefinitionCustomizer[] customizers) {
 
 		// 用 AnnotatedGenericBeanDefinition 将对应的 beanClass 包装起来
+		/**
+		* 根据指定的 bean 创建一个 AnnotatedGenericBeanDefinition
+		 * 这个 AnnotatedGenericBeanDefinition 可以理解为一个数据结构
+		 * AnnotatedGenericBeanDefinition 包含了类的其他信息，比如一些元信息、scope，lazy 等
+		*/
+
 		AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(beanClass);
 		// 此代码用于处理 Conditional 注解，在特定条件下阻断 Bean 的注册
+		/**
+		* 判断这个类是否需要跳过接续
+		 * 通过代码可以知道 Spring 是否通过解析，主要判断类有没有加注解
+		*/
 		if (this.conditionEvaluator.shouldSkip(abd.getMetadata())) {
 			return;
 		}
@@ -268,13 +278,30 @@ public class AnnotatedBeanDefinitionReader {
 
 		// 特定注解解析，本例中均没传入 dependsOn，LazyInit 注解
 		// 这些注解就和 <bean> 标签里面的属性作用是一样的
+		/**
+		* 处理类当中的通用注解
+		 * 分析源码可以知道他主要是处理 Lazy、Dependson、Primary、Role 等等注解
+		 *
+		 * 处理完成之后 processCommonDefinitionAnnotations 中依然是把他添加到数据结构中
+		*/
 		AnnotationConfigUtils.processCommonDefinitionAnnotations(abd);
 		// 本例中传入的 qualifiers 的是 null，qualifiers 就是用来决定接口的实现类的
+		/**
+		* 如果在向容器注册注解 Bean定义的时，使用了额外的限定符注解则解析
+		 * 关于 qualifier 和 Primary ，主要涉及 Spring 的自动装配
+		 *
+		 * 这里需要注意的
+		 * byName 和 qualifier 这个变量是 Annotation 类型的数组，里面存不仅仅是 Qualifier注解
+		 * 理论上里面是存的是一些注解，所以可以看到下面的代码 Spring 去循环了这个数组
+		 * 然后依次判断了注解当中是否包含了 Primary ，是否包含了 Lazy
+		*/
 		if (qualifiers != null) {
 			for (Class<? extends Annotation> qualifier : qualifiers) {
+				// 如果配置了 @Primary 注解，如果配置了则作为首选
 				if (Primary.class == qualifier) {
 					abd.setPrimary(true);
 				}
+				// 懒加载
 				else if (Lazy.class == qualifier) {
 					abd.setLazyInit(true);
 				}
@@ -291,10 +318,25 @@ public class AnnotatedBeanDefinitionReader {
 		}
 
 		// 用 BeanDefinitionHolder 包装 BeanDefinition
+		/**
+		* BeanDefinitionHolder 也是一个数据结构，可以理解为一个 Map
+		*/
 		BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(abd, beanName);
 		// 此行代码与动态代理和 scope 注解有关，主要看看是否依照Spring 的 scope 生成动态代理对象
+		/**
+		* ScopedProxyMode 这个知识点比较复杂
+		 * 需要结合 SpringMVC 去理解
+		 *
+		*/
 		definitionHolder = AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
 		// 向容器注册扫描到的 Bean
+		/**
+		* 把上述的这个数据结构注册给 registry
+		 * registry 就是 AnnotationConfigApplicationContext
+		 * AnnotationConfigApplicationContext 在初始化的 时候通通调用父类的构造方法
+		 * 实例化了一个 DefaultListableBeanFactory
+		 * registerBeanDefinition 里面就是把 definitionHolder 这个数据结构包含的信息注册到 DefaultListableBeanFactory 这个工厂
+		*/
 		BeanDefinitionReaderUtils.registerBeanDefinition(definitionHolder, this.registry);
 	}
 

@@ -38,6 +38,9 @@ import org.springframework.lang.Nullable;
  * @see org.springframework.beans.factory.support.RootBeanDefinition
  * @see org.springframework.beans.factory.support.ChildBeanDefinition
  */
+/**
+* Spring 中用来描述 Bean 的一个接口
+*/
 public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
@@ -46,6 +49,9 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * @see #setScope
 	 * @see ConfigurableBeanFactory#SCOPE_SINGLETON
 	 */
+	/**
+	* 描述单例作用域的作用域标识符：singleton
+	*/
 	String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
 
 	/**
@@ -72,6 +78,9 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * {@link org.springframework.beans.factory.parsing.ComponentDefinition},
 	 * but not when looking at the overall configuration of an application.
 	 */
+	/**
+	* ROLE_SUPPORT 1：表示这个 Bean 是用户的，是从配置文件中过来的
+	*/
 	int ROLE_SUPPORT = 1;
 
 	/**
@@ -80,6 +89,9 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	 * used when registering beans that are completely part of the internal workings
 	 * of a {@link org.springframework.beans.factory.parsing.ComponentDefinition}.
 	 */
+	/**
+	* ROLE_INFRASTRUCTURE = 2 ：表示这个 Bean 是Spring 自己的，和你用户没有一毛线关系
+	*/
 	int ROLE_INFRASTRUCTURE = 2;
 
 

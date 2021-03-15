@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile project(":spring-context")
+    compile project(":spring-webmvc")
+    // tomcat 依赖
+    compile("org.apache.tomcat.embed:tomcat-embed-core:8.5.33")
+//    def provided
+//    provided group:'javax.servlet',name:'javax.servlet-api',version:'4.0.1'
+    compileOnly group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+}

@@ -53,8 +53,17 @@ import org.springframework.util.Assert;
  */
 public class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {
 
+	/**
+	* 这个类顾名思义是一个 reader ，一个读取器
+	 * 读取什么呢？ 顾名思义 AnnotatedBeanDefinitionReader 意思是读取一个被加了注解的 bean
+	 * 这个类在构造方法中实例化的
+	*/
 	private final AnnotatedBeanDefinitionReader reader;
 
+	/**
+	 * 这是一个扫描器，扫描所有被加了注解的 bean
+	 *  同样是在构造方法中实例化的
+	 */
 	private final ClassPathBeanDefinitionScanner scanner;
 
 
@@ -66,6 +75,11 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	// 并调用 refresh() 方法刷新容器,触发容器对注解 Bean 的载入，解析和注册过程
 	// 这里的 this 的 beanFactory 是内置的 DefaultListableBeanFactory
 	public AnnotationConfigApplicationContext() {
+
+		/**
+		* 创建一个读取注解的 bean 定义读取器
+		 * 什么是 bean 定义？ BeanDefinition
+		*/
 		this.reader = new AnnotatedBeanDefinitionReader(this);
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
@@ -86,7 +100,15 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * @param componentClasses one or more component classes &mdash; for example,
 	 * {@link Configuration @Configuration} classes
 	 */
+	/**
+	* 这个构造方法需要传入一个被 javaconfig 注解了的配置类
+	 * 然后回把这个被注解了的 javaconfig 的类通过注解读取器读取后继而解析
+	 *
+	*/
 	public AnnotationConfigApplicationContext(Class<?>... componentClasses) {
+		// 这里由于他有父类，故而会先调用父类的构造方法，然后才会调用自己的构造方法
+		// 在自己的构造方法中初始一个读取器和扫描器
+
 		// 调用默认无参构造器，主要初始化 AnnotatedBeanDefinitionReader 以及路径扫描器 ClassPathBeanDefinitionScanner
 		this();
 		// 把传入的class 进行注册，Class 既可以有 @Configuration 注解，也可以没有 @Configuration 注解
@@ -163,6 +185,15 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * @see #scan(String...)
 	 * @see #refresh()
 	 */
+	/**
+	* 注册单个 Bean 给容器，
+	 * 比如有新加的可以用这个方法
+	 * 但是注册之后需要手动调用 refresh 方法去触发容器解析注解
+	 *
+	 * 这里有两个意思：
+	 * 第一个：他可以注册一个配置类（javaconfig 类）
+	 * 第二个：他可以单独注册一个 bean ，比如IndexDao.class
+	*/
 	@Override
 	public void register(Class<?>... componentClasses) {
 		Assert.notEmpty(componentClasses, "At least one component class must be specified");

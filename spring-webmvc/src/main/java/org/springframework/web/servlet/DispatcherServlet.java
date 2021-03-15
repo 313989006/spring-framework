@@ -16,30 +16,8 @@
 
 package org.springframework.web.servlet;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.stream.Collectors;
-
-import javax.servlet.DispatcherType;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
@@ -64,6 +42,15 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.util.NestedServletException;
 import org.springframework.web.util.WebUtils;
+
+import javax.servlet.DispatcherType;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Central dispatcher for HTTP request handlers/controllers, e.g. for web UI controllers
@@ -284,6 +271,12 @@ public class DispatcherServlet extends FrameworkServlet {
 		// Load default strategy implementations from properties file.
 		// This is currently strictly internal and not meant to be customized
 		// by application developers.
+		/**
+		* 从属性文件加载默认策略实现
+		 * 说白了这里的意思就是从 DEFAULT_STRATEGIES_PATH 这文件当中拿出所有的配置
+		 * 可以去数一下个8个
+		 * DispatcherServlet.properties  == DEFAULT_STRATEGIES_PATH
+		*/
 		try {
 			ClassPathResource resource = new ClassPathResource(DEFAULT_STRATEGIES_PATH, DispatcherServlet.class);
 			defaultStrategies = PropertiesLoaderUtils.loadProperties(resource);
@@ -426,10 +419,10 @@ public class DispatcherServlet extends FrameworkServlet {
 	}
 
 	/**
-	 * Set whether to detect all HandlerAdapter beans in this servlet's context. Otherwise,
-	 * just a single bean with name "handlerAdapter" will be expected.
-	 * <p>Default is "true". Turn this off if you want this servlet to use a single
-	 * HandlerAdapter, despite multiple HandlerAdapter beans being defined in the context.
+	 * set whether to detect all handleradapter beans in this servlet's context. otherwise,
+	 * just a single bean with name "handleradapter" will be expected.
+	 * <p>default is "true". turn this off if you want this servlet to use a single
+	 * handleradapter, despite multiple handleradapter beans being defined in the context.
 	 */
 	public void setDetectAllHandlerAdapters(boolean detectAllHandlerAdapters) {
 		this.detectAllHandlerAdapters = detectAllHandlerAdapters;
@@ -634,6 +627,7 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		// Ensure we have at least one HandlerMapping, by registering
 		// a default HandlerMapping if no other mappings are found.
+		// 通过配置文件中配置的信息得到 handlerMapping
 		if (this.handlerMappings == null) {
 			this.handlerMappings = getDefaultStrategies(context, HandlerMapping.class);
 			if (logger.isTraceEnabled()) {
@@ -959,6 +953,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		}
 
 		try {
+			// SpringMVC 核心方法
 			doDispatch(request, response);
 		}
 		finally {
@@ -1024,18 +1019,22 @@ public class DispatcherServlet extends FrameworkServlet {
 		WebAsyncManager asyncManager = WebAsyncUtils.getAsyncManager(request);
 
 		try {
+			// 定义变量
 			ModelAndView mv = null;
 			Exception dispatchException = null;
 
 			try {
-				// 检查是否存在文件上传
+				// 检查请求中是否存在文件上传操作
 				processedRequest = checkMultipart(request);
 				multipartRequestParsed = (processedRequest != request);
 
 				// Determine handler for the current request.
 				// 根据当前的 request 获取 handler
 				// handler 中包含了请求 url，以及对应的 controller 以及 controller 中的方法
+				// 确认当前请求的处理程序
+				// 推断 controller 的类型
 				mappedHandler = getHandler(processedRequest);
+
 				if (mappedHandler == null) {
 					noHandlerFound(processedRequest, response);
 					return;
@@ -1057,12 +1056,14 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				// 遍历所有定义的 interceptor，执行 preHandle 方法
+				// Spring 前置处理：拦截器处理
 				if (!mappedHandler.applyPreHandle(processedRequest, response)) {
 					return;
 				}
 
 				// Actually invoke the handler.
 				// 调用目标 controller 中的方法
+				// 可以理解为反射调用方法
 				mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
 				if (asyncManager.isConcurrentHandlingStarted()) {
@@ -1261,6 +1262,8 @@ public class DispatcherServlet extends FrameworkServlet {
 	protected HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
 		if (this.handlerMappings != null) {
 			for (HandlerMapping mapping : this.handlerMappings) {
+				// 把请求传过去确定
+				// 推断 Controller 的类型
 				HandlerExecutionChain handler = mapping.getHandler(request);
 				if (handler != null) {
 					return handler;

@@ -16,23 +16,9 @@
 
 package org.springframework.web.servlet;
 
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.springframework.beans.BeanWrapper;
-import org.springframework.beans.BeansException;
-import org.springframework.beans.MutablePropertyValues;
-import org.springframework.beans.PropertyAccessorFactory;
-import org.springframework.beans.PropertyValue;
-import org.springframework.beans.PropertyValues;
+import org.springframework.beans.*;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
@@ -46,6 +32,13 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.context.support.ServletContextResourceLoader;
 import org.springframework.web.context.support.StandardServletEnvironment;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Simple extension of {@link javax.servlet.http.HttpServlet} which treats
@@ -92,12 +85,12 @@ public abstract class HttpServletBean extends HttpServlet implements Environment
 
 
 	/**
-	 * Subclasses can invoke this method to specify that this property
-	 * (which must match a JavaBean property they expose) is mandatory,
-	 * and must be supplied as a com.mxk.config parameter. This should be called
+	 * subclasses can invoke this method to specify that this property
+	 * (which must match a javabean property they expose) is mandatory,
+	 * and must be supplied as a com.mxk.config parameter. this should be called
 	 * from the constructor of a subclass.
-	 * <p>This method is only relevant in case of traditional initialization
-	 * driven by a ServletConfig instance.
+	 * <p>this method is only relevant in case of traditional initialization
+	 * driven by a servletconfig instance.
 	 * @param property name of the required property
 	 */
 	protected final void addRequiredProperty(String property) {
@@ -167,6 +160,7 @@ public abstract class HttpServletBean extends HttpServlet implements Environment
 		}
 
 		// Let subclasses do whatever initialization they like.
+		// SpringMVC 初始化 ServletBean，反调父类 FrameWorkServlet 的 initServletBean 方法
 		initServletBean();
 	}
 
