@@ -208,6 +208,10 @@ public interface ListableBeanFactory extends BeanFactory {
 	 * @see FactoryBean#getObjectType
 	 * @see BeanFactoryUtils#beanNamesForTypeIncludingAncestors(ListableBeanFactory, Class, boolean, boolean)
 	 */
+	/**
+	* 通过类型得到一个 bean 的名字
+	 * 这里的 type 指的是 bd 当中描述当前类的 class 类型
+	*/
 	String[] getBeanNamesForType(@Nullable Class<?> type, boolean includeNonSingletons, boolean allowEagerInit);
 
 	/**

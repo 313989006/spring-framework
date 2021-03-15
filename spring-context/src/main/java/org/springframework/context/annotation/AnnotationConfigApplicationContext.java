@@ -81,6 +81,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 		 * 什么是 bean 定义？ BeanDefinition
 		*/
 		this.reader = new AnnotatedBeanDefinitionReader(this);
+
 		this.scanner = new ClassPathBeanDefinitionScanner(this);
 	}
 

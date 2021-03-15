@@ -168,6 +168,7 @@ class ConfigurationClassParser {
 
 
 	public void parse(Set<BeanDefinitionHolder> configCandidates) {
+		// 根据 BeanDefinition 的类型做不同的处理，一般都会调用 ConfigurationClassParse   parse 方法进行解析
 		for (BeanDefinitionHolder holder : configCandidates) {
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
@@ -227,6 +228,7 @@ class ConfigurationClassParser {
 			return;
 		}
 
+		// 处理 Imported 的情况
 		ConfigurationClass existingClass = this.configurationClasses.get(configClass);
 		if (existingClass != null) {
 			if (configClass.isImported()) {
@@ -251,6 +253,7 @@ class ConfigurationClassParser {
 		}
 		while (sourceClass != null);
 
+		// 一个 map，用来存放扫描出来的 bean（注意这里的 bean 不是对象，仅仅是 bean 是的信息，因为还没到实例化这一步）
 		this.configurationClasses.put(configClass, configClass);
 	}
 
@@ -295,6 +298,7 @@ class ConfigurationClassParser {
 				Set<BeanDefinitionHolder> scannedBeanDefinitions =
 						this.componentScanParser.parse(componentScan, sourceClass.getMetadata().getClassName());
 				// Check the set of scanned definitions for any further com.mxk.config classes and parse recursively if needed
+				// 检查扫描出来的类当中是否还有 Configuration
 				for (BeanDefinitionHolder holder : scannedBeanDefinitions) {
 					BeanDefinition bdCand = holder.getBeanDefinition().getOriginatingBeanDefinition();
 					if (bdCand == null) {

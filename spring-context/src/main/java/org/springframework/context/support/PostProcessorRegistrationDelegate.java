@@ -86,6 +86,9 @@ final class PostProcessorRegistrationDelegate {
 			// 常规 BeanFactoryPostProcessor 和 BeanDefinitionRegistryPostProcessor
 			// 1、如果是 BeanDefinitionRegistryPostProcessor，现在执行 postProcessBeanDefinitionRegistry()
 			// 2、否则记录为一个常规 BeanFactoryPostProcessor ，暂时不执行处理
+			/**
+			* 这里是自定义的 beanFactoryPostProcessors
+			*/
 			for (BeanFactoryPostProcessor postProcessor : beanFactoryPostProcessors) {
 				if (postProcessor instanceof BeanDefinitionRegistryPostProcessor) {
 					BeanDefinitionRegistryPostProcessor registryProcessor =
@@ -102,11 +105,31 @@ final class PostProcessorRegistrationDelegate {
 			// uninitialized to let the bean factory post-processors apply to them!
 			// Separate between BeanDefinitionRegistryPostProcessors that implement
 			// PriorityOrdered, Ordered, and the rest.
+			/**
+			* 这个 currentRegistryProcessors  放的是 Spring 内部自己实现了 BeanDefinitionRegistryPostProcessor 接口的
+			*/
 			List<BeanDefinitionRegistryPostProcessor> currentRegistryProcessors = new ArrayList<>();
 
 			// First, invoke the BeanDefinitionRegistryPostProcessors that implement PriorityOrdered.
 			// 首先，对实现了优先级顺序接口的 Bean 形式 BeanDefinitionRegistryPostProcessor 进行调用
 			// 找出所有容器中注册为 BeanDefinitionRegistryPostProcessor 的 postProcessor 名字数组
+			/**
+			* BeanDefinitionRegistryPostProcessor 等于 BeanFactoryPostProcessor
+			 * 这个地方可以得到一个 BeanFactoryPostProcessor，因为是 Spring 默认在最开始自己注册的
+			 *
+			 * 为什么要在最开始注册这个呢？
+			 * 因为 Spring 的工厂需要先解析去扫描等等功能
+			 *	而这些功能都需要在 Spring 工厂初始化完成之前执行
+			 *	因为如果在之后就没有意义，因为那个时候已经需要使用工厂了
+			 *	所以这里 Spring 在一开始就注册了 BeanFactoryPostProcessor ，用来插手 spring factory 的实例化过程
+			 *	在这个地方断点就可以知道这个类叫做 ConfigurationClassPostProcessor
+			 *
+			 *	ConfigurationClassPostProcessor 这个类能干嘛呢？可以参考源码
+			 *
+			 *	牛逼轰轰：能插手 spring factory 的实例化过程
+			 *
+			 *
+			*/
 			String[] postProcessorNames =
 					beanFactory.getBeanNamesForType(BeanDefinitionRegistryPostProcessor.class, true, false);
 			// 遍历容器，将 BeanDefinitionRegistryPostProcessor 类型的后置处理器 Bean 实例给添加到当前的注册处理逻辑
@@ -117,6 +140,9 @@ final class PostProcessorRegistrationDelegate {
 				}
 			}
 			// 根据优先级排序
+			/**
+			* 排序不重要，况且 currentRegistryProcessors 这里也只有一个数据
+			*/
 			sortPostProcessors(currentRegistryProcessors, beanFactory);
 			registryProcessors.addAll(currentRegistryProcessors);
 			// 按顺序执行 BeanDefinitionRegistryPostProcessors
@@ -134,8 +160,14 @@ final class PostProcessorRegistrationDelegate {
 			}
 			// 根据 Order 排序
 			sortPostProcessors(currentRegistryProcessors, beanFactory);
+			// 合并 list ，这里不重要
 			registryProcessors.addAll(currentRegistryProcessors);
+
+
+			// 最重要**** ，这里是方法调用
 			invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
+
+			// 这个 list 只是一个临时变量，故而要清除
 			currentRegistryProcessors.clear();
 
 			// Finally, invoke all other BeanDefinitionRegistryPostProcessors until no further ones appear.
