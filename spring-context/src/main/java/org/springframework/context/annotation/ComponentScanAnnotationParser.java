@@ -104,6 +104,9 @@ class ComponentScanAnnotationParser {
 			}
 		}
 
+		/**
+		*  lazyInit 默认为 false
+		*/
 		boolean lazyInit = componentScan.getBoolean("lazyInit");
 		if (lazyInit) {
 			scanner.getBeanDefinitionDefaults().setLazyInit(true);

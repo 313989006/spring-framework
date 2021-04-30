@@ -250,36 +250,61 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 
 		// 通过三种形式获取 beanName
 		// 一个是原始的 beanName，一个是加了 &，一个是别名
-		String beanName = transformedBeanName(name);
+ 		String beanName = transformedBeanName(name);
 		Object bean;
 
 		// Eagerly check singleton cache for manually registered singletons.
 		// 尝试从单例缓存集合里获取 bean 实例
+		/**
+		* 这个方法在初始化的 会调用，在 getBean 的时候也会调用
+		 * 为什么要这么做呢？
+		 * 	就是说 Spring 在初始化的时候先获取这个对象，判断这个对象是否被实例化好了（一般情况下绝对为 null ==== 有一种情况不为 null ）
+		 * 	那个 Spring 容器中获取一个 bean，由于 Spring 容器中 bean 容器是一个  map（singletonObjects）
+		 * 	所以可以理解 getSingleton（beanName） 等于 beanMap.get(beanName)
+		 * 	由于方法会在 Spring 环境初始化的时候（就是对象被创建的时候调用一次）调用一次
+		 * 	还会在  getBean（）的时候调用一次
+		 * 	所以在调试的时候需要特别注意，不能将断点直接断在这里
+		 * 	需要先进入到 AnnotationApplicationContext.getBean(IndexDao.class)之后再来断点，
+		 * 	这样就确保了我们是在获取这个 bean 的时候调用的
+		 *
+		 * 	需要说明的是在初始化时候调用一般都是返回 null
+		*/
 		Object sharedInstance = getSingleton(beanName);
 		// 如果先前已经创建过单例 bean 的实例，并且调用的 getBean()方法传入的参数为空，则执行 if 里面的逻辑
 		// args 之所以要求为空是因为如果有args，则需要进一步赋值，因此无法直接返回
 		if (sharedInstance != null && args == null) {
-			if (logger.isTraceEnabled()) {
-				// 如果 bean 还在创建中，则说明是循环引用。
-				if (isSingletonCurrentlyInCreation(beanName)) {
-					logger.trace("Returning eagerly cached instance of singleton bean '" + beanName +
-							"' that is not fully initialized yet - a consequence of a circular reference");
-				}
-				else {
-					logger.trace("Returning cached instance of singleton bean '" + beanName + "'");
-				}
-			}
+			// 打印日志，没有逻辑，注释掉比较方便看代码逻辑
+//			if (logger.isTraceEnabled()) {
+//				// 如果 bean 还在创建中，则说明是循环引用。
+//				if (isSingletonCurrentlyInCreation(beanName)) {
+//					logger.trace("Returning eagerly cached instance of singleton bean '" + beanName +
+//							"' that is not fully initialized yet - a consequence of a circular reference");
+//				}
+//				else {
+//					logger.trace("Returning cached instance of singleton bean '" + beanName + "'");
+//				}
+//			}
 			// 如果是普通 bean，直接返回，如果是 FactoryBean ，则返回他的 getObjectForBeanInstance
+			/**
+			* 如果 sharedInstance 是普通的单例 bean ，下面的方法会直接返回
+			 * 但如果 sharedInstance 是 FactoryBean 类型的，则需调用 getObject（）方法获取真的 bean 实例
+			 * 如果用户想获取 FactoryBean 本身，这里也不会做特殊的处理，直接返回即可
+			 * 比较 FactoryBean 的实现类本身也是一种 bean ，只不过有一点特殊的功能而已
+			*/
 			bean = getObjectForBeanInstance(sharedInstance, name, beanName, null);
 		}
 
-		// 若 scope 为prototype或者单例模式但是缓存中还不存在 bean
+		// 若 scope 为 prototype 或者 单例模式 但是缓存中还不存在 bean
 		else {
 			// Fail if we're already creating this bean instance:
 			// We're assumably within a circular reference.
-			// 若 scope 为prototype 并且还在创建中，则基本是循环依赖的情况
+			// 若 scope 为 prototype 并且还在创建中，则基本是循环依赖的情况
 			// 针对 prototype 的循环依赖， spring 无解，直接抛出异常
 			// 比如 A 创建依赖-->B 创建依赖-->A
+			/**
+			* prototype ：原型
+			 * 如果是原型不应该在初始化的时候创建
+			*/
 			if (isPrototypeCurrentlyInCreation(beanName)) {
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
@@ -288,6 +313,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			BeanFactory parentBeanFactory = getParentBeanFactory();
 			// 判断是否存在父容器，并且当前容器不包含此Bean 的 BeanDefinition 实例，则尝试从父容器中递归查询
 			// 从当前容器中找不到指定名称的 bean，此时递归过去 parentBeanFactory 查找
+			// 一般情况下是不会存在 父工厂 的
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
 				// Not found -> check parent.
 				// 主要针对 BeanFactory，将 bean 的 & 重新加上
@@ -318,6 +344,10 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 			// typeCheckOnly 用来判断调用 getBean() 是否仅仅是为了类型检查获取 bean，而不是为了创建 Bean
 			if (!typeCheckOnly) {
 				// 如果不仅仅是做类型检查，则是创建 bean
+				/**
+				* 添加到 alreadyCreated set 集合中，表示它已经创建过一次
+				 * 防止重复创建
+				*/
 				markBeanAsCreated(beanName);
 			}
 
@@ -360,7 +390,9 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				}
 
 				// Create bean instance.
-				// 如果 BeanDefinition 为单例
+				// 创建 bean 实例
+
+				// 如果 BeanDefinition 为单例，Spring 内部的肯定是单例
 				if (mbd.isSingleton()) {
 					// 这里使用了一个匿名内部类，创建 Bean 实例对象，并且注册给所以来的对象
 					sharedInstance = getSingleton(beanName, () -> {

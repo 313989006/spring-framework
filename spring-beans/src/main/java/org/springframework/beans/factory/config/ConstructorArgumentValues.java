@@ -41,6 +41,9 @@ import org.springframework.util.ObjectUtils;
  * @since 09.11.2003
  * @see BeanDefinition#getConstructorArgumentValues
  */
+/**
+* 用来存构造方法的值的
+*/
 public class ConstructorArgumentValues {
 
 	private final Map<Integer, ValueHolder> indexedArgumentValues = new LinkedHashMap<>();

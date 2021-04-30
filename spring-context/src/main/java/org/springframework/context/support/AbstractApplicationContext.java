@@ -583,23 +583,23 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// 方法扫描应用中所有 BeanDefinition 并注册到容器之中
 				/**
 				* 在 Spring 的环境中去执行已经被注册的 factory processors
-				 * 设置执行自定义的 ProcessBeanFactory
+				 * 设置执行自定义的 ProcessBeanFactory 和 Spring 内部自定义的
 				*/
 				invokeBeanFactoryPostProcessors(beanFactory);
 
 				// Register bean processors that intercept bean creation.
 				// 注册拦截 bean 创建过程的 BeanPostProcessor
-				// 向容器注册Bean级别的后置处理器
+				// 向容器注册Bean级别的后置处理器（注册 bean 的拦截器）
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
 				// 找到“messageSource” 的 Bean 提供给 ApplicationContext 使用
 				// 使得 ApplicationContext 具有国际化能力,针对不同的地区展示语言的内容
-				// 初始化事件发布者组件
+				// 初始化事件发布者组件（不重要）
 				initMessageSource();
 
 				// Initialize event multicaster for this context.
-				// 初始化事件发布者组件
+				// 初始化事件发布者组件（不重要）
 				initApplicationEventMulticaster();
 
 				// Initialize other special beans in specific context subclasses.
@@ -723,10 +723,12 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		// 告诉内部 bean 工厂使用容器的类加载器
 		beanFactory.setBeanClassLoader(getClassLoader());
 
-		// bean 表达式解析器
+		// bean 表达式解析器 ，能够获取 bean 当中的属性在前台页面
 		// 设置 beanFactory 的表达式语言处理器，Spring3 开始增加了对语言表达式的支持，默认可以使用#{bean.XXX}的形式来调用相关属性值
 		beanFactory.setBeanExpressionResolver(new StandardBeanExpressionResolver(beanFactory.getBeanClassLoader()));
+
 		// 为 beanFactory 增加一个默认的 属性编辑器-propertyEditor
+		// 对象和 String 类型的转换 ，比如将 <property ref ="indexDao"> 里的字符串 “indexDao” 转换成一个对象
 		beanFactory.addPropertyEditorRegistrar(new ResourceEditorRegistrar(this, getEnvironment()));
 
 		/**
@@ -770,6 +772,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Register default environment beans.
 		// 注册默认environment 环境 bean
+		/**
+		* 意思是如果自定义的 Bean 中没有 名为 “systemProperties” 和 “systemEnvironment”   Bean
+		 * 则注册两个 Bean ，Key 为 “systemProperties” 和 “systemEnvironment”  ，value 为 map
+		 * 这两个 bean 就是一些系统配置和系统环境信息
+		*/
 		if (!beanFactory.containsLocalBean(ENVIRONMENT_BEAN_NAME)) {
 			beanFactory.registerSingleton(ENVIRONMENT_BEAN_NAME, getEnvironment());
 		}
@@ -810,6 +817,15 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
 		// 这里的 beanFactory 为 DefaultListableBeanFactory 实例
 		// getBeanFactoryPostProcessors() 获取的是自定义的 （就是程序猿自己写的，但是没有交给 Spring 管理的，也就是没有加上 @Component 注解的）
+		/**
+		* 这个地方需要注意 getBeanFactoryPostProcessors（） 是获取手动给 Spring 的 BeanFactoryPostProcessor
+		 * 自定义的不仅仅是程序员自己写的，自己 的可以加 @Component 也可以不加
+		 * 如果加了  @Component 注解，getBeanFactoryPostProcessors（）得不到，是 Spring 自己扫描的
+		 *
+		 * 为什么得不到？ 因为 getBeanFactoryPostProcessors（） 是直接获取一个 list
+		 * 这个 list 是在 AnnotationConfigApplicationContext 被定义的
+		 * 所谓的自定义就是你手动调用 AnnotationConfigApplicationContext.addBeanFactoryPostProcessor() 添加进去
+		*/
 		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
 
 		// Detect a LoadTimeWeaver and prepare for weaving, if found in the meantime
@@ -1001,6 +1017,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 
 		// Instantiate all remaining (non-lazy-init) singletons.
 		// 实例化所有剩余的 （non-lazy-init 非延时加载的）单例
+		// 实例化单例对象之前
 		beanFactory.preInstantiateSingletons();
 	}
 

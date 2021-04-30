@@ -160,14 +160,16 @@ final class PostProcessorRegistrationDelegate {
 			}
 			// 根据 Order 排序
 			sortPostProcessors(currentRegistryProcessors, beanFactory);
-			// 合并 list ，这里不重要
+			// 合并 list ，这里不重要（为什么要合并？因为还有自己写的BeanDefinitionRegistryPostProcessor 的实现类）
 			registryProcessors.addAll(currentRegistryProcessors);
 
 
-			// 最重要**** ，这里是方法调用
+			// **** 最重要 **** ，这里是方法调用
+			// 执行所有的 BeanDefinitionRegistryPostProcessor
 			invokeBeanDefinitionRegistryPostProcessors(currentRegistryProcessors, registry);
 
 			// 这个 list 只是一个临时变量，故而要清除
+			// 为什么要清除？ 这是一个List，用完了清除是为了节省空间
 			currentRegistryProcessors.clear();
 
 			// Finally, invoke all other BeanDefinitionRegistryPostProcessors until no further ones appear.
@@ -190,7 +192,16 @@ final class PostProcessorRegistrationDelegate {
 			}
 
 			// Now, invoke the postProcessBeanFactory callback of all processors handled so far.
+			/**
+			*  执行 BeanFactoryPostProcessor 的回调，前面不是嘛？
+			 *  前面执行的是 BeanFactoryPostProcessor 的子类 BeanDefinitionRegistryPostProcessor 的回调
+			 *  这里执行的是 BeanFactoryPostProcessor 的回调方法：postProcessBeanFactory
+			*/
 			invokeBeanFactoryPostProcessors(registryProcessors, beanFactory);
+
+			/**
+			* 执行自定义的 BeanFactoryPostProcessor
+			*/
 			invokeBeanFactoryPostProcessors(regularPostProcessors, beanFactory);
 		}
 
@@ -339,6 +350,7 @@ final class PostProcessorRegistrationDelegate {
 			Collection<? extends BeanDefinitionRegistryPostProcessor> postProcessors, BeanDefinitionRegistry registry) {
 
 		for (BeanDefinitionRegistryPostProcessor postProcessor : postProcessors) {
+			// 这里调用 org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry)方法
 			postProcessor.postProcessBeanDefinitionRegistry(registry);
 		}
 	}
@@ -371,6 +383,11 @@ final class PostProcessorRegistrationDelegate {
 	 * BeanPostProcessor instantiation, i.e. when a bean is not eligible for
 	 * getting processed by all BeanPostProcessors.
 	 */
+	/**
+	*  当 Spring 的配置中的 后置处理器还没有注册就可以开始了 bean 的实例化
+	 *  便会打印出 BeanPostProcessor 中设定的信息
+	 *
+	*/
 	private static final class BeanPostProcessorChecker implements BeanPostProcessor {
 
 		private static final Log logger = LogFactory.getLog(BeanPostProcessorChecker.class);

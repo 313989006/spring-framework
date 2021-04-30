@@ -127,16 +127,20 @@ abstract class ConfigurationClassUtils {
 		}
 
 		Map<String, Object> config = metadata.getAnnotationAttributes(Configuration.class.getName());
+
 		// 判断当前这个 bd 中存在的类是不是加了 @Configuration 注解
+		// 如果存在 @Configuration 注解，则 Spring 认为他是一个全注解的类
 		if (config != null && !Boolean.FALSE.equals(config.get("proxyBeanMethods"))) {
 			// 如果存在 Configuration 注解，则为 BeanDefinnition 设置 ConfigurationClass 属性为 full(CONFIGURATION_CLASS_FULL)
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 		}
-		// 判断是否加了一下注解，摘录 isLiteConfigurationCandidate 的源码
+
+		// 判断是否加了以下注解，摘录 isLiteConfigurationCandidate 的源码
 		// candidateIndicators.add(Component.class.getName())
 		// candidateIndicators.add(ComponentScan.class.getName())
 		// candidateIndicators.add(Import.class.getName())
 		// candidateIndicators.add(ImportResource.class.getName())
+		// 如果不存在 @Configuration 注解，则 Spring 认为他是一个部分注解类
 		else if (config != null || isConfigurationCandidate(metadata)) {
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 		}

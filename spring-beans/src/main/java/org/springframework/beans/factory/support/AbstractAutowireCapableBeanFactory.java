@@ -490,6 +490,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// which cannot be stored in the shared merged bean definition.
 		// 判断需要创建的 Bean 是否可以实例化，即是否可以通过当前的类加载器加载
 		Class<?> resolvedClass = resolveBeanClass(mbd, beanName);
+
 		if (resolvedClass != null && !mbd.hasBeanClass() && mbd.getBeanClassName() != null) {
 			// 克隆一份 BeanDefinition，用来设置上加载出来的 class 对象
 			// 之所以后续用该副本操作，是因为不希望将解析的 class 绑定到缓存里的 BeanDefinition
@@ -501,6 +502,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Prepare method overrides.
 		// 校验和准备 Bean 中的方法覆盖
 		try {
+			// 处理 lookup-method 和 replace-method 配置，Spring 将这两个配置统称为 method overrides
 			mbdToUse.prepareMethodOverrides();
 		}
 		catch (BeanDefinitionValidationException ex) {
@@ -514,6 +516,11 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			// resolveBeforeInstantiation 只是针对有自定义的 targetSource
 			// 因为自定义的 targetSource 不是 spring 的 bean 那么肯定不需要进行后续的一系列的实例化初始化
 			// 所以可以在 resolveBeforeInstantiation 直接进行动态代理（proxy）
+			/**
+			* 在 bean 初始化之前应用后置处理，如果后置处理返回的 bean 不为空，则直接返回
+			 *
+			 * 太麻烦，后面慢慢研究
+			*/
 			Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
 			if (bean != null) {
 				return bean;
@@ -572,6 +579,15 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			// 1、工厂方法创建
 			// 2、构造方法的方式注入
 			// 3、无参构造方法注入
+			/** 
+			* 	创建 bean 实例，并将实例包裹在  BeanWrapper 实现类对象中返回
+			 * 	createBeanInstance 中包含三种创建 bean 实例的方式：
+			 * 		1、通过工厂方法创建 bean 实例
+			 * 		2、通过构造方法自动注入（autowired by constructor）的方式创建
+			 * 		3、通过无参构造方法创建 bean 实例
+			 *
+			 * 如果 bean 的配置信息中配置了 lookup-method 和 replace-method ，则会使用 cglib 增强 bean 实例
+			*/
 			instanceWrapper = createBeanInstance(beanName, mbd, args);
 		}
 		// 获取被包装的 Bean，后续对 bean 的改动相当于对 Wrapper 的改动，反之亦然
@@ -1223,6 +1239,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Class<?> beanClass = resolveBeanClass(mbd, beanName);
 
 		// 检查是否有通过反射创建private 的 Class
+		/**
+		* 检测一个类的访问权限 spring 默认情况下对于 非 public 的类是允许访问的
+		*/
 		if (beanClass != null && !Modifier.isPublic(beanClass.getModifiers()) && !mbd.isNonPublicAccessAllowed()) {
 			throw new BeanCreationException(mbd.getResourceDescription(), beanName,
 					"Bean class isn't public, and non-public access not allowed: " + beanClass.getName());
@@ -1236,11 +1255,25 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// factory-method
 		// 如果工厂方法不为空，则使用工厂方法初始化策略
+		/**
+		 * 如果工厂方法不为空，则通过工厂方法创建对象
+		 * 这种构建 bean  的方式可以自己写个 demo 去试试
+		 */
 		if (mbd.getFactoryMethodName() != null) {
 			return instantiateUsingFactoryMethod(beanName, mbd, args);
 		}
 
 		// Shortcut when re-creating the same bean...
+		/**
+		* Shortcut ： 快捷方式（当重新创建同一个 bean 的时候，可以利用这个快捷方式）
+		 * 从 spring 的原始注解就可以知道这个是一个 Shortcut
+		 * 意思：当多次构建同一个 bean 时，可以使用这个 Shortcut
+		 * 也就是说不再需要判断应该使用哪种方式构建 bean
+		 *
+		 * 比如在多次构建同一个 prototype 类型的 bean 时，就可以走此处的 Shortcut
+		 * 这里的 resolved 和 mbd.constructorArgumentsResolved 将会在 bean 第一次实例化的过程中被设置
+		 *
+		*/
 		boolean resolved = false;
 		boolean autowireNecessary = false;
 		if (args == null) {
@@ -1249,6 +1282,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				// 因为需要根据参数确认到底使用哪个构造函数
 				if (mbd.resolvedConstructorOrFactoryMethod != null) {
 					resolved = true;
+					// 如果已经解析了构造方法的参数，则必须要通过一个带参构造方法来实例
 					autowireNecessary = mbd.constructorArgumentsResolved;
 				}
 			}
@@ -1256,19 +1290,26 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		if (resolved) {
 			// 自动注入，调用构造函数自动注入
 			if (autowireNecessary) {
+				// 通过构造方法自动装配的方式构造 bean 对象
 				return autowireConstructor(beanName, mbd, null, null);
 			}
 			else {
-				//使用默认构造函数构造
+				// 使用默认构造函数构造
 				return instantiateBean(beanName, mbd);
 			}
 		}
 
 		// Candidate constructors for autowiring?
 		// 使用带参的构造函数进行装配
+		/**
+		* 由后置处理器决定返回哪些构造方法
+		*/
 		Constructor<?>[] ctors = determineConstructorsFromBeanPostProcessors(beanClass, beanName);
 		if (ctors != null || mbd.getResolvedAutowireMode() == AUTOWIRE_CONSTRUCTOR ||
 				mbd.hasConstructorArgumentValues() || !ObjectUtils.isEmpty(args)) {
+			/** 
+			* 调用有参构造方法
+			*/ 
 			return autowireConstructor(beanName, mbd, ctors, args);
 		}
 
@@ -1280,6 +1321,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// No special handling: simply use no-arg constructor.
 		// 使用默认的构造函数
+		/** 
+		* 调用无参构造方法
+		*/ 
 		return instantiateBean(beanName, mbd);
 	}
 
@@ -1378,6 +1422,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			}
 			else {
 				// 使用指定的策略模式来初始化实例，默认用的是 SimpleInstantiationStategy 的cglib 方法
+				/**
+				* getInstantiationStrategy() 得到类的初始化策略
+				 * 默认情况下是得到一个反射的实例化策略
+				*/
 				beanInstance = getInstantiationStrategy().instantiate(mbd, beanName, this);
 			}
 			BeanWrapper bw = new BeanWrapperImpl(beanInstance);

@@ -254,7 +254,12 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);
 		}
 
+		/**
+		* 为配置类生成 cglib 动态代理
+		 * 为什么要生成 cglib 动态代理？
+		*/
 		enhanceConfigurationClasses(beanFactory);
+
 		beanFactory.addBeanPostProcessor(new ImportAwareBeanPostProcessor(beanFactory));
 	}
 
@@ -263,11 +268,16 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 * {@link Configuration} classes.
 	 */
 	public void processConfigBeanDefinitions(BeanDefinitionRegistry registry) {
-		// app 提供的类
+		// 定义一个 list 存放 app 提供的 bd（项目中加了 @Component 注解的类）
 		List<BeanDefinitionHolder> configCandidates = new ArrayList<>();
-		// 获取容器中注册的所有 bean 的名字
+		// 获取容器中注册的所有 bd 的名字
+		// 有 7个 ，6 个 Spring 内部的 + AppConfig
 		String[] candidateNames = registry.getBeanDefinitionNames();
 
+		/**
+		* Full
+		 * Lite
+		*/
 		for (String beanName : candidateNames) {
 			BeanDefinition beanDef = registry.getBeanDefinition(beanName);
 			if (beanDef.getAttribute(ConfigurationClassUtils.CONFIGURATION_CLASS_ATTRIBUTE) != null) {
@@ -278,6 +288,11 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 				}
 			}
 			// 判断是否是 Configuration 类，这里其实主要是看是否有
+			// 如果加了 @Configuration，下面这几个注解就不再去判断
+			//还有下面4个 candidateIndicators.add(Component.class.getName())
+			// candidateIndicators.add(ComponentScan.class.getName())
+			// candidateIndicators.add(Import.class.getName())
+			// candidateIndicators.add(ImportResource.class.getName())
 			else if (ConfigurationClassUtils.checkConfigurationClassCandidate(beanDef, this.metadataReaderFactory)) {
 				// BeanDefinitionHolder 也可以看成是一个数据结构
 				configCandidates.add(new BeanDefinitionHolder(beanDef, beanName));
@@ -420,6 +435,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 					}
 				}
 			}
+			// 判断是否是一个全注解类
+			// 扫描是全注解类？ full  和 lite  的关系
 			if (ConfigurationClassUtils.CONFIGURATION_CLASS_FULL.equals(configClassAttr)) {
 				if (!(beanDef instanceof AbstractBeanDefinition)) {
 					throw new BeanDefinitionStoreException("Cannot enhance @Configuration bean definition '" +
@@ -446,6 +463,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			beanDef.setAttribute(AutoProxyUtils.PRESERVE_TARGET_CLASS_ATTRIBUTE, Boolean.TRUE);
 			// Set enhanced subclass of the user-specified bean class
 			Class<?> configClass = beanDef.getBeanClass();
+			// 完成对注解类的 cglib 动态代理
 			Class<?> enhancedClass = enhancer.enhance(configClass, this.beanClassLoader);
 			if (configClass != enhancedClass) {
 				if (logger.isTraceEnabled()) {

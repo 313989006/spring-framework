@@ -75,16 +75,28 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 
 
 	/** Cache of singleton objects: bean name to bean instance. */
+	/**
+	* 微观上的 Spring 容器，存放 bean
+	 * 用于存放完全初始化好的 bean，从该缓存中取出的 bean 可以直接使用
+	*/
 	// 单例缓存的一级缓存，ConcurrentHashMap 支持多线程操作
 	private final Map<String, Object> singletonObjects = new ConcurrentHashMap<>(256);
 
 	/** Cache of singleton factories: bean name to ObjectFactory. */
+	/**
+	* 存放 bean 工厂对象，解决循环依赖，注意：存放到里面的对象没有被填充属性
+	*/
 	// 三级缓存：单例工厂的缓存，beanName -- > ObjectFactory，添加进去的时候实例还未具备属性
 	// 用于保存 beanName 和创建 bean 的工厂之间的关系 map，单例Bean 在创建之初过早的暴露出去的 Factory，
 	// 为什么采用工厂方式，是因为有些 Bean 是需要被代理的，总不能把代理前的暴露出去那就毫无意义了
 	private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(16);
 
 	/** Cache of early singleton objects: bean name to bean instance. */
+	/**
+	* 存放原始的 bean 对象，用于解决循环依赖，注意：存放到里面的对象没有被填充属性
+	 *
+	 * 循环依赖的时候，第二次验证的时候会先从 earlySingletonObjects 拿出对象去验证
+	*/
 	// 二级缓存：早期的单例对象，beanNAME -->Bean ，其中存储的是实例化之后，属性未赋值的单例对象
 	// 执行了工厂方法生产出来的 Bean，bean被放进去之后，那么当 bean 在创建过程中，就可以通过 getBean 方法获取到
 	private final Map<String, Object> earlySingletonObjects = new ConcurrentHashMap<>(16);
@@ -200,8 +212,12 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	@Nullable
 	protected Object getSingleton(String beanName, boolean allowEarlyReference) {
 		// Quick check for existing instance without full singleton lock
-		// 尝试从一级缓存里面获取完备的Bean 实例
+		// 尝试从一级缓存里面获取完备的 Bean 实例
 		// singletonObjects ：单例缓存的一级缓存
+		/**
+		* 从 map 中获取 bean，如果不为空直接返回，不再进行初始化工作
+		 * 讲道理一个程序员提供的对象这里一般都是为空的。
+		*/
 		Object singletonObject = this.singletonObjects.get(beanName);
 		// 如果完备的单例还没有创建出来，创建中的 Bean 的名字会被保存在 isSingletonCurrentlyInCreation 中
 		// 因此看看是否正在创建
@@ -257,6 +273,10 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 				if (logger.isDebugEnabled()) {
 					logger.debug("Creating shared instance of singleton bean '" + beanName + "'");
 				}
+				/**
+				* 将 beanName 添加到 singletonsCurrentlyInCreation 这样一个 set 集合中
+				 * 表示 beanName 对应的 bean 正在创建中
+				*/
 				beforeSingletonCreation(beanName);
 				boolean newSingleton = false;
 				boolean recordSuppressedExceptions = (this.suppressedExceptions == null);

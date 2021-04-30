@@ -868,16 +868,20 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 		// Iterate over a copy to allow for init methods which in turn register new bean definitions.
 		// While this may not be part of the regular factory bootstrap, it does otherwise work fine.
+		// bdMap 里所有的名字
 		List<String> beanNames = new ArrayList<>(this.beanDefinitionNames);
 
 		// Trigger initialization of all non-lazy singleton beans...
 		// 遍历容器内的注册的所有 beanDefinition 的名字
+		// 触发所有非延迟加载单例 beans 的初始化，主要步骤为调用 getBean()
 		for (String beanName : beanNames) {
 			// 根据名字获取与之对应的 Definition 实例
+			// 合并父 BeanDefinition（不重要，因为只有在使用 xml 的方式才会合并）
 			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
 			// 保证 RootBeanDefinition 实例不是抽象的、是单例的、是非延时加载的
 			// 容器只是在刷新完成的时候，提前加载非延迟加载的单例（验证scope = “prototype”情况下的循环依赖问题）
 			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
+				// 判断是不是一个 FactoryBean ，如果是实例化自己写的类的时候，不会进 if
 				if (isFactoryBean(beanName)) {
 					// 加上 & 前缀，创建该 bean 的 FactoryBean 实例
 					Object bean = getBean(FACTORY_BEAN_PREFIX + beanName);

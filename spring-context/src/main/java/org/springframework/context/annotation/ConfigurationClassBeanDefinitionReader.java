@@ -137,6 +137,10 @@ class ConfigurationClassBeanDefinitionReader {
 			return;
 		}
 
+		/**
+		* 如果一个类加了 @Import 注解，会被 Spring 标注
+		 * 在这里完成注册
+		*/
 		if (configClass.isImported()) {
 			registerBeanDefinitionForImportedConfigurationClass(configClass);
 		}
@@ -144,7 +148,13 @@ class ConfigurationClassBeanDefinitionReader {
 			loadBeanDefinitionsForBeanMethod(beanMethod);
 		}
 
+		/**
+		* xml
+		*/
 		loadBeanDefinitionsFromImportedResources(configClass.getImportedResources());
+		/** 
+		* 注册 Registrar
+		*/ 
 		loadBeanDefinitionsFromRegistrars(configClass.getImportBeanDefinitionRegistrars());
 	}
 
