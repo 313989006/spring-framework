@@ -46,4 +46,5 @@ include 'mxk-mvc'
 include 'proxy'
 include 'MxkkIoc'
 include 'MxkIoc'
+include 'circularDependency'
 

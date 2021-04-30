@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+}
+
+group 'org.springframework'
+version '5.2.11.BUILD-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // 添加此模块对上下文模块的依赖
+    compile(project(":spring-context"))
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+}
